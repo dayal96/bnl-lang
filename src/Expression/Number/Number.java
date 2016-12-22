@@ -4,12 +4,13 @@ import java.util.Objects;
 
 import Exceptions.ArithmeticError;
 import Exceptions.DivideByZeroError;
+import Expression.Primitive;
 
 /**
  * Interface to represent a Number in a given type. There is no guarantee for compatibility between
  * different types of numbers, since that is implementation-dependent.
  */
-public abstract class Number<T> {
+public abstract class Number<T> implements Primitive {
 
   protected final T number;
 
@@ -54,4 +55,27 @@ public abstract class Number<T> {
    */
   abstract public Number<T> divide(Number<T> other)
           throws DivideByZeroError, ArithmeticError;
+
+  @Override
+  public String toString() {
+    return this.number.toString();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    else if (o instanceof Number) {
+      Number other = (Number)o;
+      return this.number.equals(other.number);
+    }
+
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.number);
+  }
 }

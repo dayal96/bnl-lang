@@ -12,11 +12,27 @@ public class MixedFraction {
   public final int denominator;
 
   public MixedFraction(int numerator, int denominator) throws ArithmeticError {
-    this.numerator = numerator;
-    this.denominator = denominator;
+    int gcd = this.gcd(Math.abs(numerator), Math.abs(denominator));
+    this.numerator = numerator / gcd;
+    this.denominator = denominator / gcd;
 
     if (this.denominator == 0) {
       throw new ArithmeticError("Rational cannot have a zero as denominator.");
+    }
+  }
+
+  /**
+   * Calculate the GCD of two given numbers.
+   * @param a  the first number.
+   * @param b  the second number.
+   * @return the greatest common denominator of the two numbers.
+   */
+  private int gcd(int a, int b) {
+    if (b == 0) {
+      return a;
+    }
+    else {
+      return gcd(b, a % b);
     }
   }
 
@@ -38,7 +54,7 @@ public class MixedFraction {
     }
     else {
       MixedFraction that = (MixedFraction) other;
-      return this.numerator == that.numerator && this.denominator == that.denominator;
+      return this.numerator * that.denominator == that.numerator * this.denominator;
     }
   }
 
