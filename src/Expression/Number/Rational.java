@@ -6,14 +6,14 @@ import Exceptions.DivideByZeroError;
 /**
  * Created by amoghlaptop on 16/11/16.
  */
-public class Rational extends Number<MixedFraction> {
+public class Rational extends MyNumber<MixedFraction> {
 
   public Rational(MixedFraction number) {
     super(number);
   }
 
   @Override
-  public Number<MixedFraction> add(Number<MixedFraction> other) throws ArithmeticError {
+  public MyNumber<MixedFraction> add(MyNumber<MixedFraction> other) throws ArithmeticError {
 
     int newNumerator = this.number.numerator * other.number.denominator
             + other.number.numerator * this.number.denominator;
@@ -23,7 +23,7 @@ public class Rational extends Number<MixedFraction> {
   }
 
   @Override
-  public Number<MixedFraction> subtract(Number<MixedFraction> other) throws ArithmeticError {
+  public MyNumber<MixedFraction> subtract(MyNumber<MixedFraction> other) throws ArithmeticError {
     int newNumerator = this.number.numerator * other.number.denominator
             - other.number.numerator * this.number.denominator;
     int newDenominator = this.number.denominator * other.number.denominator;
@@ -32,7 +32,7 @@ public class Rational extends Number<MixedFraction> {
   }
 
   @Override
-  public Number<MixedFraction> multiply(Number<MixedFraction> other) throws ArithmeticError {
+  public MyNumber<MixedFraction> multiply(MyNumber<MixedFraction> other) throws ArithmeticError {
     int newNumerator = this.number.numerator * other.number.numerator;
     int newDenominator = this.number.denominator * other.number.denominator;
 
@@ -40,7 +40,7 @@ public class Rational extends Number<MixedFraction> {
   }
 
   @Override
-  public Number<MixedFraction> divide(Number<MixedFraction> other) throws ArithmeticError {
+  public MyNumber<MixedFraction> divide(MyNumber<MixedFraction> other) throws ArithmeticError {
 
     if (other.number.numerator == 0) {
       throw new DivideByZeroError("Cannot divide a Rational by 0.");
