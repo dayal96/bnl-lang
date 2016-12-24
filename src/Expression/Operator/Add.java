@@ -3,21 +3,21 @@ package Expression.Operator;
 import java.util.Objects;
 
 import Exceptions.ArithmeticError;
+import Expression.Expression;
 import Expression.Number.MyNumber;
-import Expression.Value;
 
 /**
  * Created by amoghlaptop on 23/12/16.
  */
 public class Add implements Operator {
   @Override
-  public Value operate(Value lhs, Value rhs) {
+  public Expression operate(Expression lhs, Expression rhs) {
 
-    Value lhsEval = lhs.evaluate();
-    Value rhsEval = rhs.evaluate();
+    Expression lhsEval = lhs.evaluate();
+    Expression rhsEval = rhs.evaluate();
 
     if (lhsEval.getType() == "Number" && rhsEval.getType() == "Number") {
-      Value ret = null;
+      Expression ret = null;
       try {
         ret = ((MyNumber) lhsEval).add((MyNumber) rhsEval);
         Objects.requireNonNull(ret);
@@ -39,5 +39,10 @@ public class Add implements Operator {
   @Override
   public String getType() {
     return "Number";
+  }
+
+  @Override
+  public String toString() {
+    return "+";
   }
 }

@@ -7,24 +7,23 @@ import Expression.Expression;
 import Expression.Number.MyNumber;
 
 /**
- * Created by amoghlaptop on 23/12/16.
+ * Class to represent Division operation.
  */
-public class Multiply implements Operator {
+public class Divide implements Operator {
   @Override
   public Expression operate(Expression lhs, Expression rhs) {
-    Expression lhsEval = lhs.evaluate();
-    Expression rhsEval = rhs.evaluate();
+    if (lhs.getType() == "Number" && rhs.getType() == "Number") {
+      MyNumber lhsEval = ((MyNumber)lhs.evaluate());
+      MyNumber rhsEval = ((MyNumber)rhs.evaluate());
 
-    if (lhsEval.getType() == "Number" && rhsEval.getType() == "Number") {
       Expression ret = null;
+
       try {
-        ret = ((MyNumber) lhsEval).multiply((MyNumber) rhsEval);
+        ret = lhsEval.divide(rhsEval);
         Objects.requireNonNull(ret);
-      }
-      catch (ArithmeticError e) {
+      } catch (ArithmeticError e) {
         e.printStackTrace();
-      }
-      catch (NullPointerException e) {
+      } catch (NullPointerException e) {
         e.printStackTrace();
       }
 
@@ -42,6 +41,6 @@ public class Multiply implements Operator {
 
   @Override
   public String toString() {
-    return "*";
+    return "/";
   }
 }

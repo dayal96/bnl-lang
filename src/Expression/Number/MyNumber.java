@@ -4,14 +4,14 @@ import java.util.Objects;
 
 import Exceptions.ArithmeticError;
 import Exceptions.DivideByZeroError;
+import Expression.Expression;
 import Expression.Primitive;
-import Expression.Value;
 
 /**
  * Interface to represent a Number in a given type. There is no guarantee for compatibility between
  * different types of numbers, since that is implementation-dependent.
  */
-public abstract class MyNumber<T> implements Primitive {
+public abstract class MyNumber<T> extends Primitive {
 
   protected final T number;
 
@@ -58,11 +58,6 @@ public abstract class MyNumber<T> implements Primitive {
           throws DivideByZeroError, ArithmeticError;
 
   @Override
-  public Value evaluate() {
-    return this;
-  }
-
-  @Override
   public String getType() {
     return "Number";
   }
@@ -72,17 +67,19 @@ public abstract class MyNumber<T> implements Primitive {
     return this.number.toString();
   }
 
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
     else if (o instanceof MyNumber) {
-      MyNumber other = (MyNumber)o;
+      MyNumber other = (MyNumber) o;
       return this.number.equals(other.number);
     }
-
-    return false;
+    else {
+      return false;
+    }
   }
 
   @Override

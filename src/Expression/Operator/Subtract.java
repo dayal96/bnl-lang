@@ -7,18 +7,19 @@ import Expression.Expression;
 import Expression.Number.MyNumber;
 
 /**
- * Created by amoghlaptop on 23/12/16.
+ * Created by amoghlaptop on 24/12/16.
  */
-public class Multiply implements Operator {
+public class Subtract implements Operator {
   @Override
   public Expression operate(Expression lhs, Expression rhs) {
+
     Expression lhsEval = lhs.evaluate();
     Expression rhsEval = rhs.evaluate();
 
     if (lhsEval.getType() == "Number" && rhsEval.getType() == "Number") {
       Expression ret = null;
       try {
-        ret = ((MyNumber) lhsEval).multiply((MyNumber) rhsEval);
+        ret = ((MyNumber) lhsEval).subtract((MyNumber) rhsEval);
         Objects.requireNonNull(ret);
       }
       catch (ArithmeticError e) {
@@ -42,6 +43,6 @@ public class Multiply implements Operator {
 
   @Override
   public String toString() {
-    return "*";
+    return "-";
   }
 }

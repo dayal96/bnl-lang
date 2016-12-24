@@ -8,9 +8,24 @@ import Exceptions.DivideByZeroError;
  */
 public class Rational extends MyNumber<MixedFraction> {
 
+  /**
+   * Creates a new
+   * @param number
+   */
   public Rational(MixedFraction number) {
     super(number);
   }
+
+  /**
+   *
+   * @param numerator
+   * @param denominator
+   * @throws ArithmeticError
+   */
+  public Rational(int numerator, int denominator) throws ArithmeticError {
+    super(new MixedFraction(numerator, denominator));
+  }
+
 
   @Override
   public MyNumber<MixedFraction> add(MyNumber<MixedFraction> other) throws ArithmeticError {

@@ -41,7 +41,13 @@ public class MixedFraction {
    * @return the String representation of this Fraction.
    */
   public String toString() {
-    return String.format("%d/%d", this.numerator, this.denominator);
+
+    if (this.denominator == 1) {
+      return String.format("%d", this.numerator);
+    }
+    else {
+      return String.format("%d/%d", this.numerator, this.denominator);
+    }
   }
 
   @Override

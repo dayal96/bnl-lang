@@ -1,35 +1,28 @@
 package Expression;
 
-import Expression.Operator.Operator;
+import java.util.Objects;
 
 /**
- * Class to represent Expressions.
+ * <p>Interface to represent a data value.</p>
+ * <p>
+ *   A Expression is one of:
+ *   <ul>
+ *     <li>Primitive</li>
+ *     <li>Composite</li>
+ *   </ul>
+ * </p>
  */
-public class Expression implements Value {
-  private Operator operator;
-  private Value lhs;
-  private Value rhs;
+public interface Expression {
 
   /**
-   * Creates a new Expression that combines the RHS and LHS values using the given operator.
-   * @param operator  the operator to perform of RHS and LHS.
-   * @param lhs       the LHS of the expression.
-   * @param rhs       the RHS of the expression.
+   * Evaluate this Expression to the simplest form possible.
+   * @return the simplest form of the Expression.
    */
-  public Expression(Operator operator, Value lhs, Value rhs) {
+  abstract public Expression evaluate();
 
-    this.operator = operator;
-    this.lhs = lhs;
-    this.rhs = rhs;
-  }
-
-  @Override
-  public Value evaluate() {
-    return this.operator.operate(this.lhs, this.rhs);
-  }
-
-  @Override
-  public String getType() {
-    return this.operator.getType();
-  }
+  /**
+   * Get the type of this Expression.
+   * @return the String representing the type of this Expression.
+   */
+  abstract public String getType();
 }
