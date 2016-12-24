@@ -5,13 +5,13 @@ import java.util.Objects;
 import Exceptions.ArithmeticError;
 
 /**
- * Class to represent a MixedFraction.
+ * Class to represent a ImproperFraction.
  */
-public class MixedFraction {
+public class ImproperFraction {
   public final int numerator;
   public final int denominator;
 
-  public MixedFraction(int numerator, int denominator) throws ArithmeticError {
+  public ImproperFraction(int numerator, int denominator) throws ArithmeticError {
     int gcd = this.gcd(Math.abs(numerator), Math.abs(denominator));
     this.numerator = numerator / gcd;
     this.denominator = denominator / gcd;
@@ -55,11 +55,11 @@ public class MixedFraction {
     if (this == other) {
       return true;
     }
-    else if (!(other instanceof MixedFraction)) {
+    else if (!(other instanceof ImproperFraction)) {
       return false;
     }
     else {
-      MixedFraction that = (MixedFraction) other;
+      ImproperFraction that = (ImproperFraction) other;
       return this.numerator * that.denominator == that.numerator * this.denominator;
     }
   }

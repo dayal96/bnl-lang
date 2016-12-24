@@ -1,7 +1,7 @@
 package Exceptions;
 
 /**
- * Created by amoghlaptop on 16/11/16.
+ * Represents an Arithmetic Error, like division by 0.
  */
 public class ArithmeticError extends Exception {
 

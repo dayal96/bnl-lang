@@ -4,13 +4,13 @@ import Expression.Expression;
 import Parser.Parser;
 
 /**
- * Main class that runs the interpreter.
+ * Interpreter class that runs the interpreter.
  */
-public class Main {
+public class Interpreter {
 
   public static void main(String[] args) {
 
-    System.out.println("");
+    System.out.println("Interpreter for ANL, ver 0.01 with basic arithmetic support.\n");
 
     if (args[0].equals("text")) {
       Parser parser = new Parser(new StringReader(args[1]));

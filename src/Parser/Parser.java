@@ -8,7 +8,7 @@ import java.util.Scanner;
 import Exceptions.ArithmeticError;
 import Expression.Expression;
 import Expression.Composite;
-import Expression.Number.MixedFraction;
+import Expression.Number.ImproperFraction;
 import Expression.Number.Rational;
 import Expression.Operator.Add;
 import Expression.Operator.Divide;
@@ -100,7 +100,7 @@ public class Parser {
     Primitive ret = null;
 
     try {
-      ret = new Rational(new MixedFraction(numerator, denominator));
+      ret = new Rational(new ImproperFraction(numerator, denominator));
       Objects.requireNonNull(ret);
     }
     catch (ArithmeticError e) {
