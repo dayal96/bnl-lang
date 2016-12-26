@@ -10,7 +10,8 @@ public class Interpreter {
 
   public static void main(String[] args) {
 
-    System.out.println("Interpreter for ANL, ver 0.01 with basic arithmetic support.\n");
+    System.out.println("Interpreter for ANL, ver 0.02 with basic arithmetic support and"
+            + " functions with variable arguments.\n");
 
     if (args[0].equals("text")) {
       Parser parser = new Parser(new StringReader(args[1]));

@@ -1,5 +1,6 @@
 package Expression;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Exchanger;
 
@@ -10,25 +11,22 @@ import Expression.Operator.Operator;
  */
 public class Composite implements Expression {
   private Operator operator;
-  private Expression lhs;
-  private Expression rhs;
+  private List<Expression> operands;
 
   /**
    * Creates a new Composite that combines the RHS and LHS values using the given operator.
    * @param operator  the operator to perform of RHS and LHS.
-   * @param lhs       the LHS of the expression.
-   * @param rhs       the RHS of the expression.
+   * @param operands  the operands in the expression.
    */
-  public Composite(Operator operator, Expression lhs, Expression rhs) {
+  public Composite(Operator operator, List<Expression> operands) {
 
     this.operator = operator;
-    this.lhs = lhs;
-    this.rhs = rhs;
+    this.operands = operands;
   }
 
   @Override
   public Expression evaluate() {
-    return this.operator.operate(this.lhs.evaluate(), this.rhs.evaluate());
+    return this.operator.operate(this.operands);
   }
 
   @Override
@@ -52,12 +50,18 @@ public class Composite implements Expression {
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.operator, this.lhs, this.rhs);
+    return Objects.hash(this.operator, this.operands);
   }
 
   @Override
   public String toString() {
-    return "(" + this.operator.toString() + " " + this.lhs.toString() + " " + this.rhs.toString()
-            + ")";
+
+    StringBuilder operandsStrings = new StringBuilder("");
+
+    for (Expression e : this.operands) {
+      operandsStrings.append(" " + e.toString());
+    }
+
+    return "(" + this.operator.toString() + operandsStrings + ")";
   }
 }

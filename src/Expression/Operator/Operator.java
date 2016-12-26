@@ -1,5 +1,7 @@
 package Expression.Operator;
 
+import java.util.List;
+
 import Expression.Expression;
 
 /**
@@ -15,7 +17,7 @@ public interface Operator {
    * Perform the operation on given values.
    * @return the result of performing the operation on given values.
    */
-  public Expression operate(Expression lhs, Expression rhs);
+  public Expression operate(List<Expression> operands);
 
   /**
    * Get the return type of this Operator.

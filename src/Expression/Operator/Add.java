@@ -1,38 +1,48 @@
 package Expression.Operator;
 
-import java.util.Objects;
+import java.util.List;
 
 import Exceptions.ArithmeticError;
 import Expression.Expression;
 import Expression.Number.MyNumber;
 
 /**
- * Created by amoghlaptop on 23/12/16.
+ * Class to represent Addition.
  */
 public class Add implements Operator {
+
   @Override
-  public Expression operate(Expression lhs, Expression rhs) {
+  public Expression operate(List<Expression> operands) {
 
-    Expression lhsEval = lhs.evaluate();
-    Expression rhsEval = rhs.evaluate();
+    boolean allNumbers = true;
 
-    if (lhsEval.getType() == "Number" && rhsEval.getType() == "Number") {
-      Expression ret = null;
-      try {
-        ret = ((MyNumber) lhsEval).add((MyNumber) rhsEval);
-        Objects.requireNonNull(ret);
-      }
-      catch (ArithmeticError e) {
-        e.printStackTrace();
-      }
-      catch (NullPointerException e) {
-        e.printStackTrace();
+    for (Expression e : operands) {
+      allNumbers = allNumbers && (e.getType() == "Number");
+    }
+
+    if (!allNumbers) {
+      throw new IllegalArgumentException("All operands must be numbers.");
+    }
+    else if (operands.size() == 1) {
+      return operands.get(0).evaluate();
+    }
+    else if (operands.size() > 1) {
+      MyNumber result = (MyNumber)(operands.get(0).evaluate());
+
+      for (int i = 1; i < operands.size(); i++) {
+
+        try {
+          result = result.add((MyNumber) (operands.get(i).evaluate()));
+        }
+        catch (ArithmeticError e) {
+          e.printStackTrace();
+        }
       }
 
-      return ret;
+      return result;
     }
     else {
-      throw new IllegalArgumentException("One of the arguments was not a Number.");
+      throw new IllegalArgumentException("Too few arguments for Operator.");
     }
   }
 

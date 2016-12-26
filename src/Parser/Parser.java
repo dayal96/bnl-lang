@@ -22,14 +22,22 @@ import Expression.Operator.Operator;
  */
 public class Parser {
 
-  Scanner scan;
+  private Scanner scan;
 
   /**
    * Creates a Parser that reads from given Readable.
    * @param input the readable from which to read code.
    */
   public Parser(Readable input) {
+
+    try {
+      Objects.requireNonNull(input);
+    } catch (NullPointerException e) {
+      throw new IllegalArgumentException("Input Stream provided was null.");
+    }
+
     this.scan = new Scanner(input);
+    this.scan.useDelimiter("");
   }
 
   /**
@@ -39,38 +47,121 @@ public class Parser {
   public List<Expression> parseCode() {
     List<Expression> expressions = new ArrayList<Expression>();
 
-    while (scan.hasNext()) {
-      expressions.add(this.getExpression());
+    while (this.scan.hasNext()) {
+      String excerpt = this.getExcerpt();
+      expressions.add(this.getExpression(excerpt));
     }
 
     return expressions;
   }
 
   /**
-   * Parse the code to get a single expression from the code.
-   * @return a single Expression parsed from the input.
+   * Get an "excerpt", defined as one open parenthesis to its corresponding closing parenthesis
+   * from input.
+   * @return the excerpt from input as a String.
    */
-  private Expression getExpression() {
-    while (scan.hasNext()) {
-      String token = scan.next();
+  private String getExcerpt() {
 
-      switch (token.charAt(0)) {
+    StringBuilder excerpt = new StringBuilder("");
 
-        case '(':
-          return new Composite(this.parseOperator(token), this.getExpression(),
-                  this.getExpression());
-
-        default:
-          return this.parsePrimitive(token);
-      }
+    int numParenth = 0;
+    boolean isComposite = false;
+    String c = this.scan.next();
+    while (this.scan.hasNext() && c.equals(" ")) {
+      c = this.scan.next();
     }
 
-    throw new IllegalStateException("No input provided");
+    if (c.equals("(")) {
+      numParenth++;
+      isComposite = true;
+    }
+    excerpt.append(c);
+    while (this.scan.hasNext()
+            && (isComposite && numParenth > 0 || !isComposite && !c.equals(" "))) {
+      c = this.scan.next();
+
+      if (c.equals("(")) {
+        numParenth++;
+      }
+      else if (c.equals(")")) {
+        numParenth--;
+      }
+
+      excerpt.append(c);
+    }
+
+    return excerpt.toString();
+  }
+
+  /**
+   * Parse the code to get a single expression from the code.
+   * @param excerpt  the String form of the Expression to be parsed.
+   * @return a single Expression parsed from the input.
+   */
+  private Expression getExpression(String excerpt) {
+
+    int i = 0;
+
+    switch (excerpt.charAt(i)) {
+
+      case '(' :
+        excerpt = excerpt.substring(1, excerpt.length() - 1);
+        excerpt = excerpt.trim();
+        StringBuilder operator = new StringBuilder("");
+        List<Expression> operands = new ArrayList<Expression>();
+
+        // Get Operator
+        while (i < excerpt.length() && excerpt.charAt(i) != ' ' && excerpt.charAt(i) != '\t'
+                && excerpt.charAt(i) != '\n') {
+          operator.append(excerpt.charAt(i));
+          i++;
+        }
+
+        // Get Operands
+        while (i < excerpt.length()) {
+
+          int numParenth = 0;
+          boolean isComposite = false;
+          StringBuilder curOperand = new StringBuilder("");
+
+          while (i < excerpt.length() && excerpt.charAt(i) == ' ') {
+            i++;
+          }
+
+          if (excerpt.charAt(i) == '(') {
+            numParenth++;
+            isComposite = true;
+          }
+          curOperand.append(excerpt.charAt(i));
+          i++;
+          while (i < excerpt.length()
+                  && (isComposite && numParenth > 0
+                  || !isComposite && excerpt.charAt(i) != ' ')) {
+
+            if (excerpt.charAt(i) == '(') {
+              numParenth++;
+            }
+            else if (excerpt.charAt(i) == ')') {
+              numParenth--;
+            }
+
+            curOperand.append(excerpt.charAt(i));
+            i++;
+          }
+
+          operands.add(this.getExpression(curOperand.toString()));
+        }
+
+        return new Composite(this.parseOperator(operator.toString()), operands);
+
+      default :
+        return this.parsePrimitive(excerpt);
+    }
   }
 
   /**
    * Parse an Expression from the input and given token.
-   * @param token  the token already read from input.
+   * @param token  the token read from input.
    * @return the Primitive parsed from token.
    */
   private Primitive parsePrimitive(String token) {
@@ -115,11 +206,10 @@ public class Parser {
 
   /**
    * Parse the operator from given token.
-   * @param token  the token from input.
+   * @param token  the token read from input.
    * @return the Operator parsed from the input.
    */
   private Operator parseOperator(String token) {
-    token = token.substring(1);
 
     switch (token) {
       case "+" : return new Add();
@@ -130,7 +220,7 @@ public class Parser {
 
       case "/" : return new Divide();
 
-      default : throw new IllegalStateException("Unsupported Operation.");
+      default : throw new IllegalStateException("Unsupported Operation: " + token);
     }
   }
 }
