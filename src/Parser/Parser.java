@@ -67,7 +67,7 @@ public class Parser {
     int numParenth = 0;
     boolean isComposite = false;
     String c = this.scan.next();
-    while (this.scan.hasNext() && c.equals(" ")) {
+    while (this.scan.hasNext() && this.isDelim(c.charAt(0))) {
       c = this.scan.next();
     }
 
@@ -77,7 +77,8 @@ public class Parser {
     }
     excerpt.append(c);
     while (this.scan.hasNext()
-            && (isComposite && numParenth > 0 || !isComposite && !c.equals(" "))) {
+            && (isComposite && numParenth > 0
+            || !isComposite && !this.isDelim(c.charAt(0)))) {
       c = this.scan.next();
 
       if (c.equals("(")) {
@@ -99,64 +100,87 @@ public class Parser {
    * @return a single Expression parsed from the input.
    */
   private Expression getExpression(String excerpt) {
+    List<String> tokens = this.getTokens(excerpt);
 
-    int i = 0;
+    if (tokens.size() == 1) {
+      return this.parsePrimitive(tokens.get(0));
+    }
+    else if (tokens.size() > 1) {
+      Operator operator = this.parseOperator(tokens.get(0));
+      List<Expression> operands = new ArrayList<Expression>();
 
-    switch (excerpt.charAt(i)) {
+      for (int i = 1; i < tokens.size(); i++) {
+        operands.add(this.getExpression(tokens.get(i)));
+      }
 
-      case '(' :
-        excerpt = excerpt.substring(1, excerpt.length() - 1);
-        excerpt = excerpt.trim();
-        StringBuilder operator = new StringBuilder("");
-        List<Expression> operands = new ArrayList<Expression>();
+      return new Composite(operator, operands);
+    }
+    else {
+      throw new IllegalArgumentException("No tokens detected in \"" + excerpt + "\"");
+    }
+  }
 
-        // Get Operator
-        while (i < excerpt.length() && excerpt.charAt(i) != ' ' && excerpt.charAt(i) != '\t'
-                && excerpt.charAt(i) != '\n') {
-          operator.append(excerpt.charAt(i));
-          i++;
+  /**
+   * Retrieve all tokens from an excerpt.
+   * @param excerpt  the excerpt from input.
+   * @return the list of all tokens, in the order they appear in the excerpt.
+   */
+  private List<String> getTokens(String excerpt) {
+
+    // Remove any garbage spaces.
+    excerpt = excerpt.trim();
+
+    if (excerpt.length() == 0) {
+      return new ArrayList<String>();
+    }
+    else if (excerpt.charAt(0) == '(') {
+      excerpt = excerpt.substring(1, excerpt.length() - 1);
+    }
+
+    // Add a delimiter to the end, just a formatting trick.
+    excerpt = excerpt + " ";
+    List<String> tokens = new ArrayList<String>();
+    StringBuilder curToken = new StringBuilder();
+    int numParenth = 0;
+    boolean isComposite = false;
+
+    for (int i = 0; i < excerpt.length(); i++) {
+      if (this.isDelim(excerpt.charAt(i))
+              && (!isComposite || (isComposite && numParenth == 0))) {
+
+        if (curToken.toString().trim().equals("")) {
+          continue;
         }
 
-        // Get Operands
-        while (i < excerpt.length()) {
+        isComposite = false;
+        tokens.add(curToken.toString().trim());
+        curToken = new StringBuilder();
 
-          int numParenth = 0;
-          boolean isComposite = false;
-          StringBuilder curOperand = new StringBuilder("");
-
-          while (i < excerpt.length() && excerpt.charAt(i) == ' ') {
-            i++;
-          }
-
-          if (excerpt.charAt(i) == '(') {
+      } else {
+        curToken.append(excerpt.charAt(i));
+        switch (excerpt.charAt(i)) {
+          case '(':
             numParenth++;
             isComposite = true;
-          }
-          curOperand.append(excerpt.charAt(i));
-          i++;
-          while (i < excerpt.length()
-                  && (isComposite && numParenth > 0
-                  || !isComposite && excerpt.charAt(i) != ' ')) {
+            break;
 
-            if (excerpt.charAt(i) == '(') {
-              numParenth++;
-            }
-            else if (excerpt.charAt(i) == ')') {
-              numParenth--;
-            }
-
-            curOperand.append(excerpt.charAt(i));
-            i++;
-          }
-
-          operands.add(this.getExpression(curOperand.toString()));
+          case ')':
+            numParenth--;
+            break;
         }
-
-        return new Composite(this.parseOperator(operator.toString()), operands);
-
-      default :
-        return this.parsePrimitive(excerpt);
+      }
     }
+
+    return tokens;
+  }
+
+  /**
+   * Is given character a delimiter?
+   * @param ch  the given character.
+   * @return true if the given character is a ' ', '\t' or '\n', false otherwise.
+   */
+  private boolean isDelim(char ch) {
+    return ch == ' ' || ch == '\t' || ch == '\n';
   }
 
   /**

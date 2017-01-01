@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestParser {
 
-  //@Test
+  @Test
   public void testParseSimple() throws ArithmeticError {
     String input = "(+ 1 2)";
     Parser parser = new Parser(new StringReader(input));
@@ -49,7 +49,7 @@ public class TestParser {
             expressions.get(0));
   }
 
-  //@Test
+  @Test
   public void testParseComplex1() throws ArithmeticError {
     String input = "(+ (* 1 5) (* 2 (+ 7 9)))";
     //                  EXP1    EXP2 EXP3
@@ -119,7 +119,7 @@ public class TestParser {
     assertEquals(toParse2, expressions.get(1));
   }
 
-  //@Test
+  @Test
   public void testParseNoInput() throws ArithmeticError {
     String input = "";
     Parser parser = new Parser(new StringReader(input));

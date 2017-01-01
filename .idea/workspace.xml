@@ -2,28 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d17fffce-1066-41d3-b60b-f7bac11952ad" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/my-lang/Expression/Composite.class" afterPath="$PROJECT_DIR$/out/production/my-lang/Expression/Composite.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/my-lang/Expression/Number/Rational.class" afterPath="$PROJECT_DIR$/out/production/my-lang/Expression/Number/Rational.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/my-lang/Expression/Operator/Add.class" afterPath="$PROJECT_DIR$/out/production/my-lang/Expression/Operator/Add.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/my-lang/Expression/Operator/Divide.class" afterPath="$PROJECT_DIR$/out/production/my-lang/Expression/Operator/Divide.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/my-lang/Expression/Operator/Multiply.class" afterPath="$PROJECT_DIR$/out/production/my-lang/Expression/Operator/Multiply.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/my-lang/Expression/Operator/Operator.class" afterPath="$PROJECT_DIR$/out/production/my-lang/Expression/Operator/Operator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/my-lang/Expression/Operator/Subtract.class" afterPath="$PROJECT_DIR$/out/production/my-lang/Expression/Operator/Subtract.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/my-lang/Interpreter.class" afterPath="$PROJECT_DIR$/out/production/my-lang/Interpreter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/my-lang/Parser/Parser.class" afterPath="$PROJECT_DIR$/out/production/my-lang/Parser/Parser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/my-lang/Expression/Number/TestRational.class" afterPath="$PROJECT_DIR$/out/test/my-lang/Expression/Number/TestRational.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/my-lang/Expression/Operator/TestOperators.class" afterPath="$PROJECT_DIR$/out/test/my-lang/Expression/Operator/TestOperators.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/my-lang/Parser/TestParser.class" afterPath="$PROJECT_DIR$/out/test/my-lang/Parser/TestParser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Expression/Composite.java" afterPath="$PROJECT_DIR$/src/Expression/Composite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Expression/Operator/Add.java" afterPath="$PROJECT_DIR$/src/Expression/Operator/Add.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Expression/Operator/Divide.java" afterPath="$PROJECT_DIR$/src/Expression/Operator/Divide.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Expression/Operator/Multiply.java" afterPath="$PROJECT_DIR$/src/Expression/Operator/Multiply.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Expression/Operator/Operator.java" afterPath="$PROJECT_DIR$/src/Expression/Operator/Operator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Expression/Operator/Subtract.java" afterPath="$PROJECT_DIR$/src/Expression/Operator/Subtract.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Interpreter.java" afterPath="$PROJECT_DIR$/src/Interpreter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Parser/Parser.java" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/Expression/Operator/TestOperators.java" afterPath="$PROJECT_DIR$/test/Expression/Operator/TestOperators.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/Parser/TestParser.java" afterPath="$PROJECT_DIR$/test/Parser/TestParser.java" />
     </list>
     <ignored path="my-lang.iws" />
@@ -45,38 +25,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TestOperators.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/Expression/Operator/TestOperators.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="108" column="33" selection-start-line="108" selection-start-column="33" selection-end-line="108" selection-end-column="33" />
+            <state relative-caret-position="180">
+              <caret line="102" column="50" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2806#2818#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Interpreter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Interpreter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="13" column="55" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#2852#2864#0" expanded="true" />
+                <element signature="e#3753#3761#0" expanded="true" />
+                <element signature="e#4749#4750#0" expanded="true" />
+                <element signature="e#4803#4804#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -85,8 +44,8 @@
       <file leaf-file-name="TestParser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/Parser/TestParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="48" column="32" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
+            <state relative-caret-position="2016">
+              <caret line="127" column="3" selection-start-line="127" selection-start-column="3" selection-end-line="127" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -142,9 +101,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="65" />
-    <option name="y" value="-4" />
+    <option name="y" value="24" />
     <option name="width" value="1301" />
-    <option name="height" value="772" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -171,8 +130,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -221,7 +181,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -568,39 +527,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Test-Parser - 2016.12.26 at 00h 37m 23s.xml">
+    <history-entry file="Test-Parser - 2017.01.01 at 13h 59m 36s.xml">
       <configuration name="Test-Parser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test-Parser - 2016.12.26 at 00h 38m 47s.xml">
+    <history-entry file="Test-Parser - 2017.01.01 at 14h 01m 15s.xml">
       <configuration name="Test-Parser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test-Parser - 2016.12.26 at 00h 39m 30s.xml">
+    <history-entry file="Test-Parser - 2017.01.01 at 14h 02m 38s.xml">
       <configuration name="Test-Parser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test-Parser - 2016.12.26 at 00h 40m 49s.xml">
+    <history-entry file="Test-Parser - 2017.01.01 at 14h 03m 48s.xml">
       <configuration name="Test-Parser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test-Parser - 2016.12.26 at 00h 41m 26s.xml">
+    <history-entry file="Test-Parser - 2017.01.01 at 14h 10m 09s.xml">
       <configuration name="Test-Parser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test-Parser - 2016.12.26 at 00h 42m 00s.xml">
+    <history-entry file="Test-Parser - 2017.01.01 at 14h 10m 31s.xml">
       <configuration name="Test-Parser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test-Parser - 2016.12.26 at 00h 42m 57s.xml">
+    <history-entry file="Test-Parser - 2017.01.01 at 14h 11m 32s.xml">
       <configuration name="Test-Parser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test-Parser - 2016.12.26 at 00h 43m 04s.xml">
+    <history-entry file="Test-Parser - 2017.01.01 at 14h 14m 07s.xml">
       <configuration name="Test-Parser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test-Parser - 2016.12.26 at 00h 43m 15s.xml">
+    <history-entry file="Test-Parser - 2017.01.01 at 14h 24m 36s.xml">
       <configuration name="Test-Parser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test-Parser - 2016.12.26 at 00h 46m 55s.xml">
+    <history-entry file="Test-Parser - 2017.01.01 at 14h 28m 52s.xml">
       <configuration name="Test-Parser" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
+    <frame x="65" y="24" width="1301" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -654,6 +613,48 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test/Expression/Operator/TestOperators.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1944">
+          <caret line="108" column="33" selection-start-line="108" selection-start-column="33" selection-end-line="108" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2852#2864#0" expanded="true" />
+            <element signature="e#3753#3761#0" expanded="true" />
+            <element signature="e#4749#4750#0" expanded="true" />
+            <element signature="e#4803#4804#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Interpreter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="13" column="55" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Parser/TestParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Expression/Operator/TestOperators.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="990">
           <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
           <folding>
@@ -668,7 +669,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2806#2818#0" expanded="true" />
+            <element signature="e#2852#2864#0" expanded="true" />
+            <element signature="e#3753#3761#0" expanded="true" />
+            <element signature="e#4749#4750#0" expanded="true" />
+            <element signature="e#4803#4804#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -709,7 +713,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2806#2818#0" expanded="true" />
+            <element signature="e#2852#2864#0" expanded="true" />
+            <element signature="e#3753#3761#0" expanded="true" />
+            <element signature="e#4749#4750#0" expanded="true" />
+            <element signature="e#4803#4804#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -826,9 +833,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -896,8 +900,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Interpreter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
+        <state relative-caret-position="234">
           <caret line="13" column="55" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Expression/Operator/TestOperators.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -906,29 +920,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="108" column="33" selection-start-line="108" selection-start-column="33" selection-end-line="108" selection-end-column="33" />
+        <state relative-caret-position="180">
+          <caret line="102" column="50" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2806#2818#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/Expression/Operator/TestOperators.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2852#2864#0" expanded="true" />
+            <element signature="e#3753#3761#0" expanded="true" />
+            <element signature="e#4749#4750#0" expanded="true" />
+            <element signature="e#4803#4804#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/Parser/TestParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="48" column="32" selection-start-line="48" selection-start-column="32" selection-end-line="48" selection-end-column="32" />
+        <state relative-caret-position="2016">
+          <caret line="127" column="3" selection-start-line="127" selection-start-column="3" selection-end-line="127" selection-end-column="3" />
           <folding />
         </state>
       </provider>
