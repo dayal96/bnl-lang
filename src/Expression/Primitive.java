@@ -7,10 +7,10 @@ package Expression;
  *   <li>Numbers</li>
  * </ul>
  */
-public abstract class Primitive implements Expression {
+public abstract class Primitive implements IExpression {
 
   @Override
-  public Expression evaluate() {
+  public IExpression evaluate() {
     return this;
   }
 }

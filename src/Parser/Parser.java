@@ -5,37 +5,44 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+import Environment.IEnvironment;
 import Exceptions.ArithmeticError;
-import Expression.Expression;
+import Expression.IExpression;
 import Expression.Composite;
 import Expression.Number.ImproperFraction;
 import Expression.Number.Rational;
 import Expression.Operator.Add;
 import Expression.Operator.Divide;
+import Expression.Operator.IOperator;
 import Expression.Operator.Multiply;
 import Expression.Operator.Subtract;
 import Expression.Primitive;
-import Expression.Operator.Operator;
 
 /**
- * Class to represent a Parser for my Language. Does nothing right now.
+ * Class to represent a Parser for anl-lang.
  */
 public class Parser {
 
   private Scanner scan;
+  private IEnvironment environment;
 
   /**
    * Creates a Parser that reads from given Readable.
    * @param input the readable from which to read code.
    */
-  public Parser(Readable input) {
+  public Parser(Readable input, IEnvironment environment) {
+
+    String wasNull = "Input Stream";
 
     try {
       Objects.requireNonNull(input);
+      wasNull = "Environment";
+      Objects.requireNonNull(environment);
     } catch (NullPointerException e) {
-      throw new IllegalArgumentException("Input Stream provided was null.");
+      throw new IllegalArgumentException(wasNull + " provided was null.");
     }
 
+    this.environment = environment;
     this.scan = new Scanner(input);
     this.scan.useDelimiter("");
   }
@@ -44,15 +51,37 @@ public class Parser {
    * Parse the code to get a list of expressions.
    * @return the list of all expressions in input stream.
    */
-  public List<Expression> parseCode() {
-    List<Expression> expressions = new ArrayList<Expression>();
+  public List<IExpression> parseCode() {
+    List<IExpression> expressions = new ArrayList<IExpression>();
 
     while (this.scan.hasNext()) {
       String excerpt = this.getExcerpt();
-      expressions.add(this.getExpression(excerpt));
+      this.parseExcerpt(excerpt, expressions);
     }
 
     return expressions;
+  }
+
+  /**
+   * Parse an excerpt from input.
+   * @param excerpt      the excerpt to parse.
+   * @param expressions  the expressions parsed from input so far.
+   */
+  private void parseExcerpt(String excerpt, List<IExpression> expressions) {
+    List<String> tokens = this.getTokens(excerpt);
+
+    if (tokens.get(0).equals("define")) {
+      if (tokens.size() != 3) {
+        throw new IllegalArgumentException("Definitions must have one identifier and "
+                + "one expression.");
+      }
+
+      this.environment.addEntry(tokens.get(1),
+              this.getExpression(this.getTokens(tokens.get(2))));
+    }
+    else {
+      expressions.add(this.getExpression(tokens));
+    }
   }
 
   /**
@@ -96,28 +125,38 @@ public class Parser {
 
   /**
    * Parse the code to get a single expression from the code.
-   * @param excerpt  the String form of the Expression to be parsed.
-   * @return a single Expression parsed from the input.
+   * @param tokens  the tokens to be parsed.
+   * @return a single IExpression parsed from the input.
    */
-  private Expression getExpression(String excerpt) {
-    List<String> tokens = this.getTokens(excerpt);
+  private IExpression getExpression(List<String> tokens) {
 
-    if (tokens.size() == 1) {
-      return this.parsePrimitive(tokens.get(0));
+    if (tokens.size() == 0) {
+      throw new IllegalArgumentException("No tokens detected in " + tokens);
     }
-    else if (tokens.size() > 1) {
-      Operator operator = this.parseOperator(tokens.get(0));
-      List<Expression> operands = new ArrayList<Expression>();
+    else if (tokens.size() == 1) {
+      return this.parseToken(tokens.get(0));
+    }
+    else if (this.isOperator(tokens.get(0))) {
+      IOperator operator = this.parseOperator(tokens.get(0));
+      List<IExpression> operands = new ArrayList<IExpression>();
 
       for (int i = 1; i < tokens.size(); i++) {
-        operands.add(this.getExpression(tokens.get(i)));
+        operands.add(this.getExpression(this.getTokens(tokens.get(i))));
       }
 
-      return new Composite(operator, operands);
+      return new Composite(operator, operands, this.environment);
     }
-    else {
-      throw new IllegalArgumentException("No tokens detected in \"" + excerpt + "\"");
-    }
+
+    throw new IllegalArgumentException("Invalid Tokens from input: " + tokens);
+  }
+
+  /**
+   * Is the given token an Operator?
+   * @param token  the token read from input.
+   * @return true if the given token is an operator, false otherwise.
+   */
+  private boolean isOperator(String token) {
+    return token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/");
   }
 
   /**
@@ -184,14 +223,56 @@ public class Parser {
   }
 
   /**
-   * Parse an Expression from the input and given token.
-   * @param token  the token read from input.
-   * @return the Primitive parsed from token.
+   * Parse the given token as a Primitive or Symbol.
+   * @param token  the token read from input to parse.
+   * @return the IExpression associated with the Symbol.
    */
-  private Primitive parsePrimitive(String token) {
+  private IExpression parseToken(String token) {
+    if (this.isNumber(token)) {
+      return this.parseNumber(token);
+    } else {
+      return this.parseSymbol(token);
+    }
+  }
+
+  /**
+   * Parse a token as a symbol using the Environment definitions.
+   * @param token  the symbol to parse.
+   * @return the value associated with the symbol in the Environment.
+   */
+  private IExpression parseSymbol(String token) {
+
+    if (!this.environment.isPresent(token)) {
+      throw new IllegalArgumentException("Token not found: " + token);
+    }
+    return this.environment.getEntry(token);
+  }
+
+  /**
+   * Is the given token a Number?
+   * @param token  the token read from input.
+   * @return true if the given token is a Number, false otherwise.
+   */
+  private boolean isNumber(String token) {
+
+    for (int i = 0; i < token.length(); i++) {
+      if ((token.charAt(i) > '9' || token.charAt(i) < '0') && token.charAt(i) != '/') {
+        return false;
+      }
+    }
+
+    return token.charAt(0) != '/' && token.charAt(token.length() - 1) != '/';
+  }
+
+  /**
+   * Parse the given token as a Number.
+   * @param token  the token read from input.
+   * @return the Number parsed from token.
+   */
+  private Primitive parseNumber(String token) {
     int numerator = 0;
     int denominator = 0;
-    int i = 0;
+    int i;
 
     for (i = 0; i < token.length(); i++) {
       if (token.charAt(i) == '/') {
@@ -231,9 +312,9 @@ public class Parser {
   /**
    * Parse the operator from given token.
    * @param token  the token read from input.
-   * @return the Operator parsed from the input.
+   * @return the IOperator parsed from the input.
    */
-  private Operator parseOperator(String token) {
+  private IOperator parseOperator(String token) {
 
     switch (token) {
       case "+" : return new Add();

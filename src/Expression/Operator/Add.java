@@ -3,20 +3,20 @@ package Expression.Operator;
 import java.util.List;
 
 import Exceptions.ArithmeticError;
-import Expression.Expression;
+import Expression.IExpression;
 import Expression.Number.MyNumber;
 
 /**
  * Class to represent Addition.
  */
-public class Add implements Operator {
+public class Add implements IOperator {
 
   @Override
-  public Expression operate(List<Expression> operands) {
+  public IExpression operate(List<IExpression> operands) {
 
     boolean allNumbers = true;
 
-    for (Expression e : operands) {
+    for (IExpression e : operands) {
       allNumbers = allNumbers && (e.getType() == "Number");
     }
 
@@ -42,7 +42,7 @@ public class Add implements Operator {
       return result;
     }
     else {
-      throw new IllegalArgumentException("Too few arguments for Operator.");
+      throw new IllegalArgumentException("Too few arguments for IOperator.");
     }
   }
 

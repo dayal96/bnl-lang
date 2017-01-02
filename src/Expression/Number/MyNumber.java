@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import Exceptions.ArithmeticError;
 import Exceptions.DivideByZeroError;
-import Expression.Expression;
 import Expression.Primitive;
 
 /**
