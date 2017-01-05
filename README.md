@@ -21,8 +21,9 @@ IDENTIFIERS are names for environment variables. For instance, (define TWO 2) wo
 Anticipated Features:
 - Functions
 - Structures / Complex Data
-- Ability to import code
+- Interpreting ANL code from files, importing code from other ANL files
 - Graphics
+- File Handling
 - Support for Asynchronous programs
 
 
