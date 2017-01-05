@@ -17,6 +17,18 @@ EXPRESSION refers to a valid evaluable expression in anl. An expression consists
 
 IDENTIFIERS are names for environment variables. For instance, (define TWO 2) would define an environment variable with the name (or identifier) "TWO" and value as the number 2. Identifiers can not be reused, so (define TWO 4) after (define TWO 2) would throw an error.
 
+
+Anticipated Features:
+- Functions
+- Structures / Complex Data
+- Ability to import code
+- Graphics
+- Support for Asynchronous programs
+
+
+Features in Development:
+- Functions
+
 Changelog:
 
 Version 0.03
