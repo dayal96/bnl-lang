@@ -52,7 +52,7 @@ public class Parser implements IParser {
      */
     private void parseExpression(String unparsedExpression, List<IExpression> expressions) {
 
-        if (isOpenParenth(unparsedExpression.substring(0, 1))) {
+        if (ParseUtils.isOpenParenth(unparsedExpression.substring(0, 1))) {
             unparsedExpression = unparsedExpression.substring(1, unparsedExpression.length() - 1);
         }
 
@@ -124,7 +124,7 @@ public class Parser implements IParser {
      */
     private IExpression parseToken(String s) {
 
-        if (isNumber(s)) {
+        if (ParseUtils.isNumber(s)) {
             return parseNumber(s);
         }
         else if (this.environment.isPresent(s)) {
@@ -152,11 +152,11 @@ public class Parser implements IParser {
         while (scanner.hasNext()) {
             String currentChar = scanner.next();
 
-            if (isOpenParenth(currentChar)) {
+            if (ParseUtils.isOpenParenth(currentChar)) {
                 numOpen++;
                 currentExpression.append(currentChar);
             }
-            else if (isCloseParenth(currentChar)) {
+            else if (ParseUtils.isCloseParenth(currentChar)) {
                 numOpen--;
                 currentExpression.append(currentChar);
 
@@ -165,7 +165,7 @@ public class Parser implements IParser {
                     currentExpression = new StringBuilder();
                 }
             }
-            else if (numOpen == 0 && isWhitespace(currentChar)) {
+            else if (numOpen == 0 && ParseUtils.isWhitespace(currentChar)) {
                 if (currentExpression.toString().trim().length() > 0) {
                     allExpressionStrings.add(currentExpression.toString().trim());
                     currentExpression = new StringBuilder();
@@ -181,22 +181,6 @@ public class Parser implements IParser {
         }
 
         return allExpressionStrings;
-    }
-
-    /**
-     * Is the given token a Number?
-     * @param token  the token read from input.
-     * @return true if the given token is a Number, false otherwise.
-     */
-    private static boolean isNumber(String token) {
-
-        for (int i = 0; i < token.length(); i++) {
-            if ((token.charAt(i) > '9' || token.charAt(i) < '0') && token.charAt(i) != '/') {
-                return false;
-            }
-        }
-
-        return token.charAt(0) != '/' && token.charAt(token.length() - 1) != '/';
     }
 
     /**
@@ -242,32 +226,5 @@ public class Parser implements IParser {
         }
 
         return ret;
-    }
-
-    /**
-     * Is the given String a whitespace character?
-     * @param str the given String.
-     * @return true if the given String is a whitespace character, false otherwise.
-     */
-    private static boolean isWhitespace(String str) {
-        return str.equals("\n") || str.equals(" ") || str.equals("\t") || str.equals("\r") || str.equals("\r\n");
-    }
-
-    /**
-     * Is the given String an opening bracket?
-     * @param str the given String.
-     * @return true if the string is an open parenthesis, bracket or brace.
-     */
-    private static boolean isOpenParenth(String str) {
-        return str.equals("(") || str.equals("[") || str.equals("{");
-    }
-
-    /**
-     * Is the given String a closing bracket?
-     * @param str the given String.
-     * @return true if the string is a close parenthesis, bracket or brace.
-     */
-    private static boolean isCloseParenth(String str) {
-        return str.equals(")") || str.equals("]") || str.equals("}");
     }
 }
