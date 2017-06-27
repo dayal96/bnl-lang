@@ -26,7 +26,7 @@ public class TestParser {
   @Test
   public void testParseSimple() throws ArithmeticError {
     String input = "(+ 1 2)";
-    Parser parser = new Parser(new StringReader(input), new SymbolTable());
+    IParser parser = new Parser(new StringReader(input), new SymbolTable());
     List<IExpression> expressions = parser.parseCode();
 
     List<IExpression> operands = new ArrayList<IExpression>();
@@ -35,7 +35,7 @@ public class TestParser {
 
     assertEquals(1, expressions.size());
     assertEquals(new Composite(new Add(), operands, new SymbolTable()),
-            expressions.get(0));
+        expressions.get(0));
 
     input = "(+ 1 2 )";
     parser = new Parser(new StringReader(input), new SymbolTable());
@@ -47,7 +47,7 @@ public class TestParser {
 
     assertEquals(1, expressions.size());
     assertEquals(new Composite(new Add(), operands, new SymbolTable()),
-            expressions.get(0));
+        expressions.get(0));
   }
 
   @Test
@@ -55,7 +55,7 @@ public class TestParser {
     String input = "(+ (* 1 5) (* 2 (+ 7 9)))";
     //                  EXP1    EXP2 EXP3
     // EXP3 is inside EXP2
-    Parser parser = new Parser(new StringReader(input), new SymbolTable());
+    IParser parser = new Parser(new StringReader(input), new SymbolTable());
     List<IExpression> expressions = parser.parseCode();
 
     List<IExpression> operands1 = new ArrayList<IExpression>();
@@ -86,7 +86,7 @@ public class TestParser {
   @Test
   public void testParseComplex2() throws ArithmeticError {
     String input = "(+ (* 1 5) (* 2 (/ 7 9))) (- 1 2)";
-    Parser parser = new Parser(new StringReader(input), new SymbolTable());
+    IParser parser = new Parser(new StringReader(input), new SymbolTable());
     List<IExpression> expressions = parser.parseCode();
 
     List<IExpression> operands1 = new ArrayList<IExpression>();
@@ -123,14 +123,14 @@ public class TestParser {
   @Test
   public void testParseDefinitions() throws ArithmeticError {
     String input = "(define TWO 2)";
-    Parser parser = new Parser(new StringReader(input), new SymbolTable());
+    IParser parser = new Parser(new StringReader(input), new SymbolTable());
     List<IExpression> expressions = parser.parseCode();
 
     assertEquals(0, expressions.size());
 
     input = "(define TWO 2)\n"
-            + "(define FIVE 5)\n"
-            + "TWO FIVE (+ TWO FIVE)";
+        + "(define FIVE 5)\n"
+        + "TWO FIVE (+ TWO FIVE)";
     parser = new Parser(new StringReader(input), new SymbolTable());
     expressions = parser.parseCode();
 
@@ -143,7 +143,7 @@ public class TestParser {
   @Test
   public void testParseNoInput() throws ArithmeticError {
     String input = "";
-    Parser parser = new Parser(new StringReader(input), new SymbolTable());
+    IParser parser = new Parser(new StringReader(input), new SymbolTable());
     List<IExpression> expressions = parser.parseCode();
     assertEquals(0, expressions.size());
   }

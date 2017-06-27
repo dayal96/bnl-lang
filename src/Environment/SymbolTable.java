@@ -6,7 +6,7 @@ import java.util.Map;
 import Expression.IExpression;
 
 /**
- * Class to represent the Environment as a Symbol Table.
+ * Class to represent the Environment as a Symbol Table that is not mutable.
  */
 public class SymbolTable implements IEnvironment {
 
