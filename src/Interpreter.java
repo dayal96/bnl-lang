@@ -1,5 +1,6 @@
-import java.io.InputStreamReader;
-import java.io.StringReader;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,7 +23,7 @@ public class Interpreter {
 
   /**
    * Create an Interpreter.
-   * @param environment
+   * @param environment the symbol table that represents the environment.
    */
   private Interpreter(IEnvironment environment) {
     this.environment = environment;
@@ -73,7 +74,7 @@ public class Interpreter {
 
     IParser parser = new Parser(new StringReader(expression), this.environment);
     for (IExpression e : parser.parseCode()) {
-      System.out.println(e.evaluate());
+      System.out.println(e.evaluate().toString());
     }
 
     System.out.print(">");
@@ -84,6 +85,30 @@ public class Interpreter {
     System.out.println("Interpreter for ANL, ver 0.10 with basic arithmetic support and"
         + " constant definitions and a live console.\n");
     IEnvironment environment = new SymbolTable();
+
+    for (String str : args) {
+      try {
+        File filepath = new File(str);
+        String workingDirectory = filepath.getAbsolutePath();
+        workingDirectory = workingDirectory.substring(0, workingDirectory.lastIndexOf("/"));
+        environment.setWorkingDirectory(workingDirectory);
+
+        FileInputStream file = new FileInputStream(str);
+        IParser parser = new Parser(new InputStreamReader(file), environment);
+        System.out.println("Set working directory to : " + environment.getWorkingDirectory());
+        for (IExpression expression : parser.parseCode()) {
+          System.out.println(expression.evaluate().toString());
+        }
+        file.close();
+      }
+      catch (FileNotFoundException e) {
+        System.out.println("File " + str + " not found.");
+      }
+      catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
     Interpreter interpreter = new Interpreter(environment);
     System.out.print(">");
     interpreter.startConsole(new InputStreamReader(System.in));

@@ -1,5 +1,6 @@
 package Environment;
 
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,12 +12,19 @@ import Expression.IExpression;
 public class SymbolTable implements IEnvironment {
 
   private Map<String, IExpression> table;
+  private String workingDirectory;
 
   /**
    * Creates a new SymbolTable.
    */
   public SymbolTable() {
-    this.table = new HashMap<String, IExpression>();
+    this.table = new HashMap<>();
+    this.workingDirectory = Paths.get(".").toAbsolutePath().normalize().toString();
+  }
+
+  @Override
+  public void setWorkingDirectory(String directory) {
+    this.workingDirectory = directory;
   }
 
   @Override
@@ -32,5 +40,10 @@ public class SymbolTable implements IEnvironment {
   @Override
   public void addEntry(String symbol, IExpression exp) {
     this.table.put(symbol, exp);
+  }
+
+  @Override
+  public String getWorkingDirectory() {
+    return this.workingDirectory;
   }
 }

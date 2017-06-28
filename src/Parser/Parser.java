@@ -9,7 +9,9 @@ import Expression.Number.Rational;
 import Expression.Operator.*;
 import Expression.Primitive;
 
-import java.io.StringReader;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -69,6 +71,31 @@ public class Parser implements IParser {
             }
             catch (ArrayIndexOutOfBoundsException e) {
                 throw new IllegalArgumentException("define clause needs an identifier and an expression");
+            }
+        }
+        else if (componentExpressions.get(0).equals("include")) {
+            if (componentExpressions.size() != 2) {
+                throw new IllegalArgumentException("include statements can only have one operand.");
+            }
+
+            String filename = componentExpressions.get(1);
+
+            Path path = Paths.get(filename);
+            if (!path.isAbsolute()) {
+                String workingDirectory = this.environment.getWorkingDirectory();
+                filename = workingDirectory + (workingDirectory.endsWith("/")?"":"/") + filename;
+            }
+
+            try {
+                FileInputStream file = new FileInputStream(filename);
+                IParser parser = new Parser(new InputStreamReader(file), this.environment);
+                expressions.addAll(parser.parseCode());
+                file.close();
+            }
+            catch (FileNotFoundException e) {
+                throw new IllegalArgumentException("File " + filename + " was not found.");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         else if (componentExpressions.size() > 1) {

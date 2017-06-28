@@ -27,4 +27,14 @@ public interface IEnvironment {
    * @param exp     the IExpression to be associated with the symbol.
    */
   public void addEntry(String symbol, IExpression exp);
+
+  /**
+   * Get present working directory.
+   */
+  public String getWorkingDirectory();
+
+  /**
+   * Set present working directory to given working directory.
+   */
+  public void setWorkingDirectory(String directory);
 }
