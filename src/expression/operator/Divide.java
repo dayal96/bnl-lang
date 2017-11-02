@@ -9,7 +9,7 @@ import expression.number.MyNumber;
 /**
  * Class to represent Division operation.
  */
-public class Divide implements IOperator {
+public class Divide extends AOperator {
 
   @Override
   public IExpression operate(List<IExpression> operands) {
@@ -52,7 +52,7 @@ public class Divide implements IOperator {
   }
 
   @Override
-  public String getType() {
+  public String getReturnType() {
     return "number";
   }
 

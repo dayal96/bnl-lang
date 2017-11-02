@@ -9,6 +9,7 @@ import expression.number.Rational;
 import expression.operator.*;
 import expression.Primitive;
 
+import expression.type.Type;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -128,20 +129,13 @@ public class Parser implements IParser {
      * @return the {@link IOperator} parsed from the token.
      */
     private IOperator parseOperator(String token) {
-        if (token.equals("+")) {
-            return new Add();
+        if (this.environment.isPresent(token) &&
+            this.environment.getEntry(token).getType().equals(Type.OPERATOR)) {
+                return (IOperator) this.environment.getEntry(token);
+            }
+        else {
+            throw new IllegalArgumentException("operator not found : " + token);
         }
-        else if (token.equals("-")) {
-            return new Subtract();
-        }
-        else if (token.equals("*")) {
-            return new Multiply();
-        }
-        else if (token.equals("/")) {
-            return new Divide();
-        }
-
-        throw new IllegalArgumentException("operator not found : " + token);
     }
 
     /**
@@ -160,7 +154,6 @@ public class Parser implements IParser {
 
         throw new IllegalArgumentException("That token was not found.");
     }
-
 
     /**
      * Parses all text in given Readable and returns all expressions as a list of Strings.

@@ -9,7 +9,7 @@ import expression.number.MyNumber;
 /**
  * Class to represent Subtraction.
  */
-public class Subtract implements IOperator {
+public class Subtract extends AOperator {
 
   @Override
   public IExpression operate(List<IExpression> operands) {
@@ -52,7 +52,7 @@ public class Subtract implements IOperator {
   }
 
   @Override
-  public String getType() {
+  public String getReturnType() {
     return "number";
   }
 

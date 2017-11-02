@@ -1,3 +1,7 @@
+import expression.operator.Add;
+import expression.operator.Divide;
+import expression.operator.Multiply;
+import expression.operator.Subtract;
 import java.io.*;
 import java.util.Scanner;
 
@@ -79,8 +83,8 @@ public class Interpreter {
 
   public static void main(String[] args) {
 
-    System.out.println("Interpreter for ANL, ver 0.10 with basic arithmetic support and"
-        + " constant definitions and a live console.\n");
+    System.out.println("Interpreter for ANL, ver 0.04 with basic arithmetic support and"
+        + " constant definitions and a live console.");
     IEnvironment environment = new SymbolTable();
 
     for (String str : args) {
@@ -107,7 +111,7 @@ public class Interpreter {
     }
 
     Interpreter interpreter = new Interpreter(environment);
-    System.out.print(">");
+    System.out.print("> ");
     interpreter.startConsole(new InputStreamReader(System.in));
     System.out.println("Stop.");
   }

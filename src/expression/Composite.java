@@ -32,7 +32,7 @@ public class Composite implements IExpression {
 
   @Override
   public String getType() {
-    return this.operator.getType();
+    return this.operator.getReturnType();
   }
 
   @Override

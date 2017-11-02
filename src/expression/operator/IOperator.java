@@ -23,7 +23,7 @@ public interface IOperator extends IExpression {
    * Get the return type of this IOperator.
    * @return the return type of the IOperator.
    */
-  public String getType();
+  public String getReturnType();
 
   @Override
   public String toString();
