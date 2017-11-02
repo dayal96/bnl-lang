@@ -1,16 +1,16 @@
-package Expression.Operator;
+package expression.operator;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Environment.SymbolTable;
-import Exceptions.ArithmeticError;
-import Expression.Composite;
-import Expression.IExpression;
-import Expression.Number.ImproperFraction;
-import Expression.Number.Rational;
+import environment.SymbolTable;
+import exceptions.ArithmeticError;
+import expression.Composite;
+import expression.IExpression;
+import expression.number.ImproperFraction;
+import expression.number.Rational;
 
 import static org.junit.Assert.assertEquals;
 

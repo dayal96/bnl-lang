@@ -1,4 +1,4 @@
-package Parser;
+package parser;
 
 import org.junit.Test;
 
@@ -6,20 +6,20 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import Environment.SymbolTable;
-import Exceptions.ArithmeticError;
-import Expression.IExpression;
-import Expression.Composite;
-import Expression.Number.Rational;
-import Expression.Operator.Add;
-import Expression.Operator.Divide;
-import Expression.Operator.Multiply;
-import Expression.Operator.Subtract;
+import environment.SymbolTable;
+import exceptions.ArithmeticError;
+import expression.IExpression;
+import expression.Composite;
+import expression.number.Rational;
+import expression.operator.Add;
+import expression.operator.Divide;
+import expression.operator.Multiply;
+import expression.operator.Subtract;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Class to test Parser.
+ * Class to test parser.
  */
 public class TestParser {
 

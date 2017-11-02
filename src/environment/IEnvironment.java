@@ -1,6 +1,6 @@
-package Environment;
+package environment;
 
-import Expression.IExpression;
+import expression.IExpression;
 
 /**
  * Interface to represent an IEnvironment with function and constant definitions.

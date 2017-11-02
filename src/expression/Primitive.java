@@ -1,4 +1,4 @@
-package Expression;
+package expression;
 
 /**
  * <p>Abstract Class to represent a Primitive quantity.</p>

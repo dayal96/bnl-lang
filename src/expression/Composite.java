@@ -1,10 +1,10 @@
-package Expression;
+package expression;
 
 import java.util.List;
 import java.util.Objects;
 
-import Environment.IEnvironment;
-import Expression.Operator.IOperator;
+import environment.IEnvironment;
+import expression.operator.IOperator;
 
 /**
  * Class to represent Composite Expressions.

@@ -1,10 +1,10 @@
-package Expression.Number;
+package expression.number;
 
-import Exceptions.ArithmeticError;
-import Exceptions.DivideByZeroError;
+import exceptions.ArithmeticError;
+import exceptions.DivideByZeroError;
 
 /**
- * Class to represent a Number System for Rational Numbers.
+ * Class to represent a number System for Rational Numbers.
  */
 public class Rational extends MyNumber<ImproperFraction> {
 

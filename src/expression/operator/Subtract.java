@@ -1,10 +1,10 @@
-package Expression.Operator;
+package expression.operator;
 
 import java.util.List;
 
-import Exceptions.ArithmeticError;
-import Expression.IExpression;
-import Expression.Number.MyNumber;
+import exceptions.ArithmeticError;
+import expression.IExpression;
+import expression.number.MyNumber;
 
 /**
  * Class to represent Subtraction.
@@ -17,7 +17,7 @@ public class Subtract implements IOperator {
     boolean allNumbers = true;
 
     for (IExpression e : operands) {
-      allNumbers = allNumbers && (e.getType() == "Number");
+      allNumbers = allNumbers && (e.getType() == "number");
     }
 
     if (!allNumbers) {
@@ -53,7 +53,7 @@ public class Subtract implements IOperator {
 
   @Override
   public String getType() {
-    return "Number";
+    return "number";
   }
 
   @Override

@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * Represents an Arithmetic Error, like division by 0.

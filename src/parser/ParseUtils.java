@@ -1,4 +1,4 @@
-package Parser;
+package parser;
 
 /**
  * Created by amogh on 6/27/17.
@@ -6,9 +6,9 @@ package Parser;
 public class ParseUtils {
 
   /**
-   * Is the given token a Number?
+   * Is the given token a number?
    * @param token  the token read from input.
-   * @return true if the given token is a Number, false otherwise.
+   * @return true if the given token is a number, false otherwise.
    */
   public static boolean isNumber(String token) {
 

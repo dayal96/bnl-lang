@@ -1,13 +1,13 @@
-package Environment;
+package environment;
 
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import Expression.IExpression;
+import expression.IExpression;
 
 /**
- * Class to represent the Environment as a Symbol Table that is not mutable.
+ * Class to represent the environment as a Symbol Table that is not mutable.
  */
 public class SymbolTable implements IEnvironment {
 

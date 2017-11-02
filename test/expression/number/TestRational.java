@@ -1,8 +1,8 @@
-package Expression.Number;
+package expression.number;
 
 import org.junit.Test;
 
-import Exceptions.ArithmeticError;
+import exceptions.ArithmeticError;
 
 import static org.junit.Assert.assertEquals;
 

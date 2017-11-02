@@ -1,8 +1,8 @@
-package Expression.Operator;
+package expression.operator;
 
 import java.util.List;
 
-import Expression.IExpression;
+import expression.IExpression;
 
 /**
  * Interface to represent an IOperator in an Composite.

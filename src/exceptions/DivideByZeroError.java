@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * Class to represent a Divide by Zero Arithmetic Error.

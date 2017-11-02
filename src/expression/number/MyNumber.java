@@ -1,13 +1,13 @@
-package Expression.Number;
+package expression.number;
 
 import java.util.Objects;
 
-import Exceptions.ArithmeticError;
-import Exceptions.DivideByZeroError;
-import Expression.Primitive;
+import exceptions.ArithmeticError;
+import exceptions.DivideByZeroError;
+import expression.Primitive;
 
 /**
- * Interface to represent a Number in a given type. There is no guarantee for compatibility between
+ * Interface to represent a number in a given type. There is no guarantee for compatibility between
  * different types of numbers, since that is implementation-dependent.
  */
 public abstract class MyNumber<T> extends Primitive {
@@ -58,7 +58,7 @@ public abstract class MyNumber<T> extends Primitive {
 
   @Override
   public String getType() {
-    return "Number";
+    return "number";
   }
 
   @Override

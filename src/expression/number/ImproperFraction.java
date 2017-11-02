@@ -1,8 +1,8 @@
-package Expression.Number;
+package expression.number;
 
 import java.util.Objects;
 
-import Exceptions.ArithmeticError;
+import exceptions.ArithmeticError;
 
 /**
  * Class to represent a ImproperFraction.

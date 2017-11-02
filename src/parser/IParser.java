@@ -1,6 +1,6 @@
-package Parser;
+package parser;
 
-import Expression.IExpression;
+import expression.IExpression;
 
 import java.util.List;
 

@@ -1,18 +1,15 @@
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 import java.util.Scanner;
 
-import Environment.IEnvironment;
-import Environment.SymbolTable;
-import Expression.IExpression;
-import Parser.IParser;
-import Parser.Parser;
+import environment.IEnvironment;
+import environment.SymbolTable;
+import expression.IExpression;
+import parser.IParser;
+import parser.Parser;
 
-import static Parser.ParseUtils.isCloseParenth;
-import static Parser.ParseUtils.isOpenParenth;
-import static Parser.ParseUtils.isWhitespace;
+import static parser.ParseUtils.isCloseParenth;
+import static parser.ParseUtils.isOpenParenth;
+import static parser.ParseUtils.isWhitespace;
 
 /**
  * Interpreter class that runs the interpreter.

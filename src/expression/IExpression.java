@@ -1,4 +1,4 @@
-package Expression;
+package expression;
 
 /**
  * <p>Interface to represent a data value.</p>

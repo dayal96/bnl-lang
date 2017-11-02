@@ -1,13 +1,13 @@
-package Parser;
+package parser;
 
-import Environment.IEnvironment;
-import Exceptions.ArithmeticError;
-import Expression.Composite;
-import Expression.IExpression;
-import Expression.Number.ImproperFraction;
-import Expression.Number.Rational;
-import Expression.Operator.*;
-import Expression.Primitive;
+import environment.IEnvironment;
+import exceptions.ArithmeticError;
+import expression.Composite;
+import expression.IExpression;
+import expression.number.ImproperFraction;
+import expression.number.Rational;
+import expression.operator.*;
+import expression.Primitive;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -18,14 +18,14 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * Parser for ANL-lang.
+ * parser for ANL-lang.
  */
 public class Parser implements IParser {
     private Readable input;
     private IEnvironment environment;
 
     /**
-     * Creates a new Parser with given {@link Readable} and {@link IEnvironment}.
+     * Creates a new parser with given {@link Readable} and {@link IEnvironment}.
      * @param input       the {@link Readable} that has the code to parse.
      * @param environment the {@link IEnvironment} that is the global symbol table.
      */
@@ -49,7 +49,7 @@ public class Parser implements IParser {
 
     /**
      * Parses a single unparsed expression.
-     * @param unparsedExpression the unparsed Expression to parse.
+     * @param unparsedExpression the unparsed expression to parse.
      * @return the IExpression representing the parsed expression.
      */
     private void parseExpression(String unparsedExpression, List<IExpression> expressions) {
@@ -109,7 +109,7 @@ public class Parser implements IParser {
     /**
      * Parse multiple tokens as a composite expression.
      * @param componentExpressions the List of Tokens/Expressions to parse as a composite expression.
-     * @return the Composite Expression parsed as an {@link IExpression}.
+     * @return the Composite expression parsed as an {@link IExpression}.
      */
     private IExpression parseComposite(List<String> componentExpressions) {
         IOperator operator = this.parseOperator(componentExpressions.get(0));
@@ -123,7 +123,7 @@ public class Parser implements IParser {
     }
 
     /**
-     * Parse a token as an Operator.
+     * Parse a token as an operator.
      * @param token the token to parse as an operator.
      * @return the {@link IOperator} parsed from the token.
      */
@@ -141,7 +141,7 @@ public class Parser implements IParser {
             return new Divide();
         }
 
-        throw new IllegalArgumentException("Operator not found : " + token);
+        throw new IllegalArgumentException("operator not found : " + token);
     }
 
     /**
@@ -211,9 +211,9 @@ public class Parser implements IParser {
     }
 
     /**
-     * Parse the given token as a Number.
+     * Parse the given token as a number.
      * @param token  the token read from input.
-     * @return the Number parsed from token.
+     * @return the number parsed from token.
      */
     private static Primitive parseNumber(String token) {
         int numerator = 0;
