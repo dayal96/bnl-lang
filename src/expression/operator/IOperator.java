@@ -11,7 +11,7 @@ import Expression.IExpression;
  *
  * E.G.: 4 + 2 is an expression, + is the operator.
  */
-public interface IOperator {
+public interface IOperator extends IExpression {
 
   /**
    * Perform the operation on given values.

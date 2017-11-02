@@ -47,6 +47,11 @@ public class Add implements IOperator {
   }
 
   @Override
+  public IExpression evaluate() {
+    return this;
+  }
+
+  @Override
   public String getType() {
     return "Number";
   }

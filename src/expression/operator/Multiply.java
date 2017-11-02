@@ -7,9 +7,9 @@ import Expression.IExpression;
 import Expression.Number.MyNumber;
 
 /**
- * Class to represent Subtraction.
+ * Class to represent Multiplication.
  */
-public class Subtract implements IOperator {
+public class Multiply implements IOperator {
 
   @Override
   public IExpression operate(List<IExpression> operands) {
@@ -32,7 +32,7 @@ public class Subtract implements IOperator {
       for (int i = 1; i < operands.size(); i++) {
 
         try {
-          result = result.subtract((MyNumber) (operands.get(i).evaluate()));
+          result = result.multiply((MyNumber) (operands.get(i).evaluate()));
         }
         catch (ArithmeticError e) {
           e.printStackTrace();
@@ -47,12 +47,17 @@ public class Subtract implements IOperator {
   }
 
   @Override
+  public IExpression evaluate() {
+    return this;
+  }
+
+  @Override
   public String getType() {
     return "Number";
   }
 
   @Override
   public String toString() {
-    return "-";
+    return "*";
   }
 }

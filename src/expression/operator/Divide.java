@@ -7,9 +7,9 @@ import Expression.IExpression;
 import Expression.Number.MyNumber;
 
 /**
- * Class to represent Multiplication.
+ * Class to represent Division operation.
  */
-public class Multiply implements IOperator {
+public class Divide implements IOperator {
 
   @Override
   public IExpression operate(List<IExpression> operands) {
@@ -27,12 +27,12 @@ public class Multiply implements IOperator {
       return operands.get(0).evaluate();
     }
     else if (operands.size() > 1) {
-      MyNumber result = (MyNumber)(operands.get(0).evaluate());
+      MyNumber result = (MyNumber) (operands.get(0).evaluate());
 
       for (int i = 1; i < operands.size(); i++) {
 
         try {
-          result = result.multiply((MyNumber) (operands.get(i).evaluate()));
+          result = result.divide((MyNumber) (operands.get(i).evaluate()));
         }
         catch (ArithmeticError e) {
           e.printStackTrace();
@@ -47,12 +47,17 @@ public class Multiply implements IOperator {
   }
 
   @Override
+  public IExpression evaluate() {
+    return this;
+  }
+
+  @Override
   public String getType() {
     return "Number";
   }
 
   @Override
   public String toString() {
-    return "*";
+    return "/";
   }
 }

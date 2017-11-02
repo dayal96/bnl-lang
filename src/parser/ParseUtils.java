@@ -27,7 +27,8 @@ public class ParseUtils {
    * @return true if the given String is a whitespace character, false otherwise.
    */
   public static boolean isWhitespace(String str) {
-    return str.equals("\n") || str.equals(" ") || str.equals("\t") || str.equals("\r") || str.equals("\r\n");
+    return str.equals("\n") || str.equals(" ") || str.equals("\t")
+        || str.equals("\r") || str.equals("\r\n");
   }
 
   /**
