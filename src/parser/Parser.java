@@ -2,7 +2,7 @@ package parser;
 
 import environment.IEnvironment;
 import exceptions.ArithmeticError;
-import expression.Composite;
+import expression.FunctionCall;
 import expression.IExpression;
 import expression.number.ImproperFraction;
 import expression.number.Rational;
@@ -110,7 +110,7 @@ public class Parser implements IParser {
     /**
      * Parse multiple tokens as a composite expression.
      * @param componentExpressions the List of Tokens/Expressions to parse as a composite expression.
-     * @return the Composite expression parsed as an {@link IExpression}.
+     * @return the FunctionCall expression parsed as an {@link IExpression}.
      */
     private IExpression parseComposite(List<String> componentExpressions) {
         IOperator operator = this.parseOperator(componentExpressions.get(0));
@@ -120,7 +120,7 @@ public class Parser implements IParser {
             this.parseExpression(componentExpressions.get(i), operands);
         }
 
-        return new Composite(operator, operands, this.environment);
+        return new FunctionCall(operator, operands);
     }
 
     /**
@@ -130,7 +130,7 @@ public class Parser implements IParser {
      */
     private IOperator parseOperator(String token) {
         if (this.environment.isPresent(token) &&
-            this.environment.getEntry(token).getType().equals(Type.OPERATOR)) {
+            this.environment.getEntry(token).getType().equals(Type.FUNCTION)) {
                 return (IOperator) this.environment.getEntry(token);
             }
         else {

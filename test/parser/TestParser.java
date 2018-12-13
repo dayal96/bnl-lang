@@ -1,5 +1,6 @@
 package parser;
 
+import expression.FunctionCall;
 import org.junit.Test;
 
 import java.io.StringReader;
@@ -9,7 +10,6 @@ import java.util.List;
 import environment.SymbolTable;
 import exceptions.ArithmeticError;
 import expression.IExpression;
-import expression.Composite;
 import expression.number.Rational;
 import expression.operator.Add;
 import expression.operator.Divide;
@@ -34,7 +34,7 @@ public class TestParser {
     operands.add(new Rational(2, 1));
 
     assertEquals(1, expressions.size());
-    assertEquals(new Composite(new Add(), operands, new SymbolTable()),
+    assertEquals(new FunctionCall(new Add(), operands, new SymbolTable()),
         expressions.get(0));
 
     input = "(+ 1 2 )";
@@ -46,7 +46,7 @@ public class TestParser {
     operands.add(new Rational(2, 1));
 
     assertEquals(1, expressions.size());
-    assertEquals(new Composite(new Add(), operands, new SymbolTable()),
+    assertEquals(new FunctionCall(new Add(), operands, new SymbolTable()),
         expressions.get(0));
   }
 
@@ -65,19 +65,19 @@ public class TestParser {
 
     operands3.add(new Rational(7, 1));
     operands3.add(new Rational(9, 1));
-    IExpression exp3 = new Composite(new Add(), operands3, new SymbolTable());
+    IExpression exp3 = new FunctionCall(new Add(), operands3, new SymbolTable());
 
     operands2.add(new Rational(2, 1));
     operands2.add(exp3);
-    IExpression exp2 = new Composite(new Multiply(), operands2, new SymbolTable());
+    IExpression exp2 = new FunctionCall(new Multiply(), operands2, new SymbolTable());
 
     operands1.add(new Rational(1, 1));
     operands1.add(new Rational(5, 1));
-    IExpression exp1 = new Composite(new Multiply(), operands1, new SymbolTable());
+    IExpression exp1 = new FunctionCall(new Multiply(), operands1, new SymbolTable());
 
     operandsToParse.add(exp1);
     operandsToParse.add(exp2);
-    IExpression toParse = new Composite(new Add(), operandsToParse, new SymbolTable());
+    IExpression toParse = new FunctionCall(new Add(), operandsToParse, new SymbolTable());
 
     assertEquals(1, expressions.size());
     assertEquals(toParse, expressions.get(0));
@@ -97,23 +97,23 @@ public class TestParser {
 
     operands3.add(new Rational(7, 1));
     operands3.add(new Rational(9, 1));
-    IExpression exp3 = new Composite(new Divide(), operands3, new SymbolTable());
+    IExpression exp3 = new FunctionCall(new Divide(), operands3, new SymbolTable());
 
     operands2.add(new Rational(2, 1));
     operands2.add(exp3);
-    IExpression exp2 = new Composite(new Multiply(), operands2, new SymbolTable());
+    IExpression exp2 = new FunctionCall(new Multiply(), operands2, new SymbolTable());
 
     operands1.add(new Rational(1, 1));
     operands1.add(new Rational(5, 1));
-    IExpression exp1 = new Composite(new Multiply(), operands1, new SymbolTable());
+    IExpression exp1 = new FunctionCall(new Multiply(), operands1, new SymbolTable());
 
     operandsToParse1.add(exp1);
     operandsToParse1.add(exp2);
-    IExpression toParse1 = new Composite(new Add(), operandsToParse1, new SymbolTable());
+    IExpression toParse1 = new FunctionCall(new Add(), operandsToParse1, new SymbolTable());
 
     operandsToParse2.add(new Rational(1, 1));
     operandsToParse2.add(new Rational(2, 1));
-    IExpression toParse2 = new Composite(new Subtract(), operandsToParse2, new SymbolTable());
+    IExpression toParse2 = new FunctionCall(new Subtract(), operandsToParse2, new SymbolTable());
 
     assertEquals(2, expressions.size());
     assertEquals(toParse1, expressions.get(0));

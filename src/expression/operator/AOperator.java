@@ -1,17 +1,18 @@
 package expression.operator;
 
+import environment.IEnvironment;
 import expression.IExpression;
 import expression.type.Type;
 
-public abstract class AOperator implements IOperator {
+public abstract class AOperator implements IExpression {
 
   @Override
-  public IExpression evaluate() {
+  public IExpression evaluate(IEnvironment environment) {
     return this;
   }
 
   @Override
-  public String getType() {
-    return Type.OPERATOR;
+  public Type getType() {
+    return Type.FUNCTION;
   }
 }

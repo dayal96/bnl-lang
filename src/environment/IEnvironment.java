@@ -12,7 +12,7 @@ public interface IEnvironment {
    * @param symbol  the symbol to be searched.
    * @return the IExpression associated with the symbol.
    */
-  public IExpression getEntry(String symbol);
+  public IExpression getEntry(String symbol) throws Exception;
 
   /**
    * Check whether the given symbol is present in the environment.
@@ -27,6 +27,18 @@ public interface IEnvironment {
    * @param exp     the IExpression to be associated with the symbol.
    */
   public void addEntry(String symbol, IExpression exp);
+
+  /**
+   * Does this IEnvironment have a local component?
+   * @return True if there is a local context in the environment, false otherwise.
+   */
+  public boolean hasLocal();
+
+  /**
+   * Get the local context in the environment.
+   * @return  The IEnvironment that represents the local context of the environment.
+   */
+  public IEnvironment getLocal() throws Exception;
 
   /**
    * Get present working directory.
