@@ -23,13 +23,13 @@ public class Variable implements IExpression {
       return environment.getEntry(this.name);
     }
     else {
-      throw new Exception("Variable not found.");
+      throw new Exception("Variable not found: " + this.name);
     }
   }
 
   @Override
   public IExpression evaluate(List<IExpression> operands, IEnvironment environment) throws Exception {
-    throw new Exception("Can't call that as a function.");
+    return this.evaluate(environment).evaluate(operands, environment);
   }
 
   @Override
@@ -40,5 +40,16 @@ public class Variable implements IExpression {
   @Override
   public String toString() {
     return this.name;
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (!(other instanceof Variable)) {
+      return false;
+    }
+
+    Variable that = (Variable)other;
+
+    return this.name.equals(that.name);
   }
 }

@@ -1,10 +1,10 @@
-package expression;
+package expression.lambda;
 
 import java.util.List;
 import java.util.Objects;
 
 import environment.IEnvironment;
-import expression.operator.IOperator;
+import expression.IExpression;
 import expression.type.Type;
 
 /**
@@ -20,7 +20,6 @@ public class FunctionCall implements IExpression {
    * @param operands    The operands in the expression.
    */
   public FunctionCall(IExpression operator, List<IExpression> operands) {
-
     this.operator = operator;
     this.operands = operands;
   }

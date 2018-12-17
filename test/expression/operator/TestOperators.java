@@ -1,13 +1,16 @@
 package expression.operator;
 
-import expression.FunctionCall;
+import environment.IEnvironment;
+import exceptions.ArithmeticError;
+import expression.Variable;
+import expression.bool.MyBoolean;
+import expression.lambda.FunctionCall;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import environment.SymbolTable;
-import exceptions.ArithmeticError;
 import expression.IExpression;
 import expression.number.ImproperFraction;
 import expression.number.Rational;
@@ -18,6 +21,16 @@ import static org.junit.Assert.assertEquals;
  * Class to test Operators.
  */
 public class TestOperators {
+
+  private final IEnvironment environment;
+
+  public TestOperators() throws Exception {
+    this.environment = new SymbolTable();
+    this.environment.addEntry("ONE", new Rational(1, 1));
+    this.environment.addEntry("TWO", new Rational(2, 1));
+    this.environment.addEntry("THREE", new Rational(3, 1));
+    this.environment.addEntry("ONE_COPY", new Rational(1, 1));
+  }
 
   @Test
   public void testAdd() throws Exception {
@@ -59,5 +72,20 @@ public class TestOperators {
 
     FunctionCall exp2 = new FunctionCall(multiply, operands2);
     assertEquals(new Rational(new ImproperFraction(64, 125)), exp2.evaluate(new SymbolTable()));
+  }
+
+  @Test
+  public void testEquals() throws Exception {
+    AOperator equals = new Equals();
+    assertEquals(MyBoolean.FALSE, equals.evaluate(List.of(new Variable("ONE"), new Variable("TWO"))
+            , this.environment));
+    assertEquals(MyBoolean.FALSE, equals.evaluate(List.of(new Variable("THREE"), new Variable("ONE"))
+            , this.environment));
+    assertEquals(MyBoolean.TRUE, equals.evaluate(List.of(new Variable("ONE"), new Variable("ONE"))
+            , this.environment));
+    assertEquals(MyBoolean.TRUE, equals.evaluate(List.of(new Variable("ONE"), new Variable("ONE_COPY"))
+            , this.environment));
+    assertEquals(MyBoolean.FALSE, equals.evaluate(List.of(new Variable("THREE"), new Variable("TWO"))
+            , this.environment));
   }
 }

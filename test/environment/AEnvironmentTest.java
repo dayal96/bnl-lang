@@ -20,7 +20,7 @@ public abstract class AEnvironmentTest {
   }
 
   @Test
-  public void testEnvironment() {
+  public void testEnvironment() throws Exception {
     try {
 
       assertEquals(false, this.environment.isPresent("TWO"));

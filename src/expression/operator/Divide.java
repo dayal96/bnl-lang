@@ -1,63 +1,57 @@
 package expression.operator;
 
-import java.util.List;
-
+import environment.IEnvironment;
 import exceptions.ArithmeticError;
 import expression.IExpression;
 import expression.number.MyNumber;
+import expression.type.Type;
 
-/**
- * Class to represent Division operation.
- */
+import java.util.List;
+
 public class Divide extends AOperator {
 
-  @Override
-  public IExpression operate(List<IExpression> operands) {
+    @Override
+    public IExpression evaluate(List<IExpression> operands, IEnvironment environment) throws Exception {
 
-    boolean allNumbers = true;
+        boolean allNumbers = true;
 
-    for (IExpression e : operands) {
-      allNumbers = allNumbers && (e.getType() == "number");
-    }
-
-    if (!allNumbers) {
-      throw new IllegalArgumentException("All operands must be numbers.");
-    }
-    else if (operands.size() == 1) {
-      return operands.get(0).evaluate();
-    }
-    else if (operands.size() > 1) {
-      MyNumber result = (MyNumber) (operands.get(0).evaluate());
-
-      for (int i = 1; i < operands.size(); i++) {
-
-        try {
-          result = result.divide((MyNumber) (operands.get(i).evaluate()));
+        for (IExpression e : operands) {
+            allNumbers = allNumbers && (e.getType().equals(Type.NUMBER));
         }
-        catch (ArithmeticError e) {
-          e.printStackTrace();
+
+        if (!allNumbers) {
+            throw new IllegalArgumentException("All operands must be numbers.");
         }
-      }
+        else if (operands.size() == 1) {
+            return operands.get(0).evaluate(environment);
+        }
+        else if (operands.size() > 1) {
+            MyNumber result = (MyNumber)(operands.get(0).evaluate(environment));
 
-      return result;
+            for (int i = 1; i < operands.size(); i++) {
+
+                try {
+                    result = result.divide((MyNumber) (operands.get(i).evaluate(environment)));
+                }
+                catch (ArithmeticError e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return result;
+        }
+        else {
+            throw new IllegalArgumentException("Too few arguments for IOperator.");
+        }
     }
-    else {
-      throw new IllegalArgumentException("Too few arguments for IOperator.");
+
+    @Override
+    public Type getType() {
+        return Type.NUMBER;
     }
-  }
 
-  @Override
-  public IExpression evaluate() {
-    return this;
-  }
-
-  @Override
-  public String getReturnType() {
-    return "number";
-  }
-
-  @Override
-  public String toString() {
-    return "/";
-  }
+    @Override
+    public String toString() {
+        return "/";
+    }
 }

@@ -2,6 +2,7 @@ package expression;
 
 import environment.IEnvironment;
 import expression.type.Type;
+import interpreter.IEvaluable;
 
 import java.util.List;
 

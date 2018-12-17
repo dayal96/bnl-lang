@@ -5,6 +5,7 @@ import java.util.Objects;
 import exceptions.ArithmeticError;
 import exceptions.DivideByZeroError;
 import expression.Primitive;
+import expression.type.Type;
 
 /**
  * Interface to represent a number in a given type. There is no guarantee for compatibility between
@@ -57,8 +58,8 @@ public abstract class MyNumber<T> extends Primitive {
           throws DivideByZeroError, ArithmeticError;
 
   @Override
-  public String getType() {
-    return "number";
+  public Type getType() {
+    return Type.NUMBER;
   }
 
   @Override

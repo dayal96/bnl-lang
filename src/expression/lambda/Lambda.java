@@ -1,9 +1,10 @@
-package expression.type;
+package expression.lambda;
 
 import environment.IEnvironment;
 import environment.LocalContext;
 import environment.SymbolTable;
 import expression.IExpression;
+import expression.type.Type;
 
 import java.util.List;
 
@@ -23,7 +24,12 @@ public class Lambda implements IExpression {
 
   @Override
   public IExpression evaluate(IEnvironment environment) throws Exception {
-    return this;
+    if (environment.hasLocal()) {
+      return new Local(environment.getLocal(), this);
+    }
+    else {
+      return this;
+    }
   }
 
   @Override
@@ -47,5 +53,20 @@ public class Lambda implements IExpression {
   @Override
   public Type getType() {
     return Type.FUNCTION;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder str = new StringBuilder();
+
+    str.append("(λ ( ");
+
+    for (String input : this.inputs) {
+      str.append(input + " ");
+    }
+
+    str.append(") " + this.body.toString() + ")");
+
+    return str.toString();
   }
 }

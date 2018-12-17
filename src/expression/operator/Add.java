@@ -1,5 +1,6 @@
 package expression.operator;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import environment.IEnvironment;
@@ -17,27 +18,31 @@ public class Add extends AOperator {
   public IExpression evaluate(List<IExpression> operands, IEnvironment environment) throws Exception {
 
     boolean allNumbers = true;
+    List<IExpression> eval = new LinkedList<>();
 
     for (IExpression e : operands) {
-      allNumbers = allNumbers && (e.getType().equals(Type.NUMBER));
+      IExpression evaluated = e.evaluate(environment);
+      eval.add(evaluated);
+      allNumbers = allNumbers && (evaluated.getType().equals(Type.NUMBER));
     }
 
     if (!allNumbers) {
       throw new IllegalArgumentException("All operands must be numbers.");
     }
     else if (operands.size() == 1) {
-      return operands.get(0).evaluate(environment);
+      return eval.get(0);
     }
     else if (operands.size() > 1) {
-      MyNumber result = (MyNumber)(operands.get(0).evaluate(environment));
+      MyNumber result = (MyNumber)eval.get(0);
 
       for (int i = 1; i < operands.size(); i++) {
 
         try {
-          result = result.add((MyNumber) (operands.get(i).evaluate(environment)));
+          result = result.add((MyNumber) (eval.get(i)));
         }
         catch (ArithmeticError e) {
           e.printStackTrace();
+          throw new Exception("Something went wrong in addition.");
         }
       }
 

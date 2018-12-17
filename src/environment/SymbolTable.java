@@ -1,9 +1,5 @@
 package environment;
 
-import expression.operator.Add;
-import expression.operator.Divide;
-import expression.operator.Multiply;
-import expression.operator.Subtract;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,12 +20,6 @@ public class SymbolTable implements IEnvironment {
   public SymbolTable() {
     this.table = new HashMap<>();
     this.workingDirectory = Paths.get(".").toAbsolutePath().normalize().toString();
-
-    // Add some standard functions
-    this.addEntry("+", new Add());
-    this.addEntry("-", new Subtract());
-    this.addEntry("*", new Multiply());
-    this.addEntry("/", new Divide());
   }
 
   @Override
