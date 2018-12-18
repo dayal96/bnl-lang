@@ -13,7 +13,7 @@ public abstract class AEnvironmentTest {
 
   /**
    * Create an AEnvironmentTest with given IEnvironment to test.
-   * @param environment
+   * @param environment The environment to test with.
    */
   protected AEnvironmentTest(IEnvironment environment) {
     this.environment = environment;
@@ -40,5 +40,28 @@ public abstract class AEnvironmentTest {
     catch (ArithmeticError e) {
       assert false;
     }
+  }
+
+  @Test
+  public void testWorkingDirectory() {
+    this.environment.setWorkingDirectory("./");
+    assertEquals("./", this.environment.getWorkingDirectory());
+
+    this.environment.setWorkingDirectory("../");
+    assertEquals("../", this.environment.getWorkingDirectory());
+  }
+
+  @Test
+  public void testSymbolNotFound() throws Exception {
+
+    try {
+      this.environment.getEntry("lambdas are fun no?");
+    }
+    catch (Exception e) {
+      assert true;
+      return;
+    }
+
+    assert false;
   }
 }

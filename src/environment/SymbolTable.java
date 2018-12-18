@@ -28,7 +28,12 @@ public class SymbolTable implements IEnvironment {
   }
 
   @Override
-  public IExpression getEntry(String symbol) {
+  public IExpression getEntry(String symbol) throws Exception {
+
+    if (!this.isPresent(symbol)) {
+      throw new Exception("Symbol not found.");
+    }
+
     return this.table.get(symbol);
   }
 
