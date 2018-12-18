@@ -21,7 +21,7 @@ public class Equals extends AOperator {
                 result = result && operands.get(i).evaluate(environment).equals(operands.get(0).evaluate(environment));
             }
 
-            return result ? MyBoolean.TRUE : MyBoolean.FALSE;
+            return MyBoolean.of(result);
         }
         else {
             throw new IllegalArgumentException("Too few arguments for IOperator.");

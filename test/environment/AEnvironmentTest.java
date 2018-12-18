@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import exceptions.ArithmeticError;
 import expression.IExpression;
 import expression.number.Rational;
-import expression.operator.Add;
+import expression.operator.number.Add;
 import org.junit.Test;
 
 public abstract class AEnvironmentTest {

@@ -21,6 +21,15 @@ public class MyBoolean implements IExpression {
     public static final MyBoolean TRUE = new MyBoolean(true);
     public static final MyBoolean FALSE = new MyBoolean(false);
 
+    /**
+     * Return the MyBoolean equivalent of the given boolean.
+     * @param toMimic   The boolean whose equivalent has to be produced.
+     * @return  The MyBoolean that represents the boolean provided.
+     */
+    public static MyBoolean of(boolean toMimic) {
+        return toMimic ? TRUE : FALSE;
+    }
+
     @Override
     public IExpression evaluate(IEnvironment environment) throws Exception {
         return this;
@@ -39,5 +48,13 @@ public class MyBoolean implements IExpression {
     @Override
     public String toString() {
         return Boolean.toString(this.value);
+    }
+
+    /**
+     * Determine the truth of this MyBoolean.
+     * @return  True if this boolean is true, false otherwise.
+     */
+    public boolean truth() {
+        return this.equals(TRUE);
     }
 }

@@ -1,4 +1,4 @@
-package expression.operator;
+package expression.operator.number;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -7,6 +7,7 @@ import environment.IEnvironment;
 import exceptions.ArithmeticError;
 import expression.IExpression;
 import expression.number.MyNumber;
+import expression.operator.AOperator;
 import expression.type.Type;
 
 /**

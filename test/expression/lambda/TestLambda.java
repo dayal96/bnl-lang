@@ -6,6 +6,8 @@ import environment.SymbolTable;
 import expression.Variable;
 import expression.number.Rational;
 import expression.operator.*;
+import expression.operator.number.Multiply;
+import expression.operator.number.Subtract;
 import org.junit.Test;
 
 import java.util.List;

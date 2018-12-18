@@ -1,10 +1,11 @@
 package expression.operator;
 
 import environment.IEnvironment;
-import exceptions.ArithmeticError;
 import expression.Variable;
 import expression.bool.MyBoolean;
 import expression.lambda.FunctionCall;
+import expression.operator.number.Add;
+import expression.operator.number.Multiply;
 import org.junit.Test;
 
 import java.util.ArrayList;

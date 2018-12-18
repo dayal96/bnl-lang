@@ -66,4 +66,19 @@ public class Rational extends MyNumber<ImproperFraction> {
 
     return new Rational(new ImproperFraction(newNumerator, newDenominator));
   }
+
+  @Override
+  public int sign() {
+    return Integer.signum(this.number.numerator) * Integer.signum(this.number.denominator);
+  }
+
+  @Override
+  public int compareTo(MyNumber<ImproperFraction> that) {
+    try {
+      return this.subtract(that).sign();
+    }
+    catch (ArithmeticError e) {
+      throw new RuntimeException(e.getMessage());
+    }
+  }
 }

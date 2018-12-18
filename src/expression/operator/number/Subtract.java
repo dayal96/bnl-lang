@@ -1,37 +1,43 @@
-package expression.operator;
+package expression.operator.number;
 
 import environment.IEnvironment;
 import exceptions.ArithmeticError;
 import expression.IExpression;
 import expression.number.MyNumber;
+import expression.operator.AOperator;
 import expression.type.Type;
 
+import java.util.LinkedList;
 import java.util.List;
 
-public class Divide extends AOperator {
+public class Subtract extends AOperator {
 
     @Override
     public IExpression evaluate(List<IExpression> operands, IEnvironment environment) throws Exception {
 
         boolean allNumbers = true;
 
+        List<IExpression> eval = new LinkedList<>();
+
         for (IExpression e : operands) {
-            allNumbers = allNumbers && (e.getType().equals(Type.NUMBER));
+            IExpression evaluated = e.evaluate(environment);
+            eval.add(evaluated);
+            allNumbers = allNumbers && (evaluated.getType().equals(Type.NUMBER));
         }
 
         if (!allNumbers) {
             throw new IllegalArgumentException("All operands must be numbers.");
         }
         else if (operands.size() == 1) {
-            return operands.get(0).evaluate(environment);
+            return eval.get(0);
         }
         else if (operands.size() > 1) {
-            MyNumber result = (MyNumber)(operands.get(0).evaluate(environment));
+            MyNumber result = (MyNumber)(eval.get(0));
 
-            for (int i = 1; i < operands.size(); i++) {
+            for (int i = 1; i < eval.size(); i++) {
 
                 try {
-                    result = result.divide((MyNumber) (operands.get(i).evaluate(environment)));
+                    result = result.subtract((MyNumber) (eval.get(i)));
                 }
                 catch (ArithmeticError e) {
                     e.printStackTrace();
@@ -52,6 +58,6 @@ public class Divide extends AOperator {
 
     @Override
     public String toString() {
-        return "/";
+        return "-";
     }
 }

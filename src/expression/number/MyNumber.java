@@ -11,7 +11,7 @@ import expression.type.Type;
  * Interface to represent a number in a given type. There is no guarantee for compatibility between
  * different types of numbers, since that is implementation-dependent.
  */
-public abstract class MyNumber<T> extends Primitive {
+public abstract class MyNumber<T> extends Primitive implements Comparable<MyNumber<T>> {
 
   protected final T number;
 
@@ -86,4 +86,10 @@ public abstract class MyNumber<T> extends Primitive {
   public int hashCode() {
     return Objects.hash(this.number);
   }
+
+  /**
+   * Return the sign of this number.
+   * @return  -1 if the number is negative, 1 if the number is positive and 0 otherwise.
+   */
+  public abstract int sign();
 }

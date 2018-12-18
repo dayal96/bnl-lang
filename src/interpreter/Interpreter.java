@@ -2,11 +2,16 @@ package interpreter;
 
 import expression.IExpression;
 import expression.operator.*;
+import expression.operator.cons.Cons;
+import expression.operator.cons.First;
+import expression.operator.cons.Rest;
+import expression.operator.number.*;
 import interpreter.evaluator.IEvaluator;
 import interpreter.evaluator.SimpleEvaluator;
 import interpreter.parser.IParser;
 import interpreter.parser.Parser;
 
+import java.io.FileReader;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
@@ -43,18 +48,22 @@ public class Interpreter {
     primitiveOperations.put("/", new Divide());
     primitiveOperations.put("*", new Multiply());
     primitiveOperations.put("=", new Equals());
+    primitiveOperations.put("<", new LessThan());
+    primitiveOperations.put(">", new GreaterThan());
     primitiveOperations.put("if", new Conditional());
+    primitiveOperations.put("cons", new Cons());
+    primitiveOperations.put("first", new First());
+    primitiveOperations.put("rest", new Rest());
 
-    String program = "(define FIVE 5)\n"
-        + "(define FOUR (- FIVE 1))\n"
-        + "FOUR\n"
-        + "(define size-num (lambda (x) (if (= x 0) 1 (* 2 (size-num (- x 1))))))\n"
-        + "(size-num 30)\n"
-        + "(size-num FOUR)";
+    if (args.length != 1) {
+      throw new Exception("Please enter the path to the source file to run the interpreter.");
+    }
+
+    FileReader sourceCode = new FileReader(args[0]);
 
     IParser parser = new Parser(primitiveOperations.keySet());
     IEvaluator evaluator = new SimpleEvaluator(primitiveOperations);
-    Interpreter interpreter = new Interpreter(new StringReader(program));
+    Interpreter interpreter = new Interpreter(sourceCode);
     interpreter.runProgram(parser, evaluator);
   }
 }
