@@ -1,26 +1,11 @@
 # anl-lang
 ANL (stands for ANL is not Lisp) is a functional Lisp-like language that I am working on. As a project, it serves no purpose other than for me to get a deeper understanding of programming languages. In function it is similar to a language I learned in freshman year in college called Basic Student Language, refered to in "How To Design Programs", a book on designing functional programs. This software is licensed under MIT License, a copy of which is available as "LICENSE.txt". You can use this code freely as long as you follow the terms of MIT License.
 
-(Some) Terminology:
-
-DATA is anything that is information, from numbers to strings to structures. ANL does not support structures or complex data (yet).
-The primitive data types supported by ANL are:
-1. Rational Numbers - stored as a pair of integers (numerator-denominator) in reduced form so there are no rounding errors. Overflow may occur due to large numerators/denominators with no common factor. In future Rationals may have arbitrary precision.
-
-CONSTANTS they are fixed values for different data types, for instance, 4 is a rational constant and "word" would be a string constant.
-
-OPERATORS are functions that consume input to produce output. All functions in ANL are operators.
-
-OPERANDS are the data that operators consume. They are synonymous with data, but the term implies "data being used with an operator".
-
-EXPRESSION refers to a valid evaluable expression in anl. An expression consists of an operator and one or more operands. E.G. : (+ 5 7) is an expression in anl.
-
-IDENTIFIERS are names for environment variables. For instance, (define TWO 2) would define an environment variable with the name (or identifier) "TWO" and value as the number 2. Identifiers can not be reused, so (define TWO 4) after (define TWO 2) would throw an error.
-
+UPDATE (May 2020):
+This language is turing-complete, but verbose. There are some simple programs included in the repo that demonstrate it's current power. It is unlikely that I will return attention to this project, but stranger things have happened!
 
 Anticipated Features:
-- Functions
-- Structures / Complex Data
+- More Structures / Complex Data
 - Interpreting ANL code from files, importing code from other ANL files
 - Graphics
 - File Handling
