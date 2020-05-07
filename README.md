@@ -2,7 +2,7 @@
 ANL (stands for ANL is not Lisp) is a functional Lisp-like language that I am working on. As a project, it serves no purpose other than for me to get a deeper understanding of programming languages. In function it is similar to a language I learned in freshman year in college called Basic Student Language, refered to in "How To Design Programs", a book on designing functional programs. This software is licensed under MIT License, a copy of which is available as "LICENSE.txt". You can use this code freely as long as you follow the terms of MIT License.
 
 UPDATE (May 2020):
-This language is turing-complete, but verbose. There are some simple programs included in the repo that demonstrate it's current power. It is unlikely that I will return attention to this project, but stranger things have happened!
+This language is turing-complete, but verbose. There are some simple programs included in the anllib directory that demonstrate it's current power. It is unlikely that I will return attention to this project, but stranger things have happened!
 
 Anticipated Features:
 - More Structures / Complex Data
