@@ -1,0 +1,12 @@
+package interpreter;
+class CupParser;
+
+terminal FALSE, TRUE, IF, DEFINE,
+         NUMBER, ID,
+         OPAREN, CPAREN, OBRACKET, CBRACKET, OBRACE, CBRACE,
+         PLUS, MINUS, MULTIPLY, DIVIDE,
+         EQUALS, LT, GT, LEQ, GEQ;
+
+non terminal expr;
+
+expr ::= NUMBER:n     {: RESULT = n; :};

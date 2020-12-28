@@ -1,7 +1,5 @@
 plugins {
-    id 'java'
-    id 'org.xbib.gradle.plugin.jflex' version '1.5.0'
-    id 'cup.gradle.cup-gradle-plugin' version '1.2'
+    id 'application'
 }
 
 repositories {
@@ -13,12 +11,6 @@ sourceSets {
         java {
             srcDirs = ['src']
         }
-        jflex {
-            srcDirs = ['src/lexer']
-        }
-        cup {
-            sourceDir = 'src/parser'
-        }
     }
 
     test {
@@ -29,18 +21,41 @@ sourceSets {
 }
 
 dependencies {
-//    implementation 'org.netbeans.external:java-cup-11a:RELEASE121'
+    implementation files('extlib/java-cup-11b-runtime.jar')
     testImplementation 'junit:junit:4.13'
 }
+
+task prebuild {
+}
+
+task compileLexer {
+    javaexec {
+        main = '-jar'
+        args = ['extlib/jflex-full-1.8.2.jar', 'src/interpreter/lexer.jflex']
+    }
+}
+
+task compileParser {
+    javaexec {
+        main = '-jar'
+        args = ['extlib/java-cup-11b.jar',
+                '-destdir', 'src/interpreter',
+                'src/interpreter/parser.cup']
+    }
+}
+
+build.dependsOn prebuild
+prebuild.dependsOn compileLexer
+prebuild.dependsOn compileParser
+
+
 
 test {
     useJUnit()
     maxHeapSize = '1G'
 }
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'interpreter.Interpreter'
-    }
+application {
+    mainClass = 'interpreter.Interpreter'
 }
 

@@ -1,6 +1,0 @@
-
-terminal NUMBER;
-
-non terminal expr;
-
-expr ::= NUMBER:n     {: RESULT = n; :};
