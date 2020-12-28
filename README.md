@@ -7,7 +7,7 @@ E.g. if you compiled the interpreter into 'bnl.jar', you can use `java -jar bnl-
 
 
 UPDATE (Dec 2020):
-This language is turing-complete, but verbose. There are some simple programs included in the anllib directory that demonstrate it's current power. I am currently reworking the parser to document the grammar as a CFG and also use a CFG in the parser code.
+This language is turing-complete, but verbose. There are some simple programs included in the anllib directory that demonstrate it's current power. I am currently reworking the parser to document the grammar as a CFG and use the same in the parser code.
 
 Anticipated Features:
 - More Structures / Complex Data
