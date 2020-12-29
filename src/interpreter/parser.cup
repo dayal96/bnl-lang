@@ -1,12 +1,46 @@
 package interpreter;
+
+import expression.bool.MyBoolean;
+import expression.number.*;
+import expression.*;
+import java_cup.runtime.*;
+import java.lang.Boolean;
+import java.util.List;
+import java.util.LinkedList;
+
 class CupParser;
 
-terminal FALSE, TRUE, IF, DEFINE,
-         NUMBER, ID,
+action code {:
+
+
+
+:};
+
+terminal FALSE, TRUE, IF, DEFINE, LAMBDA,
          OPAREN, CPAREN, OBRACKET, CBRACKET, OBRACE, CBRACE,
          PLUS, MINUS, MULTIPLY, DIVIDE,
          EQUALS, LT, GT, LEQ, GEQ;
 
-non terminal expr;
+terminal Integer NUMBER;
+terminal String ID;
 
-expr ::= NUMBER:n     {: RESULT = n; :};
+non terminal funcall;
+
+non terminal List<IExpression> program, exprlist;
+non terminal IExpression expr;
+non terminal IExpression prim;
+
+start with program;
+
+program ::= exprlist:e      {: RESULT = e; :};
+
+exprlist ::= exprlist:el expr:e    {: el.add(e); RESULT = el; :}
+           | expr:e                {: List<IExpression> el = new LinkedList<IExpression>(); el.add(e); RESULT = el; :};
+
+expr ::= prim:n       {: RESULT = n; :};
+
+prim ::= ID:x                  {: RESULT = new Variable(x); :}
+       | NUMBER:x              {: RESULT = new Rational(x, 1); :}
+       | FALSE                 {: RESULT = MyBoolean.FALSE; :}
+       | TRUE                  {: RESULT = MyBoolean.TRUE; :};
+

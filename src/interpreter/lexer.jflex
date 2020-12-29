@@ -16,8 +16,7 @@ False = #f
 True = #t
 If = if
 Define = define
-
-LineTerminator = \r|\n|\r\n
+Lambda = lambda
 
 %{
   StringBuffer string = new StringBuffer();
@@ -53,7 +52,8 @@ LineTerminator = \r|\n|\r\n
 {True}                   { return symbol(CupParserSym.TRUE); }
 {If}                     { return symbol(CupParserSym.IF); }
 {Define}                 { return symbol(CupParserSym.DEFINE); }
+{Lambda}                 { return symbol(CupParserSym.LAMBDA); }
 {Identifier}             { return symbol(CupParserSym.ID, yytext()); }
-{Number}                 { return symbol(CupParserSym.NUMBER, new Integer(yytext())); }
+{Number}                 { Integer i = new Integer(yytext()); System.out.println("TOKEN - " + i); return symbol(CupParserSym.NUMBER, i); }
 {Whitespace}             {  }
 [^]                      { throw new Error("Illegal character ["+yytext()+"];"); }
