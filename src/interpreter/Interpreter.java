@@ -12,7 +12,6 @@ import interpreter.parser.IParser;
 import interpreter.parser.Parser;
 
 import java.io.FileReader;
-import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +40,14 @@ public class Interpreter {
   }
 
   public static void main(String[] args) throws Exception {
+    FileReader sourceCode = new FileReader(args[0]);
+    Lexer lexer = new Lexer(sourceCode);
+    CupParser parser = new CupParser(lexer);
+    List<IExpression> exprs = ((List<IExpression>) parser.parse().value);
+    System.out.println(exprs);
+  }
+
+  public static void main2(String[] args) throws Exception {
 
     Map<String, IExpression> primitiveOperations = new HashMap<>();
     primitiveOperations.put("+", new Add());
