@@ -6,7 +6,15 @@ Usage: Run the program and provide a filepath for the source code to interpret.
 E.g. if you compiled the interpreter into 'bnl.jar', you can use `java -jar bnl-interpreter.jar [path-to-bnl-file]` to run the program described in your bnl file.
 
 
-UPDATE (Dec 2020):
+UPDATE (29 Dec 2020):
+I'm in the process of migrating the parser to JFlex and Java CUP instead of my hand-built parser. This process has not completed yet, so while the project will build it's ability to parse BNL is very limited. However, the main2 method in Interpreter is still hooked into the old parser, so if you wish to build a complete BNL interpreter just swap the current main method in Interpreter with main2.
+
+I intend on completing the new parser before the new year starts, so you can also wait a couple days before playing around with it.
+
+This is hopefully the last time I put a notice like this; in future I will work on a separate branch while the master would be kept 'pure'.
+
+
+UPDATE (27 Dec 2020):
 This language is turing-complete, but verbose. There are some simple programs included in the anllib directory that demonstrate it's current power. I am currently reworking the parser to document the grammar as a CFG and use the same in the parser code.
 
 Anticipated Features:
