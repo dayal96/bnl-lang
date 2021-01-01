@@ -18,39 +18,7 @@ import java.util.Map;
 
 public class Interpreter {
 
-    private final Readable input;
-
-    /**
-     * Create an Interpreter that reads input from given Readable source.
-     *
-     * @param input The source of the input.
-     */
-    public Interpreter(Readable input) {
-        this.input = input;
-    }
-
-    /**
-     * Run the program using given parser and interpreter.
-     *
-     * @param parser    The parser to use for parsing the input into Evaluables.
-     * @param evaluator The evaluator to use for evaluating Evaluables.
-     * @throws Exception If something goes wrong with the Parser or the Evaluator.
-     */
-    public void runProgram(IParser parser, IEvaluator evaluator) throws Exception {
-        List<IEvaluable> toEval = parser.parseEvaluables(this.input);
-        evaluator.evaluateProgram(toEval);
-    }
-
     public static void main(String[] args) throws Exception {
-        FileReader sourceCode = new FileReader(args[0]);
-        Lexer lexer = new Lexer(sourceCode);
-        CupParser parser = new CupParser(lexer);
-        List<IExpression> exprs = ((List<IExpression>) parser.parse().value);
-        System.out.println(exprs);
-    }
-
-    public static void main2(String[] args) throws Exception {
-
         Map<String, IExpression> primitiveOperations = new HashMap<>();
         primitiveOperations.put("+", new Add());
         primitiveOperations.put("-", new Subtract());
@@ -69,10 +37,11 @@ public class Interpreter {
         }
 
         FileReader sourceCode = new FileReader(args[0]);
+        Lexer lexer = new Lexer(sourceCode);
+        CupParser parser = new CupParser(lexer);
+        List<IEvaluable> program = ((List<IEvaluable>) parser.parse().value);
 
-        IParser parser = new Parser(primitiveOperations.keySet());
         IEvaluator evaluator = new SimpleEvaluator(primitiveOperations);
-        Interpreter interpreter = new Interpreter(sourceCode);
-        interpreter.runProgram(parser, evaluator);
+        evaluator.evaluateProgram(program);
     }
 }

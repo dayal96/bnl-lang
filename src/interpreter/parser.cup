@@ -1,10 +1,16 @@
 package interpreter;
 
 import expression.bool.MyBoolean;
+import expression.lambda.FunctionCall;
+import expression.lambda.Lambda;
 import expression.number.*;
+import expression.operator.number.*;
+import expression.operator.*;
 import expression.*;
+import interpreter.*;
 import java_cup.runtime.*;
 import java.lang.Boolean;
+import java.util.Arrays;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -12,7 +18,17 @@ class CupParser;
 
 action code {:
 
+FunctionCall funcall(String id, List<IExpression> args) {
+    return new FunctionCall(new Variable(id), args);
+}
 
+List<IEvaluable> wrapAsEval(List<IExpression> e) {
+    List<IEvaluable> evals = new LinkedList<IEvaluable>();
+    for (IExpression expr : e) {
+        evals.add(new EvaluableExpression(expr));
+    }
+    return evals;
+}
 
 :};
 
@@ -24,23 +40,55 @@ terminal FALSE, TRUE, IF, DEFINE, LAMBDA,
 terminal Integer NUMBER;
 terminal String ID;
 
-non terminal funcall;
-
-non terminal List<IExpression> program, exprlist;
+non terminal List<IEvaluable> program;
+non terminal List<IEvaluable> declist;
+non terminal IEvaluable decl;
+non terminal List<IExpression> exprlist;
 non terminal IExpression expr;
 non terminal IExpression prim;
+non terminal IExpression cond;
+non terminal Lambda lambda;
+non terminal List<String> idlist;
+non terminal FunctionCall funcall;
+non terminal String op;
 
 start with program;
 
-program ::= exprlist:e      {: RESULT = e; :};
+program ::= declist:decls exprlist:exprs    {: decls.addAll(wrapAsEval(exprs)); RESULT=decls; :}
+          | exprlist:exprs                  {: RESULT = wrapAsEval(exprs); :};
+
+declist ::= declist:dl decl:d      {: dl.add(d); RESULT = dl; :}
+          | decl:d                 {: RESULT = new LinkedList<IEvaluable>(); RESULT.add(d); :};
+
+decl ::= OPAREN DEFINE ID:name expr:value CPAREN {: RESULT = new Definition(name, value); :};
 
 exprlist ::= exprlist:el expr:e    {: el.add(e); RESULT = el; :}
            | expr:e                {: List<IExpression> el = new LinkedList<IExpression>(); el.add(e); RESULT = el; :};
 
-expr ::= prim:n       {: RESULT = n; :};
+expr ::= prim:n       {: RESULT = n; :}
+       | cond:c       {: RESULT = c; :}
+       | lambda:l     {: RESULT = l; :}
+       | funcall:f    {: RESULT = f; :};
 
 prim ::= ID:x                  {: RESULT = new Variable(x); :}
        | NUMBER:x              {: RESULT = new Rational(x, 1); :}
        | FALSE                 {: RESULT = MyBoolean.FALSE; :}
        | TRUE                  {: RESULT = MyBoolean.TRUE; :};
 
+cond ::= OPAREN IF expr:test expr:tbranch expr:fbranch CPAREN {: RESULT = funcall("if", Arrays.asList(test, tbranch, fbranch)); :};
+
+lambda ::= OPAREN LAMBDA OPAREN idlist:args CPAREN expr:body CPAREN {: RESULT = new Lambda(args, body); :};
+
+idlist ::= idlist:idl ID:id    {: idl.add(id); RESULT = idl; :}
+         | ID:id               {: RESULT = new LinkedList<String>(); RESULT.add(id); :};
+
+funcall ::= OPAREN ID:fname exprlist:fargs CPAREN {: RESULT=funcall(fname, fargs); :}
+          | OPAREN op:fname exprlist:fargs CPAREN {: RESULT=funcall(fname, fargs); :};
+
+op ::= PLUS      {: RESULT = "+"; :}
+     | MINUS     {: RESULT = "-"; :}
+     | MULTIPLY  {: RESULT = "*"; :}
+     | DIVIDE    {: RESULT = "/"; :}
+     | EQUALS    {: RESULT = "="; :}
+     | LT        {: RESULT = "<"; :}
+     | GT        {: RESULT = ">"; :};

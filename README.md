@@ -1,24 +1,28 @@
 # bnl-lang
-BNL (stands for BNL is not Lisp) is a functional Lisp-like language that I am working on. As a project, it serves no purpose other than for me to get a deeper understanding of programming languages. In function it is similar to a language I learned in freshman year in college called Basic Student Language, refered to in "How To Design Programs", a book on designing functional programs. This software is licensed under MIT License, a copy of which is available as "LICENSE.txt". You can use this code freely as long as you follow the terms of MIT License.
+BNL (stands for BNL is not Lisp, pronounced banal) is a functional language with Lisp-like syntax that I am working on. As a project, it serves no purpose other than for me to get a deeper understanding of programming languages. In function it is similar to a language I learned in freshman year in college called Basic Student Language, refered to in "How To Design Programs". This software is licensed under MIT License, a copy of which is available as "LICENSE.txt". You can use this code freely as long as you follow the terms of MIT License.
 
 Usage: Run the program and provide a filepath for the source code to interpret.
 
 E.g. if you compiled the interpreter into 'bnl.jar', you can use `java -jar bnl-interpreter.jar [path-to-bnl-file]` to run the program described in your bnl file.
 
 
-UPDATE (29 Dec 2020):
-I'm in the process of migrating the parser to JFlex and Java CUP instead of my hand-built parser. This process has not completed yet, so while the project will build it's ability to parse BNL is very limited. However, the main2 method in Interpreter is still hooked into the old parser, so if you wish to build a complete BNL interpreter just swap the current main method in Interpreter with main2.
+UPDATE (1 Jan 2021):
+BNL is now a fully functional interpreter for ANL programs with a JFlex lexer and Java CUP parser. However, there is a lot more work to do to fix the problems with ANL, like the half-baked type system. I've listed a few of the features I'll be adding to BNL that are not present in ANL:
 
-I intend on completing the new parser before the new year starts, so you can also wait a couple days before playing around with it.
+1. User-defined structured data
+  * For now the system-defined `cons` is the only structure.
+2. Type-checking
+  * There are no type declarations in ANL but types are inferred
+  * BNL will also add grammar for type declarations and function signatures, but they will not be required
+3. Improved scopes and local definitions
+  * Definitions in ANL were only allowed at global level, it's grammar did not allow local definitions
+4. True higher-order functions
+  * ANL grammar only allows function calls via name, due to scoping issues. Fixes for those would allow BNL to have true higher-order functions.
 
-This is hopefully the last time I put a notice like this; in future I will work on a separate branch while the master would be kept 'pure'.
+Once BNL is complete, the next goal is to develop a distributed interpreter for it - CNL (pronounced canal), or hook it up as the backend for my English-like language - SIMON (coming soon on GitHub).
 
 
-UPDATE (27 Dec 2020):
-This language is turing-complete, but verbose. There are some simple programs included in the anllib directory that demonstrate it's current power. I am currently reworking the parser to document the grammar as a CFG and use the same in the parser code.
-
-Anticipated Features:
-- More Structures / Complex Data
+After BNL:
 - Graphics
 - File Handling
 - Support for Asynchronous programs
