@@ -18,10 +18,17 @@ class CupParser;
 
 action code {:
 
+// Create a function call expression with given function name and inputs.
 FunctionCall funcall(String id, List<IExpression> args) {
     return new FunctionCall(new Variable(id), args);
 }
 
+// Create an if expression with given test and branches.
+FunctionCall ifcall(IExpression test, IExpression tbranch, IExpression fbranch) {
+    return funcall("if", Arrays.asList(test, tbranch, fbranch));
+}
+
+// Wrap all expressions as an evaluables which can be interpreted.
 List<IEvaluable> wrapAsEval(List<IExpression> e) {
     List<IEvaluable> evals = new LinkedList<IEvaluable>();
     for (IExpression expr : e) {
@@ -75,7 +82,7 @@ prim ::= ID:x                  {: RESULT = new Variable(x); :}
        | FALSE                 {: RESULT = MyBoolean.FALSE; :}
        | TRUE                  {: RESULT = MyBoolean.TRUE; :};
 
-cond ::= OPAREN IF expr:test expr:tbranch expr:fbranch CPAREN {: RESULT = funcall("if", Arrays.asList(test, tbranch, fbranch)); :};
+cond ::= OPAREN IF expr:test expr:tbranch expr:fbranch CPAREN {: RESULT = ifcall(test, tbranch, fbranch); :};
 
 lambda ::= OPAREN LAMBDA OPAREN idlist:args CPAREN expr:body CPAREN {: RESULT = new Lambda(args, body); :};
 
