@@ -8,9 +8,11 @@ public class LocalContext implements IEnvironment {
   private IEnvironment local;
 
   /**
-   * Create a Local Context which is a combination of the global context with some additional local bindings.
-   * @param global  The global context.
-   * @param local   The local context.
+   * Create a Local Context which is a combination of the global context with some additional local
+   * bindings.
+   *
+   * @param global The global context.
+   * @param local  The local context.
    */
   public LocalContext(IEnvironment global, IEnvironment local) {
     this.global = global;
@@ -21,8 +23,7 @@ public class LocalContext implements IEnvironment {
   public IExpression getEntry(String symbol) throws Exception {
     if (this.local.isPresent(symbol)) {
       return this.local.getEntry(symbol);
-    }
-    else if (this.global.isPresent(symbol)) {
+    } else if (this.global.isPresent(symbol)) {
       return this.global.getEntry(symbol);
     }
 

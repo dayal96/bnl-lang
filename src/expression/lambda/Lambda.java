@@ -3,24 +3,25 @@ package expression.lambda;
 import environment.IEnvironment;
 import expression.IExpression;
 import expression.type.Type;
-
 import java.util.List;
 
 /**
  * Class to represent an expression that defines a function.
- *
- * Lambda expressions are not functions, but function definitions. Once a lambda expression has
- * been evaluated in its context, it produces an enclosed function (an {@link LambdaEnclosure})
- * which is a true function.
+ * <p>
+ * Lambda expressions are not functions, but function definitions. Once a lambda expression has been
+ * evaluated in its context, it produces an enclosed function (an {@link LambdaEnclosure}) which is
+ * a true function.
  */
 public class Lambda implements IExpression {
+
   private final List<String> inputs;
   private final IExpression body;
 
   /**
    * Create a Lambda Expression that evaluates an expression body based on some inputs.
-   * @param inputs  The variables used in the function as input.
-   * @param body    The expression that composes the body of the function.
+   *
+   * @param inputs The variables used in the function as input.
+   * @param body   The expression that composes the body of the function.
    */
   public Lambda(List<String> inputs, IExpression body) {
     this.inputs = inputs;
@@ -29,7 +30,7 @@ public class Lambda implements IExpression {
 
   @Override
   public IExpression evaluate(IEnvironment environment) throws Exception {
-      return new LambdaEnclosure(this.inputs, this.body, environment);
+    return new LambdaEnclosure(this.inputs, this.body, environment);
   }
 
   @Override

@@ -2,7 +2,6 @@ package interpreter;
 
 import environment.IEnvironment;
 import expression.IExpression;
-
 import java.util.Optional;
 
 public class Definition implements IEvaluable {
@@ -12,8 +11,9 @@ public class Definition implements IEvaluable {
 
   /**
    * Create a Definition which when evaluated, will add a definition to the environment.
-   * @param name        The identifier assigned to the definition.
-   * @param definition  The definition itself.
+   *
+   * @param name       The identifier assigned to the definition.
+   * @param definition The definition itself.
    */
   public Definition(String name, IExpression definition) {
     this.name = name;

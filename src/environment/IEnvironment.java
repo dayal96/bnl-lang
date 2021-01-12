@@ -9,22 +9,25 @@ public interface IEnvironment {
 
   /**
    * Get the expression associated with the given symbol.
-   * @param symbol  the symbol to be searched.
+   *
+   * @param symbol the symbol to be searched.
    * @return the IExpression associated with the symbol.
    */
   public IExpression getEntry(String symbol) throws Exception;
 
   /**
    * Check whether the given symbol is present in the environment.
-   * @param symbol  the symbol to be searched.
+   *
+   * @param symbol the symbol to be searched.
    * @return true if the symbol is defined in the environment, false otherwise.
    */
   public boolean isPresent(String symbol);
 
   /**
    * Define a new symbol in the environment.
-   * @param symbol  the symbol to be added.
-   * @param exp     the IExpression to be associated with the symbol.
+   *
+   * @param symbol the symbol to be added.
+   * @param exp    the IExpression to be associated with the symbol.
    */
   public void addEntry(String symbol, IExpression exp);
 

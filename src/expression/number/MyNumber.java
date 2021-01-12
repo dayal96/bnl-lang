@@ -1,11 +1,10 @@
 package expression.number;
 
-import java.util.Objects;
-
 import exceptions.ArithmeticError;
 import exceptions.DivideByZeroError;
 import expression.Primitive;
 import expression.type.Type;
+import java.util.Objects;
 
 /**
  * Interface to represent a number in a given type. There is no guarantee for compatibility between
@@ -17,7 +16,8 @@ public abstract class MyNumber<T> extends Primitive implements Comparable<MyNumb
 
   /**
    * Creates a MyNumber based on given Representation for Numbers T.
-   * @param number  the number to represent, as an instance of T.
+   *
+   * @param number the number to represent, as an instance of T.
    */
   protected MyNumber(T number) {
     this.number = Objects.requireNonNull(number);
@@ -25,7 +25,8 @@ public abstract class MyNumber<T> extends Primitive implements Comparable<MyNumb
 
   /**
    * Adds two {@code Rationals} to produce a new {@code MyNumber}.
-   * @param other  the other {@code MyNumber} to add to this one.
+   *
+   * @param other the other {@code MyNumber} to add to this one.
    * @return the sum of this {@code MyNumber} and the other one.
    * @throws ArithmeticError if there are any arithmetic errors encountered.
    */
@@ -33,7 +34,8 @@ public abstract class MyNumber<T> extends Primitive implements Comparable<MyNumb
 
   /**
    * Subtracts the other {@code MyNumber} from this {@code MyNumber}.
-   * @param other  the other {@code MyNumber} to subtract from this one.
+   *
+   * @param other the other {@code MyNumber} to subtract from this one.
    * @return the difference of this {@code MyNumber} and the other one.
    * @throws ArithmeticError if there are any arithmetic errors encountered.
    */
@@ -41,7 +43,8 @@ public abstract class MyNumber<T> extends Primitive implements Comparable<MyNumb
 
   /**
    * Multiplies two {@code Rationals} to produce a new {@code MyNumber}.
-   * @param other  the other {@code MyNumber} to multiply with this one.
+   *
+   * @param other the other {@code MyNumber} to multiply with this one.
    * @return this {@code MyNumber} times the other one.
    * @throws ArithmeticError if there are any arithmetic errors encountered.
    */
@@ -49,13 +52,14 @@ public abstract class MyNumber<T> extends Primitive implements Comparable<MyNumb
 
   /**
    * Divides the other {@code Rationals} from this {@code MyNumber}.
-   * @param other  the other {@code MyNumber} to divide from this one.
+   *
+   * @param other the other {@code MyNumber} to divide from this one.
    * @return the rational quotient of dividing this {@code MyNumber} by the other one.
    * @throws DivideByZeroError if the other {@code MyNumber} is 0.
-   * @throws ArithmeticError if there are any arithmetic errors encountered.
+   * @throws ArithmeticError   if there are any arithmetic errors encountered.
    */
   abstract public MyNumber<T> divide(MyNumber<T> other)
-          throws DivideByZeroError, ArithmeticError;
+      throws DivideByZeroError, ArithmeticError;
 
   @Override
   public Type getType() {
@@ -72,12 +76,10 @@ public abstract class MyNumber<T> extends Primitive implements Comparable<MyNumb
   public boolean equals(Object o) {
     if (this == o) {
       return true;
-    }
-    else if (o instanceof MyNumber) {
+    } else if (o instanceof MyNumber) {
       MyNumber other = (MyNumber) o;
       return this.number.equals(other.number);
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -89,7 +91,8 @@ public abstract class MyNumber<T> extends Primitive implements Comparable<MyNumb
 
   /**
    * Return the sign of this number.
-   * @return  -1 if the number is negative, 1 if the number is positive and 0 otherwise.
+   *
+   * @return -1 if the number is negative, 1 if the number is positive and 0 otherwise.
    */
   public abstract int sign();
 }

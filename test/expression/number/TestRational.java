@@ -1,10 +1,9 @@
 package expression.number;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import exceptions.ArithmeticError;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 /**
  * Class to test Rational Arithmetic.

@@ -1,7 +1,5 @@
 package environment;
 
-import org.junit.Test;
-
 public class SymbolTableTest extends AEnvironmentTest {
 
   /**

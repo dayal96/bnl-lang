@@ -1,10 +1,9 @@
 package environment;
 
+import expression.IExpression;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-
-import expression.IExpression;
 
 /**
  * Class to represent the environment as a Symbol Table that is not mutable.
@@ -20,11 +19,6 @@ public class SymbolTable implements IEnvironment {
   public SymbolTable() {
     this.table = new HashMap<>();
     this.workingDirectory = Paths.get(".").toAbsolutePath().normalize().toString();
-  }
-
-  @Override
-  public void setWorkingDirectory(String directory) {
-    this.workingDirectory = directory;
   }
 
   @Override
@@ -50,5 +44,10 @@ public class SymbolTable implements IEnvironment {
   @Override
   public String getWorkingDirectory() {
     return this.workingDirectory;
+  }
+
+  @Override
+  public void setWorkingDirectory(String directory) {
+    this.workingDirectory = directory;
   }
 }

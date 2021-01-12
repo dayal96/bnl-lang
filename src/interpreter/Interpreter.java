@@ -1,14 +1,19 @@
 package interpreter;
 
 import expression.IExpression;
-import expression.operator.*;
+import expression.operator.Conditional;
+import expression.operator.Equals;
 import expression.operator.cons.Cons;
 import expression.operator.cons.First;
 import expression.operator.cons.Rest;
-import expression.operator.number.*;
+import expression.operator.number.Add;
+import expression.operator.number.Divide;
+import expression.operator.number.GreaterThan;
+import expression.operator.number.LessThan;
+import expression.operator.number.Multiply;
+import expression.operator.number.Subtract;
 import interpreter.evaluator.IEvaluator;
 import interpreter.evaluator.SimpleEvaluator;
-
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.List;
@@ -16,30 +21,30 @@ import java.util.Map;
 
 public class Interpreter {
 
-    public static void main(String[] args) throws Exception {
-        Map<String, IExpression> primitiveOperations = new HashMap<>();
-        primitiveOperations.put("+", new Add());
-        primitiveOperations.put("-", new Subtract());
-        primitiveOperations.put("/", new Divide());
-        primitiveOperations.put("*", new Multiply());
-        primitiveOperations.put("=", new Equals());
-        primitiveOperations.put("<", new LessThan());
-        primitiveOperations.put(">", new GreaterThan());
-        primitiveOperations.put("if", new Conditional());
-        primitiveOperations.put("cons", new Cons());
-        primitiveOperations.put("first", new First());
-        primitiveOperations.put("rest", new Rest());
+  public static void main(String[] args) throws Exception {
+    Map<String, IExpression> primitiveOperations = new HashMap<>();
+    primitiveOperations.put("+", new Add());
+    primitiveOperations.put("-", new Subtract());
+    primitiveOperations.put("/", new Divide());
+    primitiveOperations.put("*", new Multiply());
+    primitiveOperations.put("=", new Equals());
+    primitiveOperations.put("<", new LessThan());
+    primitiveOperations.put(">", new GreaterThan());
+    primitiveOperations.put("if", new Conditional());
+    primitiveOperations.put("cons", new Cons());
+    primitiveOperations.put("first", new First());
+    primitiveOperations.put("rest", new Rest());
 
-        if (args.length != 1) {
-            throw new Exception("Please enter the path to the source file to run the interpreter.");
-        }
-
-        FileReader sourceCode = new FileReader(args[0]);
-        Lexer lexer = new Lexer(sourceCode);
-        CupParser parser = new CupParser(lexer);
-        List<IEvaluable> program = ((List<IEvaluable>) parser.parse().value);
-
-        IEvaluator evaluator = new SimpleEvaluator(primitiveOperations);
-        evaluator.evaluateProgram(program);
+    if (args.length != 1) {
+      throw new Exception("Please enter the path to the source file to run the interpreter.");
     }
+
+    FileReader sourceCode = new FileReader(args[0]);
+    Lexer lexer = new Lexer(sourceCode);
+    CupParser parser = new CupParser(lexer);
+    List<IEvaluable> program = ((List<IEvaluable>) parser.parse().value);
+
+    IEvaluator evaluator = new SimpleEvaluator(primitiveOperations);
+    evaluator.evaluateProgram(program);
+  }
 }

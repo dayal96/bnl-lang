@@ -1,5 +1,7 @@
 package interpreter;
 
+import static org.junit.Assert.assertEquals;
+
 import expression.IExpression;
 import expression.Variable;
 import expression.bool.MyBoolean;
@@ -10,14 +12,11 @@ import expression.local.LocalDefinition;
 import expression.number.Rational;
 import expression.operator.Conditional;
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 import org.junit.Test;
-
-import java.io.StringReader;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public abstract class AParserTest {
 
@@ -25,7 +24,8 @@ public abstract class AParserTest {
 
   /**
    * Create an AParser to use for testing the given parser.
-   * @param parser  The parser to test.
+   *
+   * @param parser The parser to test.
    */
   protected AParserTest(Function<Reader, List<IEvaluable>> parser) {
     this.parser = parser;
@@ -33,7 +33,8 @@ public abstract class AParserTest {
 
   @Test
   public void testParsePrimitive() throws Exception {
-    String prims = "2" + "\n" + "15/9" + "\n" + "-3/9" + "\n" + "#t" + "\n" + "#f" + "\n" + "variable-name var2";
+    String prims = "2" + "\n" + "15/9" + "\n" + "-3/9" + "\n" + "#t" + "\n" + "#f" + "\n"
+        + "variable-name var2";
 
     List<IEvaluable> evals = this.parser.apply(new StringReader(prims));
 

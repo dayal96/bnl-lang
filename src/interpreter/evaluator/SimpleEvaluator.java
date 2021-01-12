@@ -4,7 +4,6 @@ import environment.IEnvironment;
 import environment.SymbolTable;
 import expression.IExpression;
 import interpreter.IEvaluable;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,7 +14,8 @@ public class SimpleEvaluator implements IEvaluator {
 
   /**
    * Create a SimpleEvaluator that has the given pre-defined expressions.
-   * @param predefined  The pre-defined expressions for this evaluator.
+   *
+   * @param predefined The pre-defined expressions for this evaluator.
    */
   public SimpleEvaluator(Map<String, IExpression> predefined) {
     this.environment = new SymbolTable();

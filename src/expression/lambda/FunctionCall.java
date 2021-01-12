@@ -1,23 +1,24 @@
 package expression.lambda;
 
-import java.util.List;
-import java.util.Objects;
-
 import environment.IEnvironment;
 import expression.IExpression;
 import expression.type.Type;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Class to represent Function Call Expressions.
  */
 public class FunctionCall implements IExpression {
+
   private final IExpression operator;
   private final List<IExpression> operands;
 
   /**
    * Creates a new FunctionCall that combines the RHS and LHS values using the given operator.
-   * @param operator    The operator to perform of RHS and LHS.
-   * @param operands    The operands in the expression.
+   *
+   * @param operator The operator to perform of RHS and LHS.
+   * @param operands The operands in the expression.
    */
   public FunctionCall(IExpression operator, List<IExpression> operands) {
     this.operator = operator;
@@ -30,7 +31,8 @@ public class FunctionCall implements IExpression {
   }
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment) throws Exception {
+  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+      throws Exception {
     throw new Exception("You can't do that.");
   }
 

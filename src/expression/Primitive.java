@@ -1,7 +1,6 @@
 package expression;
 
 import environment.IEnvironment;
-
 import java.util.List;
 
 /**
@@ -19,7 +18,8 @@ public abstract class Primitive implements IExpression {
   }
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment) throws Exception {
+  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+      throws Exception {
     throw new Exception("Can't call a primitive as a function.");
   }
 }

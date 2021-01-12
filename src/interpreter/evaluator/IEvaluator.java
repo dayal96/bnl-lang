@@ -1,7 +1,6 @@
 package interpreter.evaluator;
 
 import interpreter.IEvaluable;
-
 import java.util.List;
 
 public interface IEvaluator {

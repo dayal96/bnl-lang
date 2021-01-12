@@ -1,14 +1,13 @@
 package expression.operator.number;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import environment.IEnvironment;
 import exceptions.ArithmeticError;
 import expression.IExpression;
 import expression.number.MyNumber;
 import expression.operator.AOperator;
 import expression.type.Type;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Class to represent Addition.
@@ -16,7 +15,8 @@ import expression.type.Type;
 public class Add extends AOperator {
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment) throws Exception {
+  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+      throws Exception {
 
     boolean allNumbers = true;
     List<IExpression> eval = new LinkedList<>();
@@ -29,27 +29,23 @@ public class Add extends AOperator {
 
     if (!allNumbers) {
       throw new IllegalArgumentException("All operands must be numbers.");
-    }
-    else if (operands.size() == 1) {
+    } else if (operands.size() == 1) {
       return eval.get(0);
-    }
-    else if (operands.size() > 1) {
-      MyNumber result = (MyNumber)eval.get(0);
+    } else if (operands.size() > 1) {
+      MyNumber result = (MyNumber) eval.get(0);
 
       for (int i = 1; i < operands.size(); i++) {
 
         try {
           result = result.add((MyNumber) (eval.get(i)));
-        }
-        catch (ArithmeticError e) {
+        } catch (ArithmeticError e) {
           e.printStackTrace();
           throw new Exception("Something went wrong in addition.");
         }
       }
 
       return result;
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("Too few arguments for IOperator.");
     }
   }

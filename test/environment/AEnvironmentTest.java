@@ -9,10 +9,12 @@ import expression.operator.number.Add;
 import org.junit.Test;
 
 public abstract class AEnvironmentTest {
+
   private IEnvironment environment;
 
   /**
    * Create an AEnvironmentTest with given IEnvironment to test.
+   *
    * @param environment The environment to test with.
    */
   protected AEnvironmentTest(IEnvironment environment) {
@@ -36,8 +38,7 @@ public abstract class AEnvironmentTest {
       this.environment.addEntry("PLUS", plus);
       assertEquals(true, this.environment.isPresent("PLUS"));
       assertEquals(plus, this.environment.getEntry("PLUS"));
-    }
-    catch (ArithmeticError e) {
+    } catch (ArithmeticError e) {
       assert false;
     }
   }
@@ -56,8 +57,7 @@ public abstract class AEnvironmentTest {
 
     try {
       this.environment.getEntry("lambdas are fun no?");
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       assert true;
       return;
     }

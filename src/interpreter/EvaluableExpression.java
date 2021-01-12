@@ -2,7 +2,6 @@ package interpreter;
 
 import environment.IEnvironment;
 import expression.IExpression;
-
 import java.util.Optional;
 
 public class EvaluableExpression implements IEvaluable {
@@ -11,7 +10,8 @@ public class EvaluableExpression implements IEvaluable {
 
   /**
    * Create an Evaluable Expression.
-   * @param toEvaluate  The IExpression this Evaluable will evaluate.
+   *
+   * @param toEvaluate The IExpression this Evaluable will evaluate.
    */
   public EvaluableExpression(IExpression toEvaluate) {
     this.toEvaluate = toEvaluate;
@@ -33,7 +33,7 @@ public class EvaluableExpression implements IEvaluable {
       return false;
     }
 
-    EvaluableExpression that = (EvaluableExpression)other;
+    EvaluableExpression that = (EvaluableExpression) other;
     return this.toEvaluate.equals(that.toEvaluate);
   }
 }

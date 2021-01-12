@@ -7,7 +7,8 @@ public class ArithmeticError extends Exception {
 
   /**
    * Creates a new ArithmeticError.
-   * @param msg  the message to show.
+   *
+   * @param msg the message to show.
    */
   public ArithmeticError(String msg) {
     super(msg);

@@ -1,22 +1,20 @@
 package expression.operator;
 
+import static org.junit.Assert.assertEquals;
+
 import environment.IEnvironment;
+import environment.SymbolTable;
+import expression.IExpression;
 import expression.Variable;
 import expression.bool.MyBoolean;
 import expression.lambda.FunctionCall;
-import expression.operator.number.Add;
-import expression.operator.number.Multiply;
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import environment.SymbolTable;
-import expression.IExpression;
 import expression.number.ImproperFraction;
 import expression.number.Rational;
-
-import static org.junit.Assert.assertEquals;
+import expression.operator.number.Add;
+import expression.operator.number.Multiply;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Test;
 
 /**
  * Class to test Operators.
@@ -79,14 +77,17 @@ public class TestOperators {
   public void testEquals() throws Exception {
     AOperator equals = new Equals();
     assertEquals(MyBoolean.FALSE, equals.evaluate(List.of(new Variable("ONE"), new Variable("TWO"))
-            , this.environment));
-    assertEquals(MyBoolean.FALSE, equals.evaluate(List.of(new Variable("THREE"), new Variable("ONE"))
+        , this.environment));
+    assertEquals(MyBoolean.FALSE,
+        equals.evaluate(List.of(new Variable("THREE"), new Variable("ONE"))
             , this.environment));
     assertEquals(MyBoolean.TRUE, equals.evaluate(List.of(new Variable("ONE"), new Variable("ONE"))
+        , this.environment));
+    assertEquals(MyBoolean.TRUE,
+        equals.evaluate(List.of(new Variable("ONE"), new Variable("ONE_COPY"))
             , this.environment));
-    assertEquals(MyBoolean.TRUE, equals.evaluate(List.of(new Variable("ONE"), new Variable("ONE_COPY"))
-            , this.environment));
-    assertEquals(MyBoolean.FALSE, equals.evaluate(List.of(new Variable("THREE"), new Variable("TWO"))
+    assertEquals(MyBoolean.FALSE,
+        equals.evaluate(List.of(new Variable("THREE"), new Variable("TWO"))
             , this.environment));
   }
 }
