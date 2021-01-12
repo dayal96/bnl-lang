@@ -3,6 +3,7 @@ package interpreter;
 import expression.bool.MyBoolean;
 import expression.lambda.FunctionCall;
 import expression.lambda.Lambda;
+import expression.local.*;
 import expression.number.*;
 import expression.operator.number.*;
 import expression.operator.*;
@@ -48,9 +49,11 @@ terminal Integer NUMBER;
 terminal String ID;
 
 non terminal List<IEvaluable> program;
-non terminal List<IEvaluable> declist;
-non terminal IEvaluable decl;
+non terminal List<LocalDefinition> declist;
+non terminal LocalDefinition decl;
 non terminal List<IExpression> exprlist;
+non terminal IExpression localexpr;
+non terminal IExpression simplexpr;
 non terminal IExpression expr;
 non terminal IExpression prim;
 non terminal IExpression cond;
@@ -61,21 +64,27 @@ non terminal String op;
 
 start with program;
 
-program ::= declist:decls exprlist:exprs    {: decls.addAll(wrapAsEval(exprs)); RESULT=decls; :}
-          | exprlist:exprs                  {: RESULT = wrapAsEval(exprs); :};
+program ::= exprlist:exprs         {: RESULT = wrapAsEval(exprs); :};
 
-declist ::= declist:dl decl:d      {: dl.add(d); RESULT = dl; :}
-          | decl:d                 {: RESULT = new LinkedList<IEvaluable>(); RESULT.add(d); :};
 
-decl ::= OPAREN DEFINE ID:name expr:value CPAREN {: RESULT = new Definition(name, value); :};
 
 exprlist ::= exprlist:el expr:e    {: el.add(e); RESULT = el; :}
            | expr:e                {: List<IExpression> el = new LinkedList<IExpression>(); el.add(e); RESULT = el; :};
 
-expr ::= prim:n       {: RESULT = n; :}
-       | cond:c       {: RESULT = c; :}
-       | lambda:l     {: RESULT = l; :}
-       | funcall:f    {: RESULT = f; :};
+expr ::= localexpr:lexpr           {: RESULT = lexpr; :}
+       | simplexpr:e               {: RESULT = e; :};
+
+localexpr ::= declist:dl simplexpr:e {: RESULT = new Local(dl, e); :};
+
+declist ::= declist:dl decl:d      {: dl.add(d); RESULT = dl; :}
+          | decl:d                 {: RESULT = new LinkedList<LocalDefinition>(); RESULT.add(d); :};
+
+decl ::= OPAREN DEFINE ID:name expr:value CPAREN {: RESULT = new LocalDefinition(name, value); :};
+
+simplexpr ::= prim:n       {: RESULT = n; :}
+            | cond:c       {: RESULT = c; :}
+            | lambda:l     {: RESULT = l; :}
+            | funcall:f    {: RESULT = f; :};
 
 prim ::= ID:x                  {: RESULT = new Variable(x); :}
        | NUMBER:x              {: RESULT = new Rational(x, 1); :}
