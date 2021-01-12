@@ -10,7 +10,7 @@ import java_cup.runtime.*;
 %column
 
 Whitespace = [ \r\n\t\f]+
-Number = [-]?[0-9]+
+Number = [-]?[0-9]+(\/[0-9]+)?
 Identifier = [a-zA-Z][a-zA-Z0-9\.\-]*
 False = #f
 True = #t
@@ -54,6 +54,6 @@ Lambda = lambda
 {Define}                 { return symbol(CupParserSym.DEFINE); }
 {Lambda}                 { return symbol(CupParserSym.LAMBDA); }
 {Identifier}             { return symbol(CupParserSym.ID, yytext()); }
-{Number}                 { Integer i = new Integer(yytext()); return symbol(CupParserSym.NUMBER, i); }
+{Number}                 { return symbol(CupParserSym.NUMBER, yytext()); }
 {Whitespace}             {  }
 [^]                      { throw new Error("Illegal character ["+yytext()+"];"); }

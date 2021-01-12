@@ -1,5 +1,6 @@
 package interpreter;
 
+import exceptions.ArithmeticError;
 import expression.bool.MyBoolean;
 import expression.lambda.FunctionCall;
 import expression.lambda.Lambda;
@@ -38,6 +39,25 @@ List<IEvaluable> wrapAsEval(List<IExpression> e) {
     return evals;
 }
 
+// Parse a number as a fraction
+Rational parseNumber(String number) {
+    int denomStart = number.indexOf("/");
+
+    try {
+      if(denomStart >= 0) {
+          int numerator = Integer.parseInt(number.substring(0, denomStart));
+          int denominator = Integer.parseInt(number.substring(denomStart+1));
+          return new Rational(numerator, denominator);
+      }
+      else {
+        return new Rational(Integer.parseInt(number), 1);
+      }
+    }
+    catch (ArithmeticError e) {
+        throw new RuntimeException("Not a valid number : { " + number + " }");
+    }
+}
+
 :};
 
 terminal FALSE, TRUE, IF, DEFINE, LAMBDA,
@@ -45,7 +65,7 @@ terminal FALSE, TRUE, IF, DEFINE, LAMBDA,
          PLUS, MINUS, MULTIPLY, DIVIDE,
          EQUALS, LT, GT, LEQ, GEQ;
 
-terminal Integer NUMBER;
+terminal String NUMBER;
 terminal String ID;
 
 non terminal List<IEvaluable> program;
@@ -87,7 +107,7 @@ simplexpr ::= prim:n       {: RESULT = n; :}
             | funcall:f    {: RESULT = f; :};
 
 prim ::= ID:x                  {: RESULT = new Variable(x); :}
-       | NUMBER:x              {: RESULT = new Rational(x, 1); :}
+       | NUMBER:n              {: RESULT = parseNumber(n); :}
        | FALSE                 {: RESULT = MyBoolean.FALSE; :}
        | TRUE                  {: RESULT = MyBoolean.TRUE; :};
 
