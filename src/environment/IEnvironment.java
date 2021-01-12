@@ -29,18 +29,6 @@ public interface IEnvironment {
   public void addEntry(String symbol, IExpression exp);
 
   /**
-   * Does this IEnvironment have a local component?
-   * @return True if there is a local context in the environment, false otherwise.
-   */
-  public boolean hasLocal();
-
-  /**
-   * Get the local context in the environment.
-   * @return  The IEnvironment that represents the local context of the environment.
-   */
-  public IEnvironment getLocal() throws Exception;
-
-  /**
    * Get present working directory.
    */
   public String getWorkingDirectory();

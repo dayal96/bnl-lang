@@ -40,16 +40,6 @@ public class LocalContext implements IEnvironment {
   }
 
   @Override
-  public boolean hasLocal() {
-    return true;
-  }
-
-  @Override
-  public IEnvironment getLocal() throws Exception {
-    return this.local;
-  }
-
-  @Override
   public String getWorkingDirectory() {
     return this.local.getWorkingDirectory();
   }

@@ -48,16 +48,6 @@ public class SymbolTable implements IEnvironment {
   }
 
   @Override
-  public boolean hasLocal() {
-    return false;
-  }
-
-  @Override
-  public IEnvironment getLocal() throws Exception {
-    throw new Exception("This environment has no local component.");
-  }
-
-  @Override
   public String getWorkingDirectory() {
     return this.workingDirectory;
   }
