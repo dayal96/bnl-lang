@@ -1,13 +1,13 @@
 package expression;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.StringReader;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests for scopes and function closures.
+ */
 public class TestScope {
 
   private final ProgramTester tester;

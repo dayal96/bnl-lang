@@ -10,6 +10,9 @@ import java.util.Map;
 
 /**
  * Convenience Class to make testing programs using a test interpreter easier.
+ *
+ * This class should only be used for end-to-end tests or integration tests, since it relies on a
+ * functional syntactic parser to test semantics.
  */
 public class ProgramTester {
   private final Interpreter interpreter;
