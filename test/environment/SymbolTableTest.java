@@ -10,10 +10,4 @@ public class SymbolTableTest extends AEnvironmentTest {
   public SymbolTableTest() {
     super(new SymbolTable());
   }
-
-  @Test (expected = Exception.class)
-  public void testGettingLocal() throws Exception {
-    IEnvironment environment = new SymbolTable();
-    IEnvironment local = environment.getLocal();
-  }
 }

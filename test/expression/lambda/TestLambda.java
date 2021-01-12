@@ -3,6 +3,7 @@ package expression.lambda;
 import environment.IEnvironment;
 import environment.LocalContext;
 import environment.SymbolTable;
+import expression.IExpression;
 import expression.Variable;
 import expression.number.Rational;
 import expression.operator.*;
@@ -29,15 +30,21 @@ public class TestLambda {
 
     @Test
     public void testLambda() throws Exception {
-        Lambda first = new Lambda(List.of("x", "y"), new Variable("x"));
-        Lambda rest = new Lambda(List.of("x", "y"), new Variable("y"));
-        Lambda apply = new Lambda(List.of("f"), new Lambda(List.of("x", "y"), new FunctionCall(new Variable("f"),
-            List.of(new Variable("x"), new Variable("y")))));
+        IExpression first =
+            new Lambda(List.of("x", "y"), new Variable("x")).evaluate(this.environment);
+        IExpression rest = new Lambda(List.of("x", "y"), new Variable("y"))
+            .evaluate(this.environment);
+        IExpression apply = new Lambda(List.of("f"),
+                new Lambda(List.of("x", "y"),
+                new FunctionCall(new Variable("f"),
+                List.of(new Variable("x"), new Variable("y")))))
+            .evaluate(this.environment);
 
         Variable one = new Variable("ONE");
         Variable two = new Variable("TWO");
 
-        assertEquals(this.environment.getEntry("ONE"), first.evaluate(List.of(one, two), this.environment));
+        assertEquals(this.environment.getEntry("ONE"), first.evaluate(List.of(one, two),
+            this.environment));
         assertEquals(this.environment.getEntry("TWO"), rest.evaluate(List.of(one, two), this.environment));
         assertEquals(this.environment.getEntry("ONE"), apply.evaluate(List.of(first), this.environment)
             .evaluate(List.of(one, two), this.environment));
@@ -55,13 +62,14 @@ public class TestLambda {
 
         IEnvironment recursiveEnv = new LocalContext(this.environment, new SymbolTable());
 
-        Lambda sizeNum = new Lambda(List.of("x"),
+        IExpression sizeNum = new Lambda(List.of("x"),
             new FunctionCall(new Conditional(),
                 List.of(new FunctionCall(new Equals(), List.of(x, zero)),
                     new Rational(1, 1),
                     new FunctionCall(new Multiply(),
                         List.of(two, new FunctionCall(new Variable("size-num"),
-                        List.of(new FunctionCall(new Subtract(), List.of(x, one)))))))));
+                        List.of(new FunctionCall(new Subtract(), List.of(x, one)))))))))
+            .evaluate(recursiveEnv);
         recursiveEnv.addEntry("size-num", sizeNum);
 
         System.out.println(sizeNum);

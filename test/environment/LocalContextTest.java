@@ -56,11 +56,5 @@ public class LocalContextTest extends AEnvironmentTest {
         assertEquals(one, global.getEntry("ONE"));
         assertEquals(two, global.getEntry("TWO"));
         assertEquals(three, global.getEntry("THREE"));
-
-        IEnvironment localContext = localized.getLocal();
-
-        assertEquals(four, localContext.getEntry("ONE"));
-        assertEquals(five, localContext.getEntry("TWO"));
-        assertEquals(six, localContext.getEntry("THREE"));
     }
 }

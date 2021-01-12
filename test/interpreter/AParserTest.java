@@ -1,15 +1,17 @@
-package interpreter.parser;
+package interpreter;
 
 import expression.IExpression;
 import expression.Variable;
 import expression.bool.MyBoolean;
 import expression.lambda.FunctionCall;
 import expression.lambda.Lambda;
+import expression.local.Local;
+import expression.local.LocalDefinition;
 import expression.number.Rational;
 import expression.operator.Conditional;
-import interpreter.Definition;
-import interpreter.EvaluableExpression;
-import interpreter.IEvaluable;
+import java.io.Reader;
+import java.util.Arrays;
+import java.util.function.Function;
 import org.junit.Test;
 
 import java.io.StringReader;
@@ -19,13 +21,13 @@ import static org.junit.Assert.assertEquals;
 
 public abstract class AParserTest {
 
-  private final IParser parser;
+  private final Function<Reader, List<IEvaluable>> parser;
 
   /**
    * Create an AParser to use for testing the given parser.
    * @param parser  The parser to test.
    */
-  protected AParserTest(IParser parser) {
+  protected AParserTest(Function<Reader, List<IEvaluable>> parser) {
     this.parser = parser;
   }
 
@@ -33,7 +35,7 @@ public abstract class AParserTest {
   public void testParsePrimitive() throws Exception {
     String prims = "2" + "\n" + "15/9" + "\n" + "-3/9" + "\n" + "#t" + "\n" + "#f" + "\n" + "variable-name var2";
 
-    List<IEvaluable> evals = this.parser.parseEvaluables(new StringReader(prims));
+    List<IEvaluable> evals = this.parser.apply(new StringReader(prims));
 
     List<IEvaluable> expectedEvals = List.of(new EvaluableExpression(new Rational(2, 1)),
         new EvaluableExpression(new Rational(15, 9)),
@@ -51,9 +53,10 @@ public abstract class AParserTest {
   @Test
   public void testParseCompound() throws Exception {
     String functions = "(lambda (x y) x)" + "\n"
-        + "(define size-num (lambda (x) (if (= x 0) 1 (* 2 (size-num (- x 1))))))";
+        + "(define size-num (lambda (x) (if (= x 0) 1 (* 2 (size-num (- x 1))))))\n"
+        + "size-num";
 
-    List<IEvaluable> evals = this.parser.parseEvaluables(new StringReader(functions));
+    List<IEvaluable> evals = this.parser.apply(new StringReader(functions));
 
     IExpression func1 = new Lambda(List.of("x", "y"), new Variable("x"));
 
@@ -69,8 +72,11 @@ public abstract class AParserTest {
                     List.of(two, new FunctionCall(new Variable("size-num"),
                         List.of(new FunctionCall(new Variable("-"), List.of(x, one)))))))));
 
+    LocalDefinition sizeNumDef = new LocalDefinition("size-num", func2);
+    Local expectedSizeNum = new Local(Arrays.asList(sizeNumDef), new Variable("size-num"));
+
     List<IEvaluable> expectedEvals = List.of(new EvaluableExpression(func1),
-        new Definition("size-num", func2));
+        new EvaluableExpression(expectedSizeNum));
 
     for (int i = 0; i < evals.size(); i++) {
       // Compare string representations because functions cannot be tested for equality.

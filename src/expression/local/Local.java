@@ -1,4 +1,4 @@
-package expression.lambda;
+package expression.local;
 
 import environment.IEnvironment;
 import environment.LocalContext;
