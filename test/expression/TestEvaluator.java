@@ -1,31 +1,27 @@
-package interpreter.evaluator;
-
-import static environment.SymbolTable.primitiveOperations;
+package expression;
 
 import environment.IEnvironment;
 import environment.SymbolTable;
-import expression.IExpression;
 import interpreter.IEvaluable;
+import interpreter.evaluator.IEvaluator;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.List;
 import java.util.Optional;
 
-public class SimpleEvaluator implements IEvaluator {
-
-
-
+public class TestEvaluator implements IEvaluator {
   private final IEnvironment environment;
+  private final PrintWriter out;
 
   /**
-   * Create a SimpleEvaluator that has the given pre-defined expressions.
+   * Create a TestEvaluator that has the given pre-defined expressions and prints output to given
+   * {@link Writer}.
    *
    * @param predefined The pre-defined expressions for this evaluator.
    */
-  public SimpleEvaluator(SymbolTable predefined) {
+  public TestEvaluator(SymbolTable predefined, Writer out) {
     this.environment = predefined;
-  }
-
-  public SimpleEvaluator() {
-    this(primitiveOperations);
+    this.out = new PrintWriter(out);
   }
 
   @Override
@@ -33,7 +29,7 @@ public class SimpleEvaluator implements IEvaluator {
     for (IEvaluable eval : toEval) {
       Optional<IExpression> result = eval.evaluate(this.environment);
       if (result.isPresent()) {
-        System.out.println(result.get());
+        out.println(result.get());
       }
     }
   }

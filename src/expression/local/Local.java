@@ -3,6 +3,7 @@ package expression.local;
 import environment.IEnvironment;
 import environment.LocalContext;
 import environment.SymbolTable;
+import expression.EmptyExpression;
 import expression.IExpression;
 import expression.type.Type;
 import java.util.List;
@@ -36,10 +37,13 @@ public class Local implements IExpression {
 
   private IEnvironment addLocalDefinitions(IEnvironment environment) throws Exception {
     SymbolTable localContext = new SymbolTable();
-    IEnvironment fullContext = new LocalContext(environment, localContext);
-
     for (LocalDefinition def : this.localDefinitions) {
-      localContext.addEntry(def.name, def.value.evaluate(localContext));
+      localContext.addEntry(def.name, EmptyExpression.EMPTY_EXPR);
+    }
+
+    IEnvironment fullContext = new LocalContext(environment, localContext);
+    for (LocalDefinition def : this.localDefinitions) {
+      fullContext.addEntry(def.name, def.value.evaluate(fullContext));
     }
 
     return fullContext;
