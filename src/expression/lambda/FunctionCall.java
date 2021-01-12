@@ -26,7 +26,7 @@ public class FunctionCall implements IExpression {
 
   @Override
   public IExpression evaluate(IEnvironment environment) throws Exception {
-    return this.operator.evaluate(this.operands, environment);
+    return this.operator.evaluate(environment).evaluate(this.operands, environment);
   }
 
   @Override

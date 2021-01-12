@@ -1,13 +1,18 @@
 package expression.lambda;
 
 import environment.IEnvironment;
-import environment.LocalContext;
-import environment.SymbolTable;
 import expression.IExpression;
 import expression.type.Type;
 
 import java.util.List;
 
+/**
+ * Class to represent an expression that defines a function.
+ *
+ * Lambda expressions are not functions, but function definitions. Once a lambda expression has
+ * been evaluated in its context, it produces an enclosed function (an {@link LambdaEnclosure})
+ * which is a true function.
+ */
 public class Lambda implements IExpression {
   private final List<String> inputs;
   private final IExpression body;
@@ -24,30 +29,14 @@ public class Lambda implements IExpression {
 
   @Override
   public IExpression evaluate(IEnvironment environment) throws Exception {
-    if (environment.hasLocal()) {
-      return new Local(environment.getLocal(), this);
-    }
-    else {
-      return this;
-    }
+      return new LambdaEnclosure(this.inputs, this.body, environment);
   }
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment) throws Exception {
-
-    if (operands.size() != this.inputs.size()) {
-      throw new Exception("Expected " + this.inputs.size() + " arguments, received " + operands.size());
-    }
-
-    SymbolTable localBindings = new SymbolTable();
-
-    for (int i = 0; i < this.inputs.size(); i++) {
-      localBindings.addEntry(this.inputs.get(i), operands.get(i).evaluate(environment));
-    }
-
-    IEnvironment localContext = new LocalContext(environment, localBindings);
-
-    return this.body.evaluate(localContext);
+  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+      throws Exception {
+    throw new Exception("Function called before it's definition was evaluated. "
+        + "This should not be possible.");
   }
 
   @Override
