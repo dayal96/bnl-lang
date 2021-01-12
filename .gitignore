@@ -1,11 +1,19 @@
+# No IntelliJ IDEA files.
+.idea/*
 *.iml
 *~
+
+# Don't track compile output / gradle output
 build/*
 gradle/*
-out/*
-.idea/*
-.vscode/*
 .gradle/*
+out/*
 
+# no vscode configs
+.vscode/*
 
+# Don't track the generated Lexer/Parser; they are generated automatically at build
+src/interpreter/Lexer.java
+src/interpreter/CupParser.java
+src/interpreter/CupParserSym.java
 
