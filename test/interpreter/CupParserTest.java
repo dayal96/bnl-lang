@@ -17,7 +17,7 @@ public class CupParserTest extends AParserTest {
       }
       catch (Exception e) {
         e.printStackTrace();
-        throw new RuntimeException("Failed to parser test program.");
+        throw new RuntimeException("Failed to parse test program.");
       }
     }
   };
