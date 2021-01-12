@@ -8,8 +8,6 @@ import expression.operator.cons.Rest;
 import expression.operator.number.*;
 import interpreter.evaluator.IEvaluator;
 import interpreter.evaluator.SimpleEvaluator;
-import interpreter.parser.IParser;
-import interpreter.parser.Parser;
 
 import java.io.FileReader;
 import java.util.HashMap;
