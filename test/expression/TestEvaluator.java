@@ -4,6 +4,7 @@ import environment.IEnvironment;
 import environment.SymbolTable;
 import interpreter.IEvaluable;
 import interpreter.evaluator.IEvaluator;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.List;
@@ -17,7 +18,8 @@ public class TestEvaluator implements IEvaluator {
    * Create a TestEvaluator that has the given pre-defined expressions and prints output to given
    * {@link Writer}.
    *
-   * @param predefined The pre-defined expressions for this evaluator.
+   * @param predefined  The pre-defined expressions for this evaluator.
+   * @param out         The writer to write output to.
    */
   public TestEvaluator(SymbolTable predefined, Writer out) {
     this.environment = predefined;
