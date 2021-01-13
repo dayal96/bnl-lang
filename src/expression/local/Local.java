@@ -32,7 +32,7 @@ public class Local implements IExpression {
   @Override
   public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
       throws Exception {
-    return this.body.evaluate(operands, this.addLocalDefinitions(environment));
+    throw new Exception("This is impossible, so this message will never be seen.");
   }
 
   private IEnvironment addLocalDefinitions(IEnvironment environment) throws Exception {

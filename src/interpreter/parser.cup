@@ -21,41 +21,45 @@ class CupParser;
 action code {:
 
 // Create a function call expression with given function name and inputs.
-FunctionCall funcall(String id, List<IExpression> args) {
-    return new FunctionCall(new Variable(id), args);
+FunctionCall funcall(IExpression fname, List<IExpression> args) {
+  return new FunctionCall(fname, args);
+}
+
+IExpression op(String opname) {
+  return new Variable(opname);
 }
 
 // Create an if expression with given test and branches.
 FunctionCall ifcall(IExpression test, IExpression tbranch, IExpression fbranch) {
-    return funcall("if", Arrays.asList(test, tbranch, fbranch));
+  return funcall(op("if"), Arrays.asList(test, tbranch, fbranch));
 }
 
 // Wrap all expressions as an evaluables which can be interpreted.
 List<IEvaluable> wrapAsEval(List<IExpression> e) {
-    List<IEvaluable> evals = new LinkedList<IEvaluable>();
-    for (IExpression expr : e) {
-        evals.add(new EvaluableExpression(expr));
-    }
-    return evals;
+  List<IEvaluable> evals = new LinkedList<IEvaluable>();
+  for (IExpression expr : e) {
+    evals.add(new EvaluableExpression(expr));
+  }
+  return evals;
 }
 
 // Parse a number as a fraction
 Rational parseNumber(String number) {
-    int denomStart = number.indexOf("/");
+  int denomStart = number.indexOf("/");
 
-    try {
-      if(denomStart >= 0) {
-          int numerator = Integer.parseInt(number.substring(0, denomStart));
-          int denominator = Integer.parseInt(number.substring(denomStart+1));
-          return new Rational(numerator, denominator);
-      }
-      else {
-        return new Rational(Integer.parseInt(number), 1);
-      }
+  try {
+    if(denomStart >= 0) {
+      int numerator = Integer.parseInt(number.substring(0, denomStart));
+      int denominator = Integer.parseInt(number.substring(denomStart+1));
+      return new Rational(numerator, denominator);
     }
-    catch (ArithmeticError e) {
-        throw new RuntimeException("Not a valid number : { " + number + " }");
+    else {
+      return new Rational(Integer.parseInt(number), 1);
     }
+  }
+  catch (ArithmeticError e) {
+    throw new RuntimeException("Not a valid number : { " + number + " }");
+  }
 }
 
 :};
@@ -80,7 +84,7 @@ non terminal IExpression cond;
 non terminal Lambda lambda;
 non terminal List<String> idlist;
 non terminal FunctionCall funcall;
-non terminal String op;
+non terminal IExpression op;
 
 start with program;
 
@@ -118,13 +122,13 @@ lambda ::= OPAREN LAMBDA OPAREN idlist:args CPAREN expr:body CPAREN {: RESULT = 
 idlist ::= idlist:idl ID:id    {: idl.add(id); RESULT = idl; :}
          | ID:id               {: RESULT = new LinkedList<String>(); RESULT.add(id); :};
 
-funcall ::= OPAREN ID:fname exprlist:fargs CPAREN {: RESULT=funcall(fname, fargs); :}
+funcall ::= OPAREN expr:fname exprlist:fargs CPAREN {: RESULT=funcall(fname, fargs); :}
           | OPAREN op:fname exprlist:fargs CPAREN {: RESULT=funcall(fname, fargs); :};
 
-op ::= PLUS      {: RESULT = "+"; :}
-     | MINUS     {: RESULT = "-"; :}
-     | MULTIPLY  {: RESULT = "*"; :}
-     | DIVIDE    {: RESULT = "/"; :}
-     | EQUALS    {: RESULT = "="; :}
-     | LT        {: RESULT = "<"; :}
-     | GT        {: RESULT = ">"; :};
+op ::= PLUS      {: RESULT = op("+"); :}
+     | MINUS     {: RESULT = op("-"); :}
+     | MULTIPLY  {: RESULT = op("*"); :}
+     | DIVIDE    {: RESULT = op("/"); :}
+     | EQUALS    {: RESULT = op("="); :}
+     | LT        {: RESULT = op("<"); :}
+     | GT        {: RESULT = op(">"); :};

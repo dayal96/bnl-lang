@@ -12,8 +12,8 @@ import java_cup.runtime.*;
 Whitespace = [ \r\n\t\f]+
 Number = [-]?[0-9]+(\/[0-9]+)?
 Identifier = [a-zA-Z][a-zA-Z0-9\.\-]*
-False = #f
-True = #t
+False = #f | false
+True = #t | true
 If = if
 Define = define
 Lambda = lambda

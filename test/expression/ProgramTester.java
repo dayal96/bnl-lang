@@ -7,6 +7,7 @@ import interpreter.Interpreter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Convenience Class to make testing programs using a test interpreter easier.
@@ -29,13 +30,23 @@ public class ProgramTester {
    * @param tests      The Map of test programs as keys and expected output as values.
    * @throws Exception
    */
-  public void testPrograms(Map<String, String> tests) throws Exception {
-    for (Map.Entry<String, String> testCase : tests.entrySet()) {
-      this.interpreter.interpret(new StringReader(testCase.getKey()));
-      String out = this.output.toString();
-      assertEquals(testCase.getValue(), out);
-      StringBuffer buffer = this.output.getBuffer();
-      buffer.delete(0, buffer.length()); // Because flush doesn't clear the buffer!!!
+  public void testPrograms(Map<String, Optional<String>> tests) throws Exception {
+    for (Map.Entry<String, Optional<String>> testCase : tests.entrySet()) {
+      try {
+        this.interpreter.interpret(new StringReader(testCase.getKey()));
+        String out = this.output.toString();
+        if (testCase.getValue().isPresent()) {
+          assertEquals(testCase.getValue().get().trim(), out.trim());
+        }
+        else {
+          assert false;
+        }
+        StringBuffer buffer = this.output.getBuffer();
+        buffer.delete(0, buffer.length()); // Because flush doesn't clear the buffer!!!
+      }
+      catch(Exception e) {
+        assert (!testCase.getValue().isPresent());
+      }
     }
   }
 

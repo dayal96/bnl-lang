@@ -2,6 +2,7 @@ package expression;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,11 +12,11 @@ import org.junit.Test;
 public class TestScope {
 
   private final ProgramTester tester;
-  private final Map<String, String> tests;
+  private final Map<String, Optional<String>> tests;
 
   public TestScope() {
     this.tester = new ProgramTester();
-    this.tests = new LinkedHashMap<String, String>();
+    this.tests = new LinkedHashMap<String, Optional<String>>();
   }
 
   @Before
@@ -37,7 +38,7 @@ public class TestScope {
         + "(define x 12)\n"
         + "(cons (add-1 x) (cons (add-5 x) (sub-3 x)))\n";
     String expected = "(cons 13 (cons 17 9))\n";
-    this.tests.put(prog, expected);
+    this.tests.put(prog, Optional.of(expected));
   }
 
   private void testShadowing() {
@@ -48,6 +49,6 @@ public class TestScope {
         + "(define x 12)\n"
         + "(cons (mirror-1 x) (cons (mirror-5 x) (mirror-3 x)))\n";
     String expected = "(cons 12 (cons 12 12))\n";
-    this.tests.put(prog, expected);
+    this.tests.put(prog, Optional.of(expected));
   }
 }

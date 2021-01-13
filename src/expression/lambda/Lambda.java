@@ -49,7 +49,7 @@ public class Lambda implements IExpression {
   public String toString() {
     StringBuilder str = new StringBuilder();
 
-    str.append("(λ ( ");
+    str.append("(λ' ( ");
 
     for (String input : this.inputs) {
       str.append(input + " ");
