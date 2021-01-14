@@ -54,7 +54,7 @@ Rational parseNumber(String number) {
       return new Rational(numerator, denominator);
     }
     else {
-      return new Rational(Integer.parseInt(number), 1);
+      return new Rational(Integer.parseInt(number));
     }
   }
   catch (ArithmeticError e) {

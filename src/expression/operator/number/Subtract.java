@@ -33,12 +33,7 @@ public class Subtract extends AOperator {
       MyNumber result = (MyNumber) (eval.get(0));
 
       for (int i = 1; i < eval.size(); i++) {
-
-        try {
           result = result.subtract((MyNumber) (eval.get(i)));
-        } catch (ArithmeticError e) {
-          e.printStackTrace();
-        }
       }
 
       return result;

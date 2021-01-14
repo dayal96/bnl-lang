@@ -38,7 +38,7 @@ public class FunctionCall implements IExpression {
 
   @Override
   public Type getType() {
-    return Type.VARIABLE;
+    return this.operator.getType();
   }
 
   @Override

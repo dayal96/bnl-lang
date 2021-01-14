@@ -35,13 +35,7 @@ public class Add extends AOperator {
       MyNumber result = (MyNumber) eval.get(0);
 
       for (int i = 1; i < operands.size(); i++) {
-
-        try {
           result = result.add((MyNumber) (eval.get(i)));
-        } catch (ArithmeticError e) {
-          e.printStackTrace();
-          throw new Exception("Something went wrong in addition.");
-        }
       }
 
       return result;

@@ -28,6 +28,10 @@ public class Rational extends MyNumber<ImproperFraction> {
     super(new ImproperFraction(numerator, denominator));
   }
 
+  public Rational(int numerator) throws ArithmeticError {
+    super(new ImproperFraction(numerator, 1));
+  }
+
 
   @Override
   public MyNumber<ImproperFraction> add(MyNumber<ImproperFraction> other) throws ArithmeticError {

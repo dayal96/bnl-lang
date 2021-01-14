@@ -28,12 +28,7 @@ public class Divide extends AOperator {
       MyNumber result = (MyNumber) (operands.get(0).evaluate(environment));
 
       for (int i = 1; i < operands.size(); i++) {
-
-        try {
-          result = result.divide((MyNumber) (operands.get(i).evaluate(environment)));
-        } catch (ArithmeticError e) {
-          e.printStackTrace();
-        }
+        result = result.divide((MyNumber) (operands.get(i).evaluate(environment)));
       }
 
       return result;

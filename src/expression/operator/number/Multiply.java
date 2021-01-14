@@ -33,12 +33,7 @@ public class Multiply extends AOperator {
       MyNumber result = (MyNumber) (eval.get(0));
 
       for (int i = 1; i < operands.size(); i++) {
-
-        try {
           result = result.multiply((MyNumber) (eval.get(i)));
-        } catch (ArithmeticError e) {
-          e.printStackTrace();
-        }
       }
 
       return result;
