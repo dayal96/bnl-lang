@@ -1,0 +1,86 @@
+# A sample program to quickly demonstrate BNL grammar and semantics.
+# BNL programs are a series of expressions. Every expression has two parts: local definitions
+# and a simple expression.
+
+# A definition is a BNL expression that looks like (define [id] [value]).
+
+(define NUM-1 1)
+
+# Where [id] is a BNL identifier and [value] is a BNL expression. BNL identifiers can only use
+# a-z A-Z 0-9 and "-" and must start with an alphabet. BNL identifiers must also not be the same
+# as BNL keywords ("true", "false", "define", etc.).
+
+# (define 59 59)  <- Identifier cannot start with a digit.
+# (define + -)    <- Invalid character for identifier.
+# (define true 1) <- Identifier cannot be a keyword.
+
+
+# You can use a local definition within a definition, however the scope of that local definition
+# will be limited to the define statement.
+
+(define NUM-2
+        (define SNEAKY 7)  # Local definition
+          (+ 2 SNEAKY))    # Can use local definition here.
+# (define NUM-3 SNEAKY) <- SNEAKY doesn't exist here.
+
+
+# A simple expression is any BNL expression that is not a definition; it describes the computation
+# to be performed which returns a value. For instance, adding two numbers by calling the + function:
+
+(+ NUM-1 NUM-2)     # 9 + 1 = 10
+
+# Rational Numbers and Booleans are also simple expressions in BNL.
+
+10 true false -5/9
+
+# Simple expressions mark the end of a scope, so all the local definitions that accompany a simple
+# expression will be available for that one expression, but not any further.
+
+# (- NUM-1 NUM-2) <- This is considered a new expression in it's own scope; thus NUM-1 and
+#                    NUM-2 are not visible here.
+
+
+# Functions are defined using the lambda keyword.
+(define add-2 (lambda (x) (+ 2 x)))
+
+# Anonymous functions are considered simple expressions.
+(lambda (x) (- x 2))
+
+# Anonymous functions can be called immediately after definition as well.
+((lambda (x) (- x 2)) 4)
+
+# Or returned as values
+(define adder
+    (lambda (n)
+        (define add-x (lambda (x) (+ x n)))
+        add-x))
+(adder 5)
+
+(define adder (lambda (n) (lambda (x) (+ x n))))
+((adder 5) 7)
+
+# BNL comes with some arithmetics operators as functions:
+
++ - / * = > <
+
+# And if statements
+
+(if true 1 0)
+
+# But no boolean operators yet...
+# and or not        (W.I.P.)
+
+
+# BNL also has cons pairs which can be used to structure data:
+
+(define PAIR (cons 4 5))
+(cons (first PAIR) (rest PAIR))
+(first (cons 1 2)) (rest (cons -1 -2))
+
+# Although using them for writing custom structs can be a little tedious;
+
+(define make-posn (lambda (x y z) (cons x (cons y z)))) # Ideally a programming language would
+(define posn-x (lambda (p) (first p)))                  # condense all of this syntactically into
+(define posn-y (lambda (p) (first (rest p))))           # a structure definitions statement.
+(define posn-z (lambda (p) (rest (rest p))))            # Maybe something like a define-struct.
+(posn-y (make-posn 1 2 3))                     # Finally usable!
