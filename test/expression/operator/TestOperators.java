@@ -13,6 +13,8 @@ import expression.bool.MyBoolean;
 import expression.lambda.FunctionCall;
 import expression.number.ImproperFraction;
 import expression.number.Rational;
+import expression.operator.bool.And;
+import expression.operator.bool.Or;
 import expression.operator.number.Add;
 import expression.operator.number.Divide;
 import expression.operator.number.GreaterThan;
@@ -38,6 +40,104 @@ public class TestOperators {
     this.environment.addEntry("TWO", new Rational(2, 1));
     this.environment.addEntry("THREE", new Rational(3, 1));
     this.environment.addEntry("ONE_COPY", new Rational(1, 1));
+  }
+
+  @Test
+  public void testAnd() throws Exception {
+    AOperator and = new And();
+
+    IExpression exp1 = new FunctionCall(and, Arrays.asList(MyBoolean.TRUE, MyBoolean.TRUE));
+    IExpression exp2 = new FunctionCall(and, Arrays.asList(MyBoolean.TRUE, MyBoolean.FALSE));
+    IExpression exp3 = new FunctionCall(and, Arrays.asList(MyBoolean.FALSE, MyBoolean.TRUE));
+    IExpression exp4 = new FunctionCall(and, Arrays.asList(MyBoolean.FALSE, MyBoolean.FALSE));
+
+    assertEquals(MyBoolean.TRUE, exp1.evaluate(new SymbolTable()));
+    assertEquals(MyBoolean.FALSE, exp2.evaluate(new SymbolTable()));
+    assertEquals(MyBoolean.FALSE, exp3.evaluate(new SymbolTable()));
+    assertEquals(MyBoolean.FALSE, exp4.evaluate(new SymbolTable()));
+
+    List<IExpression> operands5 = Arrays.asList(MyBoolean.TRUE, MyBoolean.TRUE, MyBoolean.TRUE);
+    IExpression exp5 = new FunctionCall(and, operands5);
+    assertEquals(MyBoolean.TRUE, exp5.evaluate(new SymbolTable()));
+
+    List<IExpression> operands6 = Arrays.asList(MyBoolean.TRUE, MyBoolean.FALSE, MyBoolean.TRUE);
+    IExpression exp6 = new FunctionCall(and, operands6);
+    assertEquals(MyBoolean.FALSE, exp6.evaluate(new SymbolTable()));
+
+    List<IExpression> operands7 = Arrays.asList(MyBoolean.FALSE);
+    IExpression exp7 = new FunctionCall(and, operands7);
+    assertEquals(MyBoolean.FALSE, exp7.evaluate(new SymbolTable()));
+
+    List<IExpression> operands8 = Arrays.asList(new Rational(15));
+    IExpression exp8 = new FunctionCall(and, operands8);
+
+    try {
+      exp8.evaluate(new SymbolTable());
+      assert false;
+    }
+    catch (IllegalArgumentException e) {
+      assert true;
+    }
+
+    List<IExpression> operands9 = Arrays.asList();
+    IExpression exp9 = new FunctionCall(and, operands9);
+
+    try {
+      exp9.evaluate(new SymbolTable());
+      assert false;
+    }
+    catch (IllegalArgumentException e) {
+      assert true;
+    }
+  }
+
+  @Test
+  public void testOr() throws Exception {
+    AOperator or = new Or();
+
+    IExpression exp1 = new FunctionCall(or, Arrays.asList(MyBoolean.TRUE, MyBoolean.TRUE));
+    IExpression exp2 = new FunctionCall(or, Arrays.asList(MyBoolean.TRUE, MyBoolean.FALSE));
+    IExpression exp3 = new FunctionCall(or, Arrays.asList(MyBoolean.FALSE, MyBoolean.TRUE));
+    IExpression exp4 = new FunctionCall(or, Arrays.asList(MyBoolean.FALSE, MyBoolean.FALSE));
+
+    assertEquals(MyBoolean.TRUE, exp1.evaluate(new SymbolTable()));
+    assertEquals(MyBoolean.TRUE, exp2.evaluate(new SymbolTable()));
+    assertEquals(MyBoolean.TRUE, exp3.evaluate(new SymbolTable()));
+    assertEquals(MyBoolean.FALSE, exp4.evaluate(new SymbolTable()));
+
+    List<IExpression> operands5 = Arrays.asList(MyBoolean.FALSE, MyBoolean.FALSE, MyBoolean.FALSE);
+    IExpression exp5 = new FunctionCall(or, operands5);
+    assertEquals(MyBoolean.FALSE, exp5.evaluate(new SymbolTable()));
+
+    List<IExpression> operands6 = Arrays.asList(MyBoolean.FALSE, MyBoolean.TRUE, MyBoolean.FALSE);
+    IExpression exp6 = new FunctionCall(or, operands6);
+    assertEquals(MyBoolean.TRUE, exp6.evaluate(new SymbolTable()));
+
+    List<IExpression> operands7 = Arrays.asList(MyBoolean.FALSE);
+    IExpression exp7 = new FunctionCall(or, operands7);
+    assertEquals(MyBoolean.FALSE, exp7.evaluate(new SymbolTable()));
+
+    List<IExpression> operands8 = Arrays.asList(new Rational(15));
+    IExpression exp8 = new FunctionCall(or, operands8);
+
+    try {
+      exp8.evaluate(new SymbolTable());
+      assert false;
+    }
+    catch (IllegalArgumentException e) {
+      assert true;
+    }
+
+    List<IExpression> operands9 = Arrays.asList();
+    IExpression exp9 = new FunctionCall(or, operands9);
+
+    try {
+      exp9.evaluate(new SymbolTable());
+      assert false;
+    }
+    catch (IllegalArgumentException e) {
+      assert true;
+    }
   }
 
   @Test
@@ -356,7 +456,6 @@ public class TestOperators {
     assertEquals("<", lt.toString());
   }
 
-
   @Test
   public void testEquals() throws Exception {
     AOperator equals = new Equals();
@@ -373,5 +472,15 @@ public class TestOperators {
     assertEquals(MyBoolean.FALSE,
         equals.evaluate(List.of(new Variable("THREE"), new Variable("TWO"))
             , this.environment));
+
+    try {
+      equals.evaluate(List.of(new Variable("ONE")), this.environment);
+      assert false;
+    }
+    catch (IllegalArgumentException e) {
+      assert true;
+    }
+
+    assertEquals("=", equals.toString());
   }
 }

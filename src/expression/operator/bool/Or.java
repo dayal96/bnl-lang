@@ -19,7 +19,7 @@ public class Or extends AOperator {
     for (IExpression e : operands) {
       IExpression evaluated = e.evaluate(environment);
       eval.add(evaluated);
-      allBoolean = allBoolean || (evaluated.getType().equals(Type.BOOLEAN));
+      allBoolean = allBoolean && (evaluated.getType().equals(Type.BOOLEAN));
     }
 
     if (!allBoolean) {
@@ -30,7 +30,7 @@ public class Or extends AOperator {
       boolean result = ((MyBoolean) eval.get(0)).truth();
 
       for (int i = 1; i < operands.size(); i++) {
-        result = result && ((MyBoolean) eval.get(i)).truth();
+        result = result || ((MyBoolean) eval.get(i)).truth();
       }
 
       return MyBoolean.of(result);
