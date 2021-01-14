@@ -80,11 +80,11 @@ non terminal IExpression localexpr;
 non terminal IExpression simplexpr;
 non terminal IExpression expr;
 non terminal IExpression prim;
+non terminal IExpression primop;
 non terminal IExpression cond;
 non terminal Lambda lambda;
 non terminal List<String> idlist;
 non terminal FunctionCall funcall;
-non terminal IExpression op;
 
 start with program;
 
@@ -106,6 +106,7 @@ declist ::= declist:dl decl:d      {: dl.add(d); RESULT = dl; :}
 decl ::= OPAREN DEFINE ID:name expr:value CPAREN {: RESULT = new LocalDefinition(name, value); :};
 
 simplexpr ::= prim:n       {: RESULT = n; :}
+            | primop:op    {: RESULT = op; :}
             | cond:c       {: RESULT = c; :}
             | lambda:l     {: RESULT = l; :}
             | funcall:f    {: RESULT = f; :};
@@ -122,13 +123,12 @@ lambda ::= OPAREN LAMBDA OPAREN idlist:args CPAREN expr:body CPAREN {: RESULT = 
 idlist ::= idlist:idl ID:id    {: idl.add(id); RESULT = idl; :}
          | ID:id               {: RESULT = new LinkedList<String>(); RESULT.add(id); :};
 
-funcall ::= OPAREN expr:fname exprlist:fargs CPAREN {: RESULT=funcall(fname, fargs); :}
-          | OPAREN op:fname exprlist:fargs CPAREN {: RESULT=funcall(fname, fargs); :};
+funcall ::= OPAREN expr:fname exprlist:fargs CPAREN {: RESULT=funcall(fname, fargs); :};
 
-op ::= PLUS      {: RESULT = op("+"); :}
-     | MINUS     {: RESULT = op("-"); :}
-     | MULTIPLY  {: RESULT = op("*"); :}
-     | DIVIDE    {: RESULT = op("/"); :}
-     | EQUALS    {: RESULT = op("="); :}
-     | LT        {: RESULT = op("<"); :}
-     | GT        {: RESULT = op(">"); :};
+primop ::= PLUS      {: RESULT = op("+"); :}
+         | MINUS     {: RESULT = op("-"); :}
+         | MULTIPLY  {: RESULT = op("*"); :}
+         | DIVIDE    {: RESULT = op("/"); :}
+         | EQUALS    {: RESULT = op("="); :}
+         | LT        {: RESULT = op("<"); :}
+         | GT        {: RESULT = op(">"); :};
