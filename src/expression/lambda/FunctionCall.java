@@ -33,7 +33,8 @@ public class FunctionCall implements IExpression {
   @Override
   public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
       throws Exception {
-    throw new Exception("You can't do that.");
+    throw new Exception("I am impressed you managed to reach this error, but it all ends now"
+        + "<evillaughter>MWAHAHAHAHA</evillaughter>");
   }
 
   @Override

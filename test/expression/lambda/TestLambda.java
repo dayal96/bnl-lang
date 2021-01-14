@@ -10,8 +10,10 @@ import expression.Variable;
 import expression.number.Rational;
 import expression.operator.Conditional;
 import expression.operator.Equals;
+import expression.operator.number.Add;
 import expression.operator.number.Multiply;
 import expression.operator.number.Subtract;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 
@@ -52,6 +54,42 @@ public class TestLambda {
         .evaluate(List.of(one, two), this.environment));
     assertEquals(this.environment.getEntry("TWO"), apply.evaluate(List.of(rest), this.environment)
         .evaluate(List.of(one, two), this.environment));
+  }
+
+  @Test
+  public void testFunctionErrors() throws Exception {
+    Lambda testFunc = new Lambda(Arrays.asList("x"), new Variable("x"));
+
+    try {
+      testFunc.evaluate(Arrays.asList(new Rational(1)), this.environment);
+      assert false; // Fail the test if an exception is not thrown.
+    }
+    catch (Exception e) {
+      assert true;
+    }
+
+    List<IExpression> operands1 = Arrays.asList(new Variable("ONE"),
+        new Variable("FOUR"));
+    FunctionCall funcall = new FunctionCall(new Add(), operands1);
+
+    try {
+      funcall.evaluate(operands1, this.environment);
+      assert false; // Fail the test if an exception is not thrown.
+    }
+    catch (Exception e) {
+      assert true;
+    }
+
+    LambdaEnclosure func = new LambdaEnclosure(Arrays.asList("x"), new Variable("x"),
+        this.environment);
+
+    try {
+      func.evaluate(operands1, this.environment);
+      assert false; // Fail the test if an exception is not thrown.
+    }
+    catch (Exception e) {
+      assert true;
+    }
   }
 
   @Test
