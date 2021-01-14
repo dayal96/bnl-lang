@@ -17,5 +17,5 @@
                 (cons (first list)
                       (insert ele (rest list)))))))
 
-(sort LIST-1)
-(sort LIST-2)
+(cons (sort LIST-1) (sort LIST-2))
+

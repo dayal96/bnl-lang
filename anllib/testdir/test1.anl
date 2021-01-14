@@ -1,5 +1,0 @@
-(define TWO 2)
-(define FOUR (+ TWO TWO))
-(define TEN (+ 2 (* FOUR TWO)))
-
-TWO FOUR TEN
