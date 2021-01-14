@@ -1,20 +1,32 @@
+# A ChurchBool is one of:
+# - ctrue
+# - cfalse
+
 (define ctrue (lambda (x y) x))
 (define cfalse (lambda (x y) y))
+
+# cnot: ChurchBool -> ChurchBool
 (define cnot 
     (lambda (f)
         (define inverted (lambda (x y) (f y x)))
         inverted))
+
+# cand: ChurchBool ChurchBool -> ChurchBool
 (define cand 
     (lambda (f1 f2)
         (f1 (f2 ctrue cfalse) cfalse)))
+
+# cor: ChurchBool ChurchBool -> ChurchBool
 (define cor
     (lambda (f1 f2)
         (f1 ctrue (f2 ctrue cfalse))))
+
+# simplify: ChurchBool -> Boolean
 (define simplify (lambda (f) (f #t #f)))
+
 (cons ctrue
       (cons (simplify ctrue)
             (cons (simplify cfalse)
                   (cons (simplify (cnot ctrue))
-                        (cons (cor ctrue cfalse)
+                        (cons (cor cfalse cfalse)
                               (cand ctrue ctrue))))))
-

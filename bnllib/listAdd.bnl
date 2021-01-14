@@ -2,12 +2,16 @@
 (define LIST-1 (cons 3 (cons 2 (cons 1 EMPTY))))
 (define LIST-2 (cons 1000001 (cons 976 (cons 978 (cons 12001 (cons -75 EMPTY))))))
 
+# [List Number] -> [List Number]
+# Sort a list of numbers using insertion sort.
 (define sort
     (lambda (list)
         (if (= list EMPTY)
             EMPTY
             (insert (first list) (sort (rest list))))))
 
+# Number [List Number] -> [List Number]
+# Insert a number into it's position in a sorted list.
 (define insert
     (lambda (ele list)
         (if (= list EMPTY)
