@@ -5,6 +5,8 @@ Usage: Run the program and provide a filepath for the source code to interpret.
 
 E.g. if you compiled the interpreter into 'bnl.jar', you can use `java -jar bnl-interpreter.jar [path-to-bnl-file]` to run the program described in your bnl file.
 
+UPDATE (14 Jan 2021):
+Function scoping issues have been fixed and grammar for local definitions has been added; true higher-order functions can now be used in BNL. Some examples for use of higher-order functions and local definitions have been provided in `bnllib` folder.
 
 UPDATE (1 Jan 2021):
 BNL is now a fully functional interpreter for ANL programs with a JFlex lexer and Java CUP parser. However, there is a lot more work to do to fix the problems with ANL, like the half-baked type system. I've listed a few of the features I'll be adding to BNL that are not present in ANL:
