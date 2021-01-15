@@ -1,11 +1,12 @@
 package expression.operator.number;
 
 import environment.IEnvironment;
-import exceptions.ArithmeticError;
 import expression.IExpression;
 import expression.number.MyNumber;
 import expression.operator.AOperator;
-import expression.type.Type;
+import expression.type.IType;
+import expression.type.NilType;
+import expression.type.PrimType;
 import java.util.List;
 
 public class Divide extends AOperator {
@@ -17,7 +18,13 @@ public class Divide extends AOperator {
     boolean allNumbers = true;
 
     for (IExpression e : operands) {
-      allNumbers = allNumbers && (e.getType().equals(Type.NUMBER));
+      try {
+        PrimType.NUMBER.join(e.getType());
+      }
+      catch (Exception error) {
+        allNumbers = false;
+        break;
+      }
     }
 
     if (!allNumbers) {
@@ -38,8 +45,8 @@ public class Divide extends AOperator {
   }
 
   @Override
-  public Type getType() {
-    return Type.NUMBER;
+  public IType getType() {
+    return NilType.NIL;
   }
 
   @Override

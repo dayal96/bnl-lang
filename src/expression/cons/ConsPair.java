@@ -2,10 +2,17 @@ package expression.cons;
 
 import environment.IEnvironment;
 import expression.IExpression;
-import expression.type.Type;
+import expression.type.IType;
+import expression.type.NilType;
+import expression.type.PrimType;
+import expression.type.StructType;
+import java.util.Arrays;
 import java.util.List;
 
 public class ConsPair implements IExpression {
+
+  public static final IType CONS_PAIR_TYPE = new StructType(Arrays.asList(NilType.NIL,
+      NilType.NIL));
 
   public final IExpression first;
   public final IExpression rest;
@@ -33,8 +40,8 @@ public class ConsPair implements IExpression {
   }
 
   @Override
-  public Type getType() {
-    return Type.CONS_PAIR;
+  public IType getType() {
+    return this.CONS_PAIR_TYPE;
   }
 
   @Override

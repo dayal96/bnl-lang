@@ -3,7 +3,9 @@ package expression.operator;
 import environment.IEnvironment;
 import expression.IExpression;
 import expression.bool.MyBoolean;
-import expression.type.Type;
+import expression.type.IType;
+import expression.type.NilType;
+import expression.type.PrimType;
 import java.util.List;
 
 public class Equals extends AOperator {
@@ -26,8 +28,8 @@ public class Equals extends AOperator {
   }
 
   @Override
-  public Type getType() {
-    return Type.BOOLEAN;
+  public IType getType() {
+    return NilType.NIL;
   }
 
   @Override

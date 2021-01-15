@@ -1,7 +1,7 @@
 package expression;
 
 import environment.IEnvironment;
-import expression.type.Type;
+import expression.type.IType;
 import java.util.List;
 
 /**
@@ -35,7 +35,7 @@ public interface IExpression {
    *
    * @return the String representing the type of this IExpression.
    */
-  Type getType();
+  IType getType();
 
   @Override
   String toString();

@@ -2,7 +2,8 @@ package expression.bool;
 
 import environment.IEnvironment;
 import expression.IExpression;
-import expression.type.Type;
+import expression.type.IType;
+import expression.type.PrimType;
 import java.util.List;
 
 public class MyBoolean implements IExpression {
@@ -41,8 +42,8 @@ public class MyBoolean implements IExpression {
   }
 
   @Override
-  public Type getType() {
-    return Type.BOOLEAN;
+  public IType getType() {
+    return PrimType.BOOLEAN;
   }
 
   @Override

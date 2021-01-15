@@ -5,7 +5,9 @@ import expression.IExpression;
 import expression.bool.MyBoolean;
 import expression.number.MyNumber;
 import expression.operator.AOperator;
-import expression.type.Type;
+import expression.type.IType;
+import expression.type.NilType;
+import expression.type.PrimType;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +26,12 @@ public class LessThan extends AOperator {
     for (IExpression e : operands) {
       IExpression evaluated = e.evaluate(environment);
       eval.add(evaluated);
-      allNumbers = allNumbers && (evaluated.getType().equals(Type.NUMBER));
+      try {
+        PrimType.NUMBER.join(evaluated.getType());
+      }
+      catch (Exception error) {
+        allNumbers = false;
+      }
     }
 
     if (!allNumbers) {
@@ -48,8 +55,8 @@ public class LessThan extends AOperator {
   }
 
   @Override
-  public Type getType() {
-    return Type.NUMBER;
+  public IType getType() {
+    return NilType.NIL;
   }
 
   @Override

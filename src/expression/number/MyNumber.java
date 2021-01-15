@@ -3,7 +3,8 @@ package expression.number;
 import exceptions.ArithmeticError;
 import exceptions.DivideByZeroError;
 import expression.Primitive;
-import expression.type.Type;
+import expression.type.IType;
+import expression.type.PrimType;
 import java.util.Objects;
 
 /**
@@ -62,8 +63,8 @@ public abstract class MyNumber<T> extends Primitive implements Comparable<MyNumb
       throws DivideByZeroError, ArithmeticError;
 
   @Override
-  public Type getType() {
-    return Type.NUMBER;
+  public IType getType() {
+    return PrimType.NUMBER;
   }
 
   @Override

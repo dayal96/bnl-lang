@@ -2,7 +2,9 @@ package expression.lambda;
 
 import environment.IEnvironment;
 import expression.IExpression;
-import expression.type.Type;
+import expression.type.IType;
+import expression.type.NilType;
+import expression.type.PrimType;
 import java.util.List;
 
 /**
@@ -41,8 +43,8 @@ public class Lambda implements IExpression {
   }
 
   @Override
-  public Type getType() {
-    return Type.FUNCTION;
+  public IType getType() {
+    return NilType.NIL;
   }
 
   @Override

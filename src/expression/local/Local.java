@@ -5,7 +5,7 @@ import environment.LocalContext;
 import environment.SymbolTable;
 import expression.EmptyExpression;
 import expression.IExpression;
-import expression.type.Type;
+import expression.type.IType;
 import java.util.List;
 
 public class Local implements IExpression {
@@ -50,7 +50,7 @@ public class Local implements IExpression {
   }
 
   @Override
-  public Type getType() {
+  public IType getType() {
     return this.body.getType();
   }
 

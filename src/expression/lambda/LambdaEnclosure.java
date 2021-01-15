@@ -4,7 +4,8 @@ import environment.IEnvironment;
 import environment.LocalContext;
 import environment.SymbolTable;
 import expression.IExpression;
-import expression.type.Type;
+import expression.type.IType;
+import expression.type.NilType;
 import java.util.List;
 
 /**
@@ -60,8 +61,8 @@ public class LambdaEnclosure implements IExpression {
   }
 
   @Override
-  public Type getType() {
-    return Type.FUNCTION;
+  public IType getType() {
+    return NilType.NIL;
   }
 
   @Override

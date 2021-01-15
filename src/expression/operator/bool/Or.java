@@ -4,7 +4,7 @@ import environment.IEnvironment;
 import expression.IExpression;
 import expression.bool.MyBoolean;
 import expression.operator.AOperator;
-import expression.type.Type;
+import expression.type.PrimType;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class Or extends AOperator {
     for (IExpression e : operands) {
       IExpression evaluated = e.evaluate(environment);
       eval.add(evaluated);
-      allBoolean = allBoolean && (evaluated.getType().equals(Type.BOOLEAN));
+      allBoolean = allBoolean && (evaluated.getType().equals(PrimType.BOOLEAN));
     }
 
     if (!allBoolean) {

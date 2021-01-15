@@ -2,7 +2,9 @@ package expression.operator;
 
 import environment.IEnvironment;
 import expression.IExpression;
-import expression.type.Type;
+import expression.type.IType;
+import expression.type.NilType;
+import expression.type.PrimType;
 
 public abstract class AOperator implements IExpression {
 
@@ -12,7 +14,7 @@ public abstract class AOperator implements IExpression {
   }
 
   @Override
-  public Type getType() {
-    return Type.FUNCTION;
+  public IType getType() {
+    return NilType.NIL;
   }
 }

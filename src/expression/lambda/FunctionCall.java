@@ -2,7 +2,7 @@ package expression.lambda;
 
 import environment.IEnvironment;
 import expression.IExpression;
-import expression.type.Type;
+import expression.type.IType;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,7 +38,7 @@ public class FunctionCall implements IExpression {
   }
 
   @Override
-  public Type getType() {
+  public IType getType() {
     return this.operator.getType();
   }
 

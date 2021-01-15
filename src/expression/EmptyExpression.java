@@ -1,7 +1,9 @@
 package expression;
 
 import environment.IEnvironment;
-import expression.type.Type;
+import expression.type.IType;
+import expression.type.NilType;
+import expression.type.PrimType;
 import java.util.List;
 
 public class EmptyExpression implements IExpression {
@@ -22,7 +24,7 @@ public class EmptyExpression implements IExpression {
   }
 
   @Override
-  public Type getType() {
-    return Type.VARIABLE;
+  public IType getType() {
+    return NilType.NIL;
   }
 }

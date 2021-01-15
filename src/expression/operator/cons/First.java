@@ -4,7 +4,9 @@ import environment.IEnvironment;
 import expression.IExpression;
 import expression.cons.ConsPair;
 import expression.operator.AOperator;
-import expression.type.Type;
+import expression.type.IType;
+import expression.type.NilType;
+import expression.type.PrimType;
 import java.util.List;
 
 public class First extends AOperator {
@@ -18,7 +20,7 @@ public class First extends AOperator {
 
     IExpression evaluated = operands.get(0).evaluate(environment);
 
-    if (!evaluated.getType().equals(Type.CONS_PAIR)) {
+    if (!evaluated.getType().equals(ConsPair.CONS_PAIR_TYPE)) {
       throw new Exception("Expected a cons-pair, found " + evaluated);
     }
 
@@ -26,8 +28,8 @@ public class First extends AOperator {
   }
 
   @Override
-  public Type getType() {
-    return Type.VARIABLE;
+  public IType getType() {
+    return NilType.NIL;
   }
 
   @Override

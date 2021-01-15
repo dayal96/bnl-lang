@@ -4,7 +4,9 @@ import environment.IEnvironment;
 import expression.IExpression;
 import expression.cons.ConsPair;
 import expression.operator.AOperator;
-import expression.type.Type;
+import expression.type.IType;
+import expression.type.NilType;
+import expression.type.PrimType;
 import java.util.List;
 
 public class Cons extends AOperator {
@@ -22,8 +24,8 @@ public class Cons extends AOperator {
   }
 
   @Override
-  public Type getType() {
-    return Type.CONS_PAIR;
+  public IType getType() {
+    return NilType.NIL;
   }
 
   @Override
