@@ -70,6 +70,6 @@ Lambda = lambda
 }
 
 <LINE_COMMENT> {
-  "\n"                     { yybegin(YYINITIAL); }
+  {Newline}                { yybegin(YYINITIAL); }
   .                        {  }
 }
