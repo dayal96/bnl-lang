@@ -112,7 +112,8 @@ public class TestLambda {
         .evaluate(recursiveEnv);
     recursiveEnv.addEntry("size-num", sizeNum);
 
-    System.out.println(sizeNum);
-    System.out.println(sizeNum.evaluate(List.of(new Rational(30, 1)), recursiveEnv));
+    IExpression result = sizeNum.evaluate(List.of(new Rational(30, 1)),
+        recursiveEnv);
+    assertEquals(new Rational(1073741824), result);
   }
 }
