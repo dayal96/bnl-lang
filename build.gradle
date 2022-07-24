@@ -1,61 +1,63 @@
 plugins {
-    id 'application'
+    id 'java'
+    id 'antlr'
+    id 'idea'
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    antlr 'org.antlr:antlr4:4.10.1'
+    implementation files('extlib/java-cup-11b-runtime.jar')
+    testImplementation 'junit:junit:4.13.2'
 }
 
 sourceSets {
     main {
         java {
-            srcDirs = ['src']
+            srcDirs = ['src/main/java']
         }
     }
 
     test {
         java {
-            srcDirs = ['test']
+            srcDirs = ['src/test/java']
         }
     }
 }
 
-dependencies {
-    implementation files('extlib/java-cup-11b-runtime.jar')
-    testImplementation 'junit:junit:4.13'
-}
-
-task prebuild {
-}
-
 task compileLexer {
+    outputs.upToDateWhen { false }
     javaexec {
         main = '-jar'
-        args = ['extlib/jflex-full-1.8.2.jar', 'src/interpreter/lexer.jflex']
+        args = ['extlib/jflex-full-1.8.2.jar', 'src/main/java/interpreter/lexer.jflex']
     }
 }
 
 task compileParser {
+    outputs.upToDateWhen { false }
     javaexec {
         main = '-jar'
         args = ['extlib/java-cup-11b.jar',
-                '-destdir', 'src/interpreter',
-                'src/interpreter/parser.cup']
+                '-destdir', 'src/main/java/interpreter',
+                'src/main/java/interpreter/parser.cup']
     }
 }
 
-build.dependsOn prebuild
-prebuild.dependsOn compileLexer
-prebuild.dependsOn compileParser
-
+compileJava.dependsOn compileLexer
+compileJava.dependsOn compileParser
+compileJava.source sourceSets.main.java
 
 
 test {
     useJUnit()
     maxHeapSize = '1G'
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
 
-application {
-    mainClass = 'interpreter.Interpreter'
-}
+
 

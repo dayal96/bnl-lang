@@ -1,9 +1,12 @@
-package primitive.number;
+package number;
 
 import static org.junit.Assert.assertEquals;
 
 import exceptions.ArithmeticError;
 import org.junit.Test;
+import primitive.number.ImproperFraction;
+import primitive.number.MyNumber;
+import primitive.number.Rational;
 
 /**
  * Class to test Rational Arithmetic.
