@@ -2,7 +2,7 @@ package expression.operator.bool;
 
 import environment.IEnvironment;
 import expression.IExpression;
-import expression.bool.MyBoolean;
+import primitive.bool.MyBoolean;
 import expression.operator.AOperator;
 import expression.type.PrimType;
 import java.util.LinkedList;

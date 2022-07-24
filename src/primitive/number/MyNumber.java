@@ -1,8 +1,8 @@
-package expression.number;
+package primitive.number;
 
 import exceptions.ArithmeticError;
 import exceptions.DivideByZeroError;
-import expression.Primitive;
+import primitive.Primitive;
 import expression.type.IType;
 import expression.type.PrimType;
 import java.util.Objects;

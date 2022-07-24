@@ -2,7 +2,7 @@ package expression.operator.number;
 
 import environment.IEnvironment;
 import expression.IExpression;
-import expression.number.MyNumber;
+import primitive.number.MyNumber;
 import expression.operator.AOperator;
 import expression.type.IType;
 import expression.type.NilType;

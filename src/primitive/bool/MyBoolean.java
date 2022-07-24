@@ -1,4 +1,4 @@
-package expression.bool;
+package primitive.bool;
 
 import environment.IEnvironment;
 import expression.IExpression;

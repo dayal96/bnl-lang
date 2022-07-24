@@ -1,11 +1,11 @@
 package interpreter;
 
 import exceptions.ArithmeticError;
-import expression.bool.MyBoolean;
+import primitive.bool.MyBoolean;
 import expression.lambda.FunctionCall;
 import expression.lambda.Lambda;
 import expression.local.*;
-import expression.number.*;
+import primitive.number.*;
 import expression.operator.number.*;
 import expression.operator.*;
 import expression.*;
@@ -131,4 +131,6 @@ primop ::= PLUS      {: RESULT = op("+"); :}
          | DIVIDE    {: RESULT = op("/"); :}
          | EQUALS    {: RESULT = op("="); :}
          | LT        {: RESULT = op("<"); :}
-         | GT        {: RESULT = op(">"); :};
+         | GT        {: RESULT = op(">"); :}
+         | LEQ       {: RESULT = op("<="); :}
+         | GEQ       {: RESULT = op(">="); :};

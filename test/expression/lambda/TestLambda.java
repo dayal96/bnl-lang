@@ -7,7 +7,7 @@ import environment.LocalContext;
 import environment.SymbolTable;
 import expression.IExpression;
 import expression.Variable;
-import expression.number.Rational;
+import primitive.number.Rational;
 import expression.operator.Conditional;
 import expression.operator.Equals;
 import expression.operator.number.Add;

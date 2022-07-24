@@ -1,4 +1,4 @@
-package expression.number;
+package primitive.number;
 
 import exceptions.ArithmeticError;
 import exceptions.DivideByZeroError;

@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import expression.IExpression;
 import expression.Variable;
-import expression.bool.MyBoolean;
+import primitive.bool.MyBoolean;
 import expression.lambda.FunctionCall;
 import expression.lambda.Lambda;
 import expression.local.Local;
 import expression.local.LocalDefinition;
-import expression.number.Rational;
+import primitive.number.Rational;
 import expression.operator.Conditional;
 import java.io.Reader;
 import java.io.StringReader;

@@ -2,7 +2,7 @@ package expression.operator;
 
 import environment.IEnvironment;
 import expression.IExpression;
-import expression.bool.MyBoolean;
+import primitive.bool.MyBoolean;
 import java.util.List;
 
 public class Conditional extends AOperator {

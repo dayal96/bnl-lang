@@ -3,7 +3,7 @@ package environment;
 import static org.junit.Assert.assertEquals;
 
 import expression.IExpression;
-import expression.number.Rational;
+import primitive.number.Rational;
 import org.junit.Test;
 
 /**

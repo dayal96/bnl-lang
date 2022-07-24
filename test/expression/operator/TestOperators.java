@@ -4,15 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import environment.IEnvironment;
 import environment.SymbolTable;
-import exceptions.ArithmeticError;
 import exceptions.DivideByZeroError;
-import expression.EmptyExpression;
 import expression.IExpression;
 import expression.Variable;
-import expression.bool.MyBoolean;
+import primitive.bool.MyBoolean;
 import expression.lambda.FunctionCall;
-import expression.number.ImproperFraction;
-import expression.number.Rational;
+import primitive.number.Rational;
 import expression.operator.bool.And;
 import expression.operator.bool.Or;
 import expression.operator.number.Add;
