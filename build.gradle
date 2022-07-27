@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'antlr'
     id 'idea'
 }
@@ -28,11 +28,16 @@ sourceSets {
     }
 }
 
+generateGrammarSource {
+    maxHeapSize = "128m"
+    arguments += []
+}
+
 task compileLexer {
     outputs.upToDateWhen { false }
     javaexec {
         main = '-jar'
-        args = ['extlib/jflex-full-1.8.2.jar', 'src/main/java/interpreter/lexer.jflex']
+        args = ['extlib/jflex-full-1.8.2.jar', 'src/main/java/io/github/dayal96/interpreter/lexer.jflex']
     }
 }
 
@@ -41,8 +46,8 @@ task compileParser {
     javaexec {
         main = '-jar'
         args = ['extlib/java-cup-11b.jar',
-                '-destdir', 'src/main/java/interpreter',
-                'src/main/java/interpreter/parser.cup']
+                '-destdir', 'src/main/java/io/github/dayal96/interpreter',
+                'src/main/java/io/github/dayal96/interpreter/parser.cup']
     }
 }
 
