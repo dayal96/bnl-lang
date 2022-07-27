@@ -28,26 +28,35 @@ sourceSets {
     }
 }
 
+idea {
+    module {
+        sourceDirs += file('build/generated-src/antlr/main')
+    }
+}
+
 generateGrammarSource {
+    outputDirectory = new File("${project.buildDir}/generated-src/antlr/main/io/github/dayal96/antlr")
     maxHeapSize = "128m"
-    arguments += []
+    arguments += ['-package', 'io.github.dayal96.antlr', '-visitor', '-no-listener']
 }
 
 task compileLexer {
-    outputs.upToDateWhen { false }
-    javaexec {
-        main = '-jar'
-        args = ['extlib/jflex-full-1.8.2.jar', 'src/main/java/io/github/dayal96/interpreter/lexer.jflex']
+    doLast {
+        javaexec {
+            main = '-jar'
+            args = ['extlib/jflex-full-1.8.2.jar', 'src/main/java/io/github/dayal96/interpreter/lexer.jflex']
+        }
     }
 }
 
 task compileParser {
-    outputs.upToDateWhen { false }
-    javaexec {
-        main = '-jar'
-        args = ['extlib/java-cup-11b.jar',
-                '-destdir', 'src/main/java/io/github/dayal96/interpreter',
-                'src/main/java/io/github/dayal96/interpreter/parser.cup']
+    doLast {
+        javaexec {
+            main = '-jar'
+            args = ['extlib/java-cup-11b.jar',
+                    '-destdir', 'src/main/java/io/github/dayal96/interpreter',
+                    'src/main/java/io/github/dayal96/interpreter/parser.cup']
+        }
     }
 }
 

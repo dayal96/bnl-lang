@@ -8,6 +8,7 @@ build/*
 gradle/*
 .gradle/*
 out/*
+generated-src/*
 
 # no vscode configs
 .vscode/*
