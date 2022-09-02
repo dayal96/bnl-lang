@@ -1,11 +1,13 @@
 package io.github.dayal96.expression;
 
+import io.github.dayal96.absyn.AbsynVisitor;
+import io.github.dayal96.absyn.IAbsyn;
 import io.github.dayal96.environment.IEnvironment;
 import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.type.NilType;
 import java.util.List;
 
-public class Variable implements IExpression {
+public class Variable implements IExpression, IAbsyn {
 
   private final String name;
 
@@ -52,5 +54,10 @@ public class Variable implements IExpression {
     Variable that = (Variable) other;
 
     return this.name.equals(that.name);
+  }
+
+  @Override
+  public <T> T accept(AbsynVisitor<T> visitor) {
+    return visitor.visitVariable(this);
   }
 }

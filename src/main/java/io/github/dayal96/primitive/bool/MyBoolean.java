@@ -1,12 +1,14 @@
 package io.github.dayal96.primitive.bool;
 
+import io.github.dayal96.absyn.AbsynVisitor;
+import io.github.dayal96.absyn.IAbsyn;
 import io.github.dayal96.environment.IEnvironment;
 import io.github.dayal96.expression.IExpression;
 import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.type.PrimType;
 import java.util.List;
 
-public class MyBoolean implements IExpression {
+public class MyBoolean implements IExpression, IAbsyn {
 
   public static final MyBoolean TRUE = new MyBoolean(true);
   public static final MyBoolean FALSE = new MyBoolean(false);
@@ -58,5 +60,10 @@ public class MyBoolean implements IExpression {
    */
   public boolean truth() {
     return this.equals(TRUE);
+  }
+
+  @Override
+  public <T> T accept(AbsynVisitor<T> visitor) {
+    return visitor.visitBoolean(this);
   }
 }

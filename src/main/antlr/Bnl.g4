@@ -28,10 +28,10 @@ simplexpr : prim
           | funcall
           ;
 
-prim : ID
-     | NUMBER
-     | FALSE
-     | TRUE
+prim : ID             # primId
+     | NUMBER         # primNum
+     | FALSE          # primFalse
+     | TRUE           # primTrue
      ;
 
 cond : OPAREN IF expr expr expr CPAREN ;
@@ -43,15 +43,15 @@ idlist : idlist ID
 
 funcall : OPAREN expr exprlist CPAREN ;
 
-primop : PLUS
-       | MINUS
-       | MULTIPLY
-       | DIVIDE
-       | EQUALS
-       | LT
-       | GT
-       | LEQ
-       | GEQ
+primop : PLUS         # plus
+       | MINUS        # minus
+       | MULTIPLY     # multiply
+       | DIVIDE       # divide
+       | EQUALS       # equals
+       | LT           # lessThan
+       | GT           # greaterThan
+       | LEQ          # leq
+       | GEQ          # geq
        ;
 
 
@@ -78,3 +78,5 @@ LEQ        : '<=' ;
 GEQ        : '>=' ;
 
 
+BLOCK_COMMENT  : '#|' .*? '|#'               -> skip;
+COMMENT        : '#' ~[ft] ~[\r\n]*          -> skip;

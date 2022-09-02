@@ -9,10 +9,10 @@ import io.github.dayal96.expression.type.NilType;
 import java.util.List;
 
 /**
- * Class to represent a lambda expression that closes over it's definition environment.
+ * Class to represent a lambda expression that closes over its definition environment.
  * <p>
  * A Function Expression when evaluated closes on the environment it was defined in. In other words,
- * the context of a function is determined by it's definition and not invocation. So if a function
+ * the context of a function is determined by its definition and not invocation. So if a function
  * is defined in one scope but invoked from a different scope, it remembers the environment it was
  * defined in and uses that for lookups.
  */
