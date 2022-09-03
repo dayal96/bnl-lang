@@ -40,17 +40,6 @@ public class Interpreter {
     this.evaluator.evaluateProgram(program);
   }
 
-  /**
-   * Interpret given source code using the given evaluator.
-   * @param sourceCode  The {@link Reader} to read source code from.
-   */
-  public void interpretOld(Reader sourceCode) throws Exception {
-    Lexer lexer = new Lexer(sourceCode);
-    CupParser parser = new CupParser(lexer);
-    List<IEvaluable> program = ((List<IEvaluable>) parser.parse().value);
-    this.evaluator.evaluateProgram(program);
-  }
-
   public static void main(String[] args) throws Exception {
     if (args.length != 1) {
       throw new Exception("Please enter the path to the source file to run the interpreter.");
@@ -59,6 +48,6 @@ public class Interpreter {
     FileReader sourceCode = new FileReader(args[0]);
     IEvaluator evaluator = new SimpleEvaluator();
     Interpreter interpreter = new Interpreter(evaluator);
-    interpreter.interpretOld(sourceCode);
+    interpreter.interpret(sourceCode);
   }
 }

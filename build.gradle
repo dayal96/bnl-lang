@@ -40,30 +40,7 @@ generateGrammarSource {
     arguments += ['-package', 'io.github.dayal96.antlr', '-visitor', '-no-listener']
 }
 
-task compileLexer {
-    doLast {
-        javaexec {
-            main = '-jar'
-            args = ['extlib/jflex-full-1.8.2.jar', 'src/main/java/io/github/dayal96/interpreter/lexer.jflex']
-        }
-    }
-}
-
-task compileParser {
-    doLast {
-        javaexec {
-            main = '-jar'
-            args = ['extlib/java-cup-11b.jar',
-                    '-destdir', 'src/main/java/io/github/dayal96/interpreter',
-                    'src/main/java/io/github/dayal96/interpreter/parser.cup']
-        }
-    }
-}
-
-compileJava.dependsOn compileLexer
-compileJava.dependsOn compileParser
 compileJava.source sourceSets.main.java
-
 
 test {
     useJUnit()
