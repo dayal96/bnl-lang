@@ -3,7 +3,7 @@ package io.github.dayal96.interpreter.evaluator;
 import io.github.dayal96.interpreter.IEvaluable;
 import java.util.List;
 
-public interface IEvaluator {
+public interface IEvaluator<T> {
 
-  void evaluateProgram(List<IEvaluable> toEval) throws Exception;
+  T evaluateProgram(List<IEvaluable> toEval) throws Exception;
 }

@@ -4,19 +4,26 @@ import io.github.dayal96.absyn.IAbsyn;
 import io.github.dayal96.absyn.transform.AbsynToExprList;
 import io.github.dayal96.antlr.BnlLexer;
 import io.github.dayal96.antlr.BnlParser;
+import io.github.dayal96.environment.IEnvironment;
+import io.github.dayal96.environment.SymbolTable;
 import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.expression.operator.AOperator;
+import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.interpreter.evaluator.IEvaluator;
 import io.github.dayal96.interpreter.evaluator.SimpleEvaluator;
 import java.io.FileReader;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.io.Writer;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 public class Interpreter {
 
-  private IEvaluator evaluator;
+  private final IEvaluator evaluator;
 
   /**
    * Initialise an interpreter to interpret a program in the given base environment.
@@ -45,9 +52,62 @@ public class Interpreter {
       throw new Exception("Please enter the path to the source file to run the interpreter.");
     }
 
+    Builder interpreterBuilder = new Builder();
+    Interpreter interpreter = interpreterBuilder.build();
     FileReader sourceCode = new FileReader(args[0]);
-    IEvaluator evaluator = new SimpleEvaluator();
-    Interpreter interpreter = new Interpreter(evaluator);
     interpreter.interpret(sourceCode);
+  }
+
+  public static class Builder {
+
+    private IEnvironment environment;
+    private Writer out;
+    public Builder() {
+      this.environment = SymbolTable.getPrimitiveOperations();
+      this.out = new OutputStreamWriter(System.out);
+    }
+
+    public Builder setEnvironment(IEnvironment environment) {
+      this.environment = environment;
+      return this;
+    }
+
+    public Builder addToEnvironment(String name, List<IType> signature,
+        Function<List<IExpression>, IExpression> function) {
+      AOperator newOp = new AOperator() {
+        @Override
+        public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+            throws Exception {
+          if (operands.size() != signature.size()) {
+            throw new IllegalArgumentException(String.format("%s : expected %d arguments, found %d", name,
+                signature.size(), operands.size()));
+          }
+
+          boolean allMatch = true;
+          for (int i = 0; i < operands.size(); i++) {
+            allMatch = allMatch && (operands.get(i).getType().equals(signature.get(i)));
+          }
+
+          if (!allMatch) {
+            throw new IllegalArgumentException(String.format("%s : argument type mismatch", name));
+          }
+
+          return function.apply(operands);
+        }
+      };
+
+      this.environment.addEntry(name, newOp);
+
+      return this;
+    }
+
+    public Builder outputTo(Writer out) {
+      this.out = out;
+      return this;
+    }
+
+    public Interpreter build() {
+      return new Interpreter(new SimpleEvaluator(this.environment, out));
+    }
   }
 }

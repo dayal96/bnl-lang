@@ -24,20 +24,20 @@ public class SymbolTable implements IEnvironment {
   private Map<String, IExpression> table;
   private String workingDirectory;
 
-  public static final SymbolTable primitiveOperations = new SymbolTable();
-
-  static {
-    primitiveOperations.addEntry("+", new Add());
-    primitiveOperations.addEntry("-", new Subtract());
-    primitiveOperations.addEntry("/", new Divide());
-    primitiveOperations.addEntry("*", new Multiply());
-    primitiveOperations.addEntry("=", new Equals());
-    primitiveOperations.addEntry("<", new LessThan());
-    primitiveOperations.addEntry(">", new GreaterThan());
-    primitiveOperations.addEntry("if", new Conditional());
-    primitiveOperations.addEntry("cons", new Cons());
-    primitiveOperations.addEntry("first", new First());
-    primitiveOperations.addEntry("rest", new Rest());
+  public static SymbolTable getPrimitiveOperations() {
+    SymbolTable primOps = new SymbolTable();
+    primOps.addEntry("+", new Add());
+    primOps.addEntry("-", new Subtract());
+    primOps.addEntry("/", new Divide());
+    primOps.addEntry("*", new Multiply());
+    primOps.addEntry("=", new Equals());
+    primOps.addEntry("<", new LessThan());
+    primOps.addEntry(">", new GreaterThan());
+    primOps.addEntry("if", new Conditional());
+    primOps.addEntry("cons", new Cons());
+    primOps.addEntry("first", new First());
+    primOps.addEntry("rest", new Rest());
+    return primOps;
   }
 
   /**

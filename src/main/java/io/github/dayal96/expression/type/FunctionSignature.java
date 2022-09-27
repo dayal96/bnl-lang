@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Class to represent the type of a function.
+ * Class to represent the type of function.
  */
 public class FunctionSignature extends NilType {
   private final List<IType> inputs;
@@ -43,7 +43,7 @@ public class FunctionSignature extends NilType {
       IType joinedOutput = this.output.join(other.output);
       return new FunctionSignature(joinedInputs, joinedOutput);
     }
-    else if (that.equals(this.NIL)) {
+    else if (that.equals(NIL)) {
       return this;
     }
     else {
