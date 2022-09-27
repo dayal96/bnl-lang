@@ -10,8 +10,11 @@ repositories {
 
 dependencies {
     antlr 'org.antlr:antlr4:4.10.1'
-    implementation files('extlib/java-cup-11b-runtime.jar')
     testImplementation 'junit:junit:4.13.2'
+}
+
+tasks.withType(JavaCompile) {
+    options.release = 17
 }
 
 sourceSets {
