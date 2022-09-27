@@ -21,20 +21,20 @@ import java.util.stream.Collectors;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-public class Interpreter {
+public class Interpreter<T> {
 
-  private final IEvaluator evaluator;
+  private final IEvaluator<T> evaluator;
 
   /**
    * Initialise an interpreter to interpret a program in the given base environment.
    * @param evaluator  The {@link IEvaluator} that evaluates the program.
    */
-  public Interpreter(IEvaluator evaluator) {
+  public Interpreter(IEvaluator<T> evaluator) {
     this.evaluator = evaluator;
   }
 
 
-  public void interpret(Reader sourceCode) throws Exception {
+  public T interpret(Reader sourceCode) throws Exception {
     BnlLexer lexer = new BnlLexer(CharStreams.fromReader(sourceCode));
     CommonTokenStream tokenStream = new CommonTokenStream(lexer);
     BnlParser parser = new BnlParser(tokenStream);
@@ -44,7 +44,7 @@ public class Interpreter {
     List<IEvaluable> program =
         absyn.accept(AbsynToExprList.getInstance()).stream().map(EvaluableExpression::new)
             .collect(Collectors.toList());
-    this.evaluator.evaluateProgram(program);
+    return this.evaluator.evaluateProgram(program);
   }
 
   public static void main(String[] args) throws Exception {

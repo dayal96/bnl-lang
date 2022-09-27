@@ -10,7 +10,7 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Optional;
 
-public class TestEvaluator implements IEvaluator {
+public class TestEvaluator implements IEvaluator<Void> {
   private final IEnvironment environment;
   private final PrintWriter out;
 
@@ -27,12 +27,13 @@ public class TestEvaluator implements IEvaluator {
   }
 
   @Override
-  public void evaluateProgram(List<IEvaluable> toEval) throws Exception {
+  public Void evaluateProgram(List<IEvaluable> toEval) throws Exception {
     for (IEvaluable eval : toEval) {
       Optional<IExpression> result = eval.evaluate(this.environment);
       if (result.isPresent()) {
         out.println(result.get());
       }
     }
+    return null;
   }
 }
