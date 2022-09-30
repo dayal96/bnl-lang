@@ -4,7 +4,7 @@ package io.github.dayal96.expression.type;
  * All types stored here.
  */
 public enum PrimType implements IType {
-  NUMBER("NUMBER"), BOOLEAN("BOOLEAN");
+  NUMBER("NUMBER"), BOOLEAN("BOOLEAN"), STRING("STRING");
 
   private final String stringrep;
 

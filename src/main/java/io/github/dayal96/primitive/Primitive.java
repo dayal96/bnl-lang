@@ -11,6 +11,8 @@ import java.util.List;
  * <p>Primitives in ANL are:</p>
  * <ul>
  *   <li>Numbers</li>
+ *   <li>Booleans</li>
+ *   <li>String</li>
  * </ul>
  */
 public abstract class Primitive implements IExpression, IAbsyn {

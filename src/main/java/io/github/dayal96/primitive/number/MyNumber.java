@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public abstract class MyNumber<T> extends Primitive implements Comparable<MyNumber<T>> {
 
-  protected final T number;
+  public final T number;
 
   /**
    * Creates a MyNumber based on given Representation for Numbers T.
