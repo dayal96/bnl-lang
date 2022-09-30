@@ -7,8 +7,15 @@ import io.github.dayal96.environment.SymbolTable;
 import io.github.dayal96.exceptions.DivideByZeroError;
 import io.github.dayal96.expression.IExpression;
 import io.github.dayal96.expression.Variable;
+import io.github.dayal96.expression.operator.string.IsString;
+import io.github.dayal96.expression.operator.string.NumToString;
+import io.github.dayal96.expression.operator.string.StringAppend;
+import io.github.dayal96.expression.operator.string.StringLength;
+import io.github.dayal96.expression.operator.string.Substring;
+import io.github.dayal96.expression.type.NilType;
 import io.github.dayal96.primitive.bool.MyBoolean;
 import io.github.dayal96.expression.lambda.FunctionCall;
+import io.github.dayal96.primitive.number.MyNumber;
 import io.github.dayal96.primitive.number.Rational;
 import io.github.dayal96.expression.operator.bool.And;
 import io.github.dayal96.expression.operator.bool.Or;
@@ -18,6 +25,7 @@ import io.github.dayal96.expression.operator.number.GreaterThan;
 import io.github.dayal96.expression.operator.number.LessThan;
 import io.github.dayal96.expression.operator.number.Multiply;
 import io.github.dayal96.expression.operator.number.Subtract;
+import io.github.dayal96.primitive.string.MyString;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -37,6 +45,9 @@ public class TestOperators {
     this.environment.addEntry("TWO", new Rational(2, 1));
     this.environment.addEntry("THREE", new Rational(3, 1));
     this.environment.addEntry("ONE_COPY", new Rational(1, 1));
+    this.environment.addEntry("ABRA", new MyString("ABRA"));
+    this.environment.addEntry("CADABRA", new MyString("CADABRA"));
+    this.environment.addEntry("ABRA_COPY", new MyString("ABRA"));
   }
 
   @Test
@@ -470,6 +481,25 @@ public class TestOperators {
         equals.evaluate(List.of(new Variable("THREE"), new Variable("TWO"))
             , this.environment));
 
+    assertEquals(MyBoolean.FALSE,
+        equals.evaluate(List.of(new Variable("THREE"), new Variable("ABRA"))
+            , this.environment));
+    assertEquals(MyBoolean.FALSE,
+        equals.evaluate(List.of(new Variable("CADABRA"), new Variable("TWO"))
+            , this.environment));
+    assertEquals(MyBoolean.TRUE,
+        equals.evaluate(List.of(new Variable("ABRA"), new Variable("ABRA"))
+            , this.environment));
+    assertEquals(MyBoolean.TRUE,
+        equals.evaluate(List.of(new Variable("CADABRA"), new Variable("CADABRA"))
+            , this.environment));
+    assertEquals(MyBoolean.TRUE,
+        equals.evaluate(List.of(new Variable("ABRA"), new Variable("ABRA_COPY"))
+            , this.environment));
+    assertEquals(MyBoolean.TRUE,
+        equals.evaluate(List.of(new Variable("ABRA_COPY"), new Variable("ABRA"))
+            , this.environment));
+
     try {
       equals.evaluate(List.of(new Variable("ONE")), this.environment);
       assert false;
@@ -479,5 +509,85 @@ public class TestOperators {
     }
 
     assertEquals("=", equals.toString());
+  }
+
+  @Test
+  public void testIsString() throws Exception {
+    AOperator isString = new IsString();
+
+    for (var number : List.of("ONE", "TWO", "THREE", "ONE_COPY")) {
+      assertEquals(MyBoolean.FALSE, isString.evaluate(List.of(new Variable(number)),
+          this.environment));
+    }
+
+    for (var str : List.of("ABRA", "CADABRA", "ABRA_COPY")) {
+      assertEquals(MyBoolean.TRUE, isString.evaluate(List.of(new Variable(str)),
+          this.environment));
+    }
+
+    assertEquals("string?", isString.toString());
+    assertEquals(NilType.NIL, isString.getType());
+  }
+
+  @Test
+  public void testNumToString() throws Exception {
+    AOperator numToString = new NumToString();
+
+    assertEquals(new MyString("1"), numToString.evaluate(List.of(new Variable("ONE")),
+        this.environment));
+    assertEquals(new MyString("2"), numToString.evaluate(List.of(new Variable("TWO")),
+        this.environment));
+    assertEquals(new MyString("3"), numToString.evaluate(List.of(new Variable("THREE")),
+        this.environment));
+
+    assertEquals("num->string", numToString.toString());
+    assertEquals(NilType.NIL, numToString.getType());
+  }
+
+  @Test
+  public void testStringLength() throws Exception {
+    AOperator stringLength = new StringLength();
+
+    assertEquals(new Rational(0), stringLength.evaluate(List.of(new MyString("")),
+        this.environment));
+    assertEquals(new Rational(4), stringLength.evaluate(List.of(new Variable("ABRA")),
+        this.environment));
+    assertEquals(new Rational(7), stringLength.evaluate(List.of(new Variable("CADABRA")),
+        this.environment));
+
+    assertEquals("string-len", stringLength.toString());
+    assertEquals(NilType.NIL, stringLength.getType());
+  }
+
+  @Test
+  public void testSubstring() throws Exception {
+    AOperator substring = new Substring();
+
+    assertEquals(new MyString(""), substring.evaluate(List.of(new MyString("ABRA"),
+            new Rational(3), new Rational(0)), this.environment));
+    assertEquals(new MyString("AB"), substring.evaluate(List.of(new MyString("ABRA"),
+        new Rational(0), new Rational(2)), this.environment));
+    assertEquals(new MyString("ABRA"), substring.evaluate(List.of(new MyString("ABRA"),
+        new Rational(0), new Rational(4)), this.environment));
+    assertEquals(new MyString("A"), substring.evaluate(List.of(new MyString("ABRA"),
+        new Rational(3), new Rational(1)), this.environment));
+
+    assertEquals("substring", substring.toString());
+    assertEquals(NilType.NIL, substring.getType());
+  }
+
+  @Test
+  public void testStringAppend() throws Exception {
+    AOperator stringAppend = new StringAppend();
+
+    assertEquals(new MyString("CADABRA"), stringAppend.evaluate(List.of(new MyString("CAD"),
+        new MyString("ABRA")), this.environment));
+    assertEquals(new MyString("ABRA"), stringAppend.evaluate(List.of(new MyString("AB"),
+        new MyString("RA")), this.environment));
+    assertEquals(new MyString("ABRA CADABRA"), stringAppend.evaluate(List.of(new MyString("ABRA"),
+            new MyString(" "), new MyString("CADABRA")), this.environment));
+
+    assertEquals("string-append", stringAppend.toString());
+    assertEquals(NilType.NIL, stringAppend.getType());
   }
 }

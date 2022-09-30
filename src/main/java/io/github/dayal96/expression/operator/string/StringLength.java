@@ -23,11 +23,6 @@ public class StringLength extends AOperator {
   }
 
   @Override
-  public IType getType() {
-    return NilType.NIL;
-  }
-
-  @Override
   public String toString() {
     return "string-len";
   }

@@ -21,7 +21,7 @@ public class ProgramTester {
 
   public ProgramTester() {
     this.output = new StringWriter();
-    this.interpreter = new Interpreter(new TestEvaluator(SymbolTable.primitiveOperations,
+    this.interpreter = new Interpreter(new TestEvaluator(SymbolTable.getPrimitiveOperations(),
         this.output));
   }
 

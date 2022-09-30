@@ -11,7 +11,7 @@ import io.github.dayal96.primitive.string.MyString;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SubString extends AOperator {
+public class Substring extends AOperator {
 
   @Override
   public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
@@ -36,7 +36,7 @@ public class SubString extends AOperator {
 
     Rational stringLength = new Rational(str.length());
 
-    if (start.add(size).compareTo(stringLength) >= 0) {
+    if (start.add(size).compareTo(stringLength) > 0) {
       throw new IllegalArgumentException("substring : Length of string exceeded.");
     }
 
@@ -44,11 +44,6 @@ public class SubString extends AOperator {
     int endIndex = startIndex + (size.number.numerator / size.number.denominator);
 
     return new MyString(str.substring(startIndex, endIndex));
-  }
-
-  @Override
-  public IType getType() {
-    return NilType.NIL;
   }
 
   @Override

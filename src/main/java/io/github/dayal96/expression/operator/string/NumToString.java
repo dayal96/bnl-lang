@@ -32,11 +32,6 @@ public class NumToString extends AOperator {
   }
 
   @Override
-  public IType getType() {
-    return NilType.NIL;
-  }
-
-  @Override
   public String toString() {
     return "num->string";
   }
