@@ -2,14 +2,15 @@ package io.github.dayal96.primitive;
 
 import io.github.dayal96.environment.IEnvironment;
 import io.github.dayal96.environment.SymbolTable;
+import io.github.dayal96.expression.IExpression;
 import java.util.List;
 import org.junit.Test;
 
 public abstract class TestPrimitive {
 
-  protected Primitive sample;
+  protected IExpression sample;
 
-  protected TestPrimitive(Primitive sample) {
+  protected TestPrimitive(IExpression sample) {
     this.sample = sample;
   }
 
