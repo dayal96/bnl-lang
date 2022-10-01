@@ -45,7 +45,7 @@ public class Rational extends MyNumber<ImproperFraction> {
 
   @Override
   public MyNumber<ImproperFraction> subtract(MyNumber<ImproperFraction> other)
-      throws ArithmeticError {
+      throws ArithmeticException {
     int newNumerator = this.number.numerator * other.number.denominator
         - other.number.numerator * this.number.denominator;
     int newDenominator = this.number.denominator * other.number.denominator;
@@ -82,11 +82,7 @@ public class Rational extends MyNumber<ImproperFraction> {
   }
 
   @Override
-  public int compareTo(MyNumber<ImproperFraction> that) {
-    try {
-      return this.subtract(that).sign();
-    } catch (ArithmeticError e) {
-      throw new RuntimeException(e.getMessage());
-    }
+  public int compareTo(MyNumber<ImproperFraction> that) throws ArithmeticException {
+    return this.subtract(that).sign();
   }
 }

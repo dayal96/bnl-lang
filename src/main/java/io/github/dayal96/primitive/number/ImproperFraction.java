@@ -11,13 +11,13 @@ public class ImproperFraction {
   public final int numerator;
   public final int denominator;
 
-  public ImproperFraction(int numerator, int denominator) throws ArithmeticError {
+  public ImproperFraction(int numerator, int denominator) throws ArithmeticException {
     int gcd = this.gcd(Math.abs(numerator), Math.abs(denominator));
     this.numerator = numerator / gcd;
     this.denominator = denominator / gcd;
 
     if (this.denominator == 0) {
-      throw new ArithmeticError("Rational cannot have a zero as denominator.");
+      throw new ArithmeticException("Rational cannot have a zero as denominator.");
     }
   }
 

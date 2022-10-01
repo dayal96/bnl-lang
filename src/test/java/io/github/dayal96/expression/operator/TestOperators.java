@@ -7,6 +7,7 @@ import io.github.dayal96.environment.SymbolTable;
 import io.github.dayal96.exceptions.DivideByZeroError;
 import io.github.dayal96.expression.IExpression;
 import io.github.dayal96.expression.Variable;
+import io.github.dayal96.expression.operator.number.IsNumber;
 import io.github.dayal96.expression.operator.string.IsString;
 import io.github.dayal96.expression.operator.string.NumToString;
 import io.github.dayal96.expression.operator.string.StringAppend;
@@ -48,6 +49,24 @@ public class TestOperators {
     this.environment.addEntry("ABRA", new MyString("ABRA"));
     this.environment.addEntry("CADABRA", new MyString("CADABRA"));
     this.environment.addEntry("ABRA_COPY", new MyString("ABRA"));
+  }
+
+  @Test
+  public void testIsNumber() throws Exception {
+    AOperator isNumber = new IsNumber();
+
+    for (var number : List.of("ONE", "TWO", "THREE", "ONE_COPY")) {
+      assertEquals(MyBoolean.TRUE, isNumber.evaluate(List.of(new Variable(number)),
+          this.environment));
+    }
+
+    for (var str : List.of("ABRA", "CADABRA", "ABRA_COPY")) {
+      assertEquals(MyBoolean.FALSE, isNumber.evaluate(List.of(new Variable(str)),
+          this.environment));
+    }
+
+    assertEquals("number?", isNumber.toString());
+    assertEquals(NilType.NIL, isNumber.getType());
   }
 
   @Test

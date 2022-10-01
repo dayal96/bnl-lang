@@ -1,6 +1,7 @@
-package io.github.dayal96.number;
+package io.github.dayal96.primitive;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import io.github.dayal96.exceptions.ArithmeticError;
 import org.junit.Test;
@@ -11,7 +12,11 @@ import io.github.dayal96.primitive.number.Rational;
 /**
  * Class to test Rational Arithmetic.
  */
-public class TestRational {
+public class TestRational extends TestPrimitive {
+
+  public TestRational() throws Exception {
+    super(new Rational(0));
+  }
 
   @Test
   public void testAdd() throws ArithmeticError {
@@ -98,5 +103,55 @@ public class TestRational {
     r2 = new Rational(new ImproperFraction(-5, 10));
     r3 = r1.divide(r2);
     assertEquals(new Rational(new ImproperFraction(1, 1)), r3);
+  }
+
+  @Test
+  public void testHashCode() throws Exception {
+    Rational first = new Rational(6, 5);
+    Rational second = new Rational(5, 7);
+    Rational firstCopy = new Rational(6, 5);
+
+    assertEquals(first.hashCode(), first.hashCode());
+    assertEquals(second.hashCode(), second.hashCode());
+    assertEquals(first.hashCode(), firstCopy.hashCode());
+    assertNotEquals(first.hashCode(), second.hashCode());
+
+    assert first.equals(first);
+    assert second.equals(second);
+    assert first.equals(firstCopy);
+    assert firstCopy.equals(first);
+    assert !first.equals(second);
+    assert !second.equals(first);
+  }
+
+  @Test
+  public void testImproperFraction() {
+    ImproperFraction first = new ImproperFraction(6, 5);
+    ImproperFraction second = new ImproperFraction(5, 7);
+    ImproperFraction firstCopy = new ImproperFraction(6, 5);
+
+    assertEquals(first.hashCode(), first.hashCode());
+    assertEquals(second.hashCode(), second.hashCode());
+    assertEquals(first.hashCode(), firstCopy.hashCode());
+    assertNotEquals(first.hashCode(), second.hashCode());
+
+    assertEquals("6/5", first.toString());
+    assertEquals("5/7", second.toString());
+    assertEquals("6/5", firstCopy.toString());
+
+    assert first.equals(first);
+    assert second.equals(second);
+    assert first.equals(firstCopy);
+    assert firstCopy.equals(first);
+    assert !first.equals(second);
+    assert !second.equals(first);
+    assert !second.equals("hola");
+
+    try {
+      new ImproperFraction(5, 0);
+      assert false;
+    } catch (Exception e) {
+      assert true;
+    }
   }
 }
