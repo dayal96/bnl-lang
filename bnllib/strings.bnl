@@ -1,0 +1,16 @@
+(define STRING-1 "apple")
+(define STRING-2 "ball")
+(define string-to-cap
+  (lambda (str)
+    (define len (string-length str))
+    (if (= len 0) ""
+      (string-append (letter-to-cap (substring 0 1 str))
+                     (string-to-cap (substring 1 (- len 1) str))))))
+(define letter-to-cap
+  (lambda (str)
+    (if (= str "a") "A"
+      (if (= str "b") "B"
+        (if (= str "e") "E"
+          (if (= str "l") "L"
+            (if (= str "p") "P" str)))))))
+(string-append (string-to-cap STRING-1) ", " (string-to-cap STRING-2))

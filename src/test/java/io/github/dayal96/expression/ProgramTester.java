@@ -45,7 +45,7 @@ public class ProgramTester {
         buffer.delete(0, buffer.length()); // Because flush doesn't clear the buffer!!!
       }
       catch(Exception e) {
-        assert (!testCase.getValue().isPresent());
+        assert (testCase.getValue().isEmpty());
       }
     }
   }

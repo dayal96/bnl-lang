@@ -574,7 +574,7 @@ public class TestOperators {
     assertEquals(new Rational(7), stringLength.evaluate(List.of(new Variable("CADABRA")),
         this.environment));
 
-    assertEquals("string-len", stringLength.toString());
+    assertEquals("string-length", stringLength.toString());
     assertEquals(NilType.NIL, stringLength.getType());
   }
 
@@ -582,14 +582,14 @@ public class TestOperators {
   public void testSubstring() throws Exception {
     AOperator substring = new Substring();
 
-    assertEquals(new MyString(""), substring.evaluate(List.of(new MyString("ABRA"),
-            new Rational(3), new Rational(0)), this.environment));
-    assertEquals(new MyString("AB"), substring.evaluate(List.of(new MyString("ABRA"),
-        new Rational(0), new Rational(2)), this.environment));
-    assertEquals(new MyString("ABRA"), substring.evaluate(List.of(new MyString("ABRA"),
-        new Rational(0), new Rational(4)), this.environment));
-    assertEquals(new MyString("A"), substring.evaluate(List.of(new MyString("ABRA"),
-        new Rational(3), new Rational(1)), this.environment));
+    assertEquals(new MyString(""), substring.evaluate(List.of(
+            new Rational(3), new Rational(0), new MyString("ABRA")), this.environment));
+    assertEquals(new MyString("AB"), substring.evaluate(List.of(
+        new Rational(0), new Rational(2), new MyString("ABRA")), this.environment));
+    assertEquals(new MyString("ABRA"), substring.evaluate(List.of(
+        new Rational(0), new Rational(4), new MyString("ABRA")), this.environment));
+    assertEquals(new MyString("A"), substring.evaluate(List.of(
+        new Rational(3), new Rational(1), new MyString("ABRA")), this.environment));
 
     assertEquals("substring", substring.toString());
     assertEquals(NilType.NIL, substring.getType());

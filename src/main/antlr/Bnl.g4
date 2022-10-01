@@ -30,6 +30,7 @@ simplexpr : prim
 
 prim : ID             # primId
      | NUMBER         # primNum
+     | STRING         # primString
      | FALSE          # primFalse
      | TRUE           # primTrue
      ;
@@ -64,6 +65,7 @@ TRUE       : '#t' | 'true'             ;
 IF         : 'if'                      ;
 NUMBER     : [-]?[0-9]+('/'[0-9]+)?    ;
 ID         : [a-zA-Z][.a-zA-Z0-9\-]*   ;
+STRING     : '"'~[\r\n"]*'"'           ;
 
 OPAREN     : '('  ;
 CPAREN     : ')'  ;

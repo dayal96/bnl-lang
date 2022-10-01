@@ -3,8 +3,6 @@ package io.github.dayal96.expression.operator.string;
 import io.github.dayal96.environment.IEnvironment;
 import io.github.dayal96.expression.IExpression;
 import io.github.dayal96.expression.operator.AOperator;
-import io.github.dayal96.expression.type.IType;
-import io.github.dayal96.expression.type.NilType;
 import io.github.dayal96.expression.type.PrimType;
 import io.github.dayal96.primitive.number.Rational;
 import io.github.dayal96.primitive.string.MyString;
@@ -26,13 +24,13 @@ public class Substring extends AOperator {
       evaluated.add(operand.evaluate(environment));
     }
 
-    PrimType.STRING.join(evaluated.get(0).getType());
+    PrimType.NUMBER.join(evaluated.get(0).getType());
     PrimType.NUMBER.join(evaluated.get(1).getType());
-    PrimType.NUMBER.join(evaluated.get(2).getType());
+    PrimType.STRING.join(evaluated.get(2).getType());
 
-    String str = evaluated.get(0).toString();
-    Rational start = (Rational) evaluated.get(1);
-    Rational size = (Rational) evaluated.get(2);
+    Rational start = (Rational) evaluated.get(0);
+    Rational size = (Rational) evaluated.get(1);
+    String str = evaluated.get(2).toString();
 
     Rational stringLength = new Rational(str.length());
 

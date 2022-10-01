@@ -20,6 +20,7 @@ public class TestComplex {
     testMap();
     testLocalNesting();
     testHigherOrderFunc();
+    testStrings();
   }
 
   @Test
@@ -80,5 +81,29 @@ public class TestComplex {
     for(int i = 0; i < prog.length; i++) {
       this.tests.put(prog[i], Optional.of(expected[i]));
     }
+  }
+
+  private void testStrings() {
+    String strings = """
+        (define STRING-1 "apple")
+        (define STRING-2 "ball")
+        (define string-to-cap
+          (lambda (str)
+            (define len (string-length str))
+            (if (= len 0) ""
+              (string-append (letter-to-cap (substring 0 1 str))
+                             (string-to-cap (substring 1 (- len 1) str))))))
+        (define letter-to-cap
+          (lambda (str)
+            (if (= str "a") "A"
+              (if (= str "b") "B"
+                (if (= str "e") "E"
+                  (if (= str "l") "L"
+                    (if (= str "p") "P" str)))))))
+        (string-append (string-to-cap STRING-1) ", " (string-to-cap STRING-2))
+        """;
+
+    String expected = "APPLE, BALL";
+    this.tests.put(strings, Optional.of(expected));
   }
 }

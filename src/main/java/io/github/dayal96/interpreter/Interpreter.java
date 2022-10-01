@@ -53,7 +53,7 @@ public class Interpreter<T> {
     }
 
     Builder interpreterBuilder = new Builder();
-    Interpreter interpreter = interpreterBuilder.build();
+    Interpreter<Void> interpreter = interpreterBuilder.build();
     FileReader sourceCode = new FileReader(args[0]);
     interpreter.interpret(sourceCode);
   }
@@ -106,8 +106,8 @@ public class Interpreter<T> {
       return this;
     }
 
-    public Interpreter build() {
-      return new Interpreter(new SimpleEvaluator(this.environment, out));
+    public Interpreter<Void> build() {
+      return new Interpreter<>(new SimpleEvaluator(this.environment, out));
     }
   }
 }

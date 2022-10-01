@@ -39,6 +39,7 @@ public class SimpleEvaluator implements IEvaluator<Void> {
         } catch (IOException ignored) {}
       });
     }
+    out.flush();
     return null;
   }
 }

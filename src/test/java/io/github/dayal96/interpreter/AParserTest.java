@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import io.github.dayal96.expression.IExpression;
 import io.github.dayal96.expression.Variable;
-import io.github.dayal96.interpreter.EvaluableExpression;
-import io.github.dayal96.interpreter.IEvaluable;
 import io.github.dayal96.primitive.bool.MyBoolean;
 import io.github.dayal96.expression.lambda.FunctionCall;
 import io.github.dayal96.expression.lambda.Lambda;

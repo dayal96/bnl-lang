@@ -30,6 +30,7 @@ import io.github.dayal96.antlr.BnlParser.PlusContext;
 import io.github.dayal96.antlr.BnlParser.PrimFalseContext;
 import io.github.dayal96.antlr.BnlParser.PrimIdContext;
 import io.github.dayal96.antlr.BnlParser.PrimNumContext;
+import io.github.dayal96.antlr.BnlParser.PrimStringContext;
 import io.github.dayal96.antlr.BnlParser.PrimTrueContext;
 import io.github.dayal96.antlr.BnlParser.ProgContext;
 import io.github.dayal96.antlr.BnlParser.SimplexprContext;
@@ -38,6 +39,7 @@ import io.github.dayal96.exceptions.ArithmeticError;
 import io.github.dayal96.expression.Variable;
 import io.github.dayal96.primitive.bool.MyBoolean;
 import io.github.dayal96.primitive.number.Rational;
+import io.github.dayal96.primitive.string.MyString;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -130,6 +132,17 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<IAbsyn> implemen
     catch (ArithmeticError e) {
       throw new RuntimeException("Not a valid number : { " + number + " }");
     }
+  }
+
+  @Override
+  public IAbsyn visitPrimString(PrimStringContext ctx) {
+    String stringRep = ctx.getText();
+
+    if (stringRep.length() <= 2) {
+      return new MyString("");
+    }
+
+    return new MyString(stringRep.substring(1, stringRep.length() - 1)); // Remove the quotes
   }
 
   @Override
