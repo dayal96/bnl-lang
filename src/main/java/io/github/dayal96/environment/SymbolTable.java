@@ -9,10 +9,17 @@ import io.github.dayal96.expression.operator.cons.Rest;
 import io.github.dayal96.expression.operator.number.Add;
 import io.github.dayal96.expression.operator.number.Divide;
 import io.github.dayal96.expression.operator.number.GreaterThan;
+import io.github.dayal96.expression.operator.number.IsNumber;
 import io.github.dayal96.expression.operator.number.LessThan;
 import io.github.dayal96.expression.operator.number.Multiply;
 import io.github.dayal96.expression.operator.number.Subtract;
+import io.github.dayal96.expression.operator.string.IsString;
+import io.github.dayal96.expression.operator.string.NumToString;
+import io.github.dayal96.expression.operator.string.StringAppend;
+import io.github.dayal96.expression.operator.string.StringLength;
+import io.github.dayal96.expression.operator.string.Substring;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -25,18 +32,12 @@ public class SymbolTable implements IEnvironment {
   private String workingDirectory;
 
   public static SymbolTable getPrimitiveOperations() {
+    List<IExpression> operators = List.of(new Add(), new Subtract(), new Divide(), new Multiply(),
+        new Equals(), new LessThan(), new GreaterThan(), new IsNumber(), new IsString(),
+        new NumToString(), new StringAppend() , new StringLength(), new Substring(),
+        new Conditional(), new Cons(), new First(), new Rest());
     SymbolTable primOps = new SymbolTable();
-    primOps.addEntry("+", new Add());
-    primOps.addEntry("-", new Subtract());
-    primOps.addEntry("/", new Divide());
-    primOps.addEntry("*", new Multiply());
-    primOps.addEntry("=", new Equals());
-    primOps.addEntry("<", new LessThan());
-    primOps.addEntry(">", new GreaterThan());
-    primOps.addEntry("if", new Conditional());
-    primOps.addEntry("cons", new Cons());
-    primOps.addEntry("first", new First());
-    primOps.addEntry("rest", new Rest());
+    operators.forEach((op) -> primOps.addEntry(op.toString(), op));
     return primOps;
   }
 
