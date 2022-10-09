@@ -3,8 +3,6 @@ package io.github.dayal96.expression.operator.string;
 import io.github.dayal96.environment.IEnvironment;
 import io.github.dayal96.expression.IExpression;
 import io.github.dayal96.expression.operator.AOperator;
-import io.github.dayal96.expression.type.IType;
-import io.github.dayal96.expression.type.NilType;
 import io.github.dayal96.expression.type.PrimType;
 import io.github.dayal96.primitive.string.MyString;
 import java.util.List;

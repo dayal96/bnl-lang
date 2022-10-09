@@ -11,6 +11,7 @@ import io.github.dayal96.expression.operator.number.IsNumber;
 import io.github.dayal96.expression.operator.string.IsString;
 import io.github.dayal96.expression.operator.string.NumToString;
 import io.github.dayal96.expression.operator.string.StringAppend;
+import io.github.dayal96.expression.operator.string.StringContains;
 import io.github.dayal96.expression.operator.string.StringLength;
 import io.github.dayal96.expression.operator.string.Substring;
 import io.github.dayal96.expression.type.NilType;
@@ -608,5 +609,27 @@ public class TestOperators {
 
     assertEquals("string-append", stringAppend.toString());
     assertEquals(NilType.NIL, stringAppend.getType());
+  }
+
+  @Test
+  public void testStringContains() throws Exception {
+    AOperator stringContains = new StringContains();
+
+    for (var c : "CADABRA".split("")) {
+      assertEquals(MyBoolean.TRUE, stringContains.evaluate(List.of(new MyString("CADABRA"),
+          new MyString(c)), this.environment));
+    }
+
+    assertEquals(MyBoolean.TRUE, stringContains.evaluate(List.of(new MyString("CADABRA"),
+        new MyString("ABRA")), this.environment));
+    assertEquals(MyBoolean.TRUE, stringContains.evaluate(List.of(new MyString("CADABRA"),
+        new MyString("CAD")), this.environment));
+    assertEquals(MyBoolean.FALSE, stringContains.evaluate(List.of(new MyString("CADABRA"),
+        new MyString("ABRACA")), this.environment));
+    assertEquals(MyBoolean.TRUE, stringContains.evaluate(List.of(new MyString("CADABRA"),
+        new MyString("")), this.environment));
+
+    assertEquals("string-contains?", stringContains.toString());
+    assertEquals(NilType.NIL, stringContains.getType());
   }
 }
