@@ -1,13 +1,13 @@
 package io.github.dayal96.expression;
 
 import io.github.dayal96.absyn.AbsynVisitor;
-import io.github.dayal96.absyn.IAbsyn;
-import io.github.dayal96.environment.IEnvironment;
+import io.github.dayal96.absyn.Absyn;
+import io.github.dayal96.environment.Environment;
 import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.type.NilType;
 import java.util.List;
 
-public class Variable implements IExpression, IAbsyn {
+public class Variable implements Expression, Absyn {
 
   private final String name;
 
@@ -21,7 +21,7 @@ public class Variable implements IExpression, IAbsyn {
   }
 
   @Override
-  public IExpression evaluate(IEnvironment environment) throws Exception {
+  public Expression evaluate(Environment environment) throws Exception {
     if (environment.isPresent(this.name)) {
       return environment.getEntry(this.name);
     } else {
@@ -30,7 +30,7 @@ public class Variable implements IExpression, IAbsyn {
   }
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+  public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
     return this.evaluate(environment).evaluate(operands, environment);
   }

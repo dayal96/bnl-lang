@@ -1,19 +1,19 @@
 package io.github.dayal96.expression.operator;
 
-import io.github.dayal96.environment.IEnvironment;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.environment.Environment;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.primitive.bool.MyBoolean;
 import java.util.List;
 
 public class Conditional extends AOperator {
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+  public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
     if (operands.size() != 3) {
       throw new Exception("A conditional expects 3 parts, provided " + operands.size());
     } else {
-      IExpression truth = operands.get(0).evaluate(environment);
+      Expression truth = operands.get(0).evaluate(environment);
 
       if (truth.equals(MyBoolean.TRUE)) {
         return operands.get(1).evaluate(environment);

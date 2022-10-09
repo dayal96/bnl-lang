@@ -1,7 +1,7 @@
 package io.github.dayal96.expression.operator.number;
 
-import io.github.dayal96.environment.IEnvironment;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.environment.Environment;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.primitive.number.MyNumber;
 import io.github.dayal96.expression.operator.AOperator;
 import io.github.dayal96.expression.type.IType;
@@ -12,12 +12,12 @@ import java.util.List;
 public class Divide extends AOperator {
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+  public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
 
     boolean allNumbers = true;
 
-    for (IExpression e : operands) {
+    for (Expression e : operands) {
       try {
         PrimType.NUMBER.join(e.getType());
       }

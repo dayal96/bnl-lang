@@ -1,6 +1,6 @@
 package io.github.dayal96.absyn;
 
-public enum Operator implements IAbsyn {
+public enum Operator implements Absyn {
   PLUS,
   MINUS,
   MULTIPLY,

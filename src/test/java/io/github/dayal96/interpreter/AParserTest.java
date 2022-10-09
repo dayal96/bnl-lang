@@ -2,7 +2,7 @@ package io.github.dayal96.interpreter;
 
 import static org.junit.Assert.assertEquals;
 
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.Variable;
 import io.github.dayal96.primitive.bool.MyBoolean;
 import io.github.dayal96.expression.lambda.FunctionCall;
@@ -20,14 +20,14 @@ import org.junit.Test;
 
 public abstract class AParserTest {
 
-  private final Function<Reader, List<IEvaluable>> parser;
+  private final Function<Reader, List<Evaluable>> parser;
 
   /**
    * Create an AParser to use for testing the given parser.
    *
    * @param parser The parser to test.
    */
-  protected AParserTest(Function<Reader, List<IEvaluable>> parser) {
+  protected AParserTest(Function<Reader, List<Evaluable>> parser) {
     this.parser = parser;
   }
 
@@ -36,9 +36,9 @@ public abstract class AParserTest {
     String prims = "2" + "\n" + "15/9" + "\n" + "-3/9" + "\n" + "#t" + "\n" + "#f" + "\n"
         + "variable-name var2";
 
-    List<IEvaluable> evals = this.parser.apply(new StringReader(prims));
+    List<Evaluable> evals = this.parser.apply(new StringReader(prims));
 
-    List<IEvaluable> expectedEvals = List.of(new EvaluableExpression(new Rational(2, 1)),
+    List<Evaluable> expectedEvals = List.of(new EvaluableExpression(new Rational(2, 1)),
         new EvaluableExpression(new Rational(15, 9)),
         new EvaluableExpression(new Rational(-3, 9)),
         new EvaluableExpression(MyBoolean.TRUE),
@@ -57,15 +57,15 @@ public abstract class AParserTest {
         + "(define size-num (lambda (x) (if (= x 0) 1 (* 2 (size-num (- x 1))))))\n"
         + "size-num";
 
-    List<IEvaluable> evals = this.parser.apply(new StringReader(functions));
+    List<Evaluable> evals = this.parser.apply(new StringReader(functions));
 
-    IExpression func1 = new Lambda(List.of("x", "y"), new Variable("x"));
+    Expression func1 = new Lambda(List.of("x", "y"), new Variable("x"));
 
     Variable x = new Variable("x");
     Rational zero = new Rational(0, 1);
     Rational one = new Rational(1, 1);
     Rational two = new Rational(2, 1);
-    IExpression func2 = new Lambda(List.of("x"),
+    Expression func2 = new Lambda(List.of("x"),
         new FunctionCall(new Conditional(),
             List.of(new FunctionCall(new Variable("="), List.of(x, zero)),
                 new Rational(1, 1),
@@ -76,7 +76,7 @@ public abstract class AParserTest {
     LocalDefinition sizeNumDef = new LocalDefinition("size-num", func2);
     Local expectedSizeNum = new Local(Arrays.asList(sizeNumDef), new Variable("size-num"));
 
-    List<IEvaluable> expectedEvals = List.of(new EvaluableExpression(func1),
+    List<Evaluable> expectedEvals = List.of(new EvaluableExpression(func1),
         new EvaluableExpression(expectedSizeNum));
 
     for (int i = 0; i < evals.size(); i++) {

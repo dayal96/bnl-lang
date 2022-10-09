@@ -1,14 +1,14 @@
 package io.github.dayal96.primitive.bool;
 
 import io.github.dayal96.absyn.AbsynVisitor;
-import io.github.dayal96.absyn.IAbsyn;
-import io.github.dayal96.environment.IEnvironment;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.absyn.Absyn;
+import io.github.dayal96.environment.Environment;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.type.PrimType;
 import java.util.List;
 
-public class MyBoolean implements IExpression, IAbsyn {
+public class MyBoolean implements Expression, Absyn {
 
   public static final MyBoolean TRUE = new MyBoolean(true);
   public static final MyBoolean FALSE = new MyBoolean(false);
@@ -33,12 +33,12 @@ public class MyBoolean implements IExpression, IAbsyn {
   }
 
   @Override
-  public IExpression evaluate(IEnvironment environment) throws Exception {
+  public Expression evaluate(Environment environment) throws Exception {
     return this;
   }
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+  public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
     throw new Exception("Cannot evaluate a boolean like a function.");
   }

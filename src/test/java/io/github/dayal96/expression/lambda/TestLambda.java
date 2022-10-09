@@ -2,10 +2,10 @@ package io.github.dayal96.expression.lambda;
 
 import static org.junit.Assert.assertEquals;
 
-import io.github.dayal96.environment.IEnvironment;
+import io.github.dayal96.environment.Environment;
 import io.github.dayal96.environment.LocalContext;
 import io.github.dayal96.environment.SymbolTable;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.Variable;
 import io.github.dayal96.primitive.number.Rational;
 import io.github.dayal96.expression.operator.Conditional;
@@ -19,7 +19,7 @@ import org.junit.Test;
 
 public class TestLambda {
 
-  private final IEnvironment environment;
+  private final Environment environment;
 
   public TestLambda() throws Exception {
     this.environment = new SymbolTable();
@@ -33,11 +33,11 @@ public class TestLambda {
 
   @Test
   public void testLambda() throws Exception {
-    IExpression first =
+    Expression first =
         new Lambda(List.of("x", "y"), new Variable("x")).evaluate(this.environment);
-    IExpression rest = new Lambda(List.of("x", "y"), new Variable("y"))
+    Expression rest = new Lambda(List.of("x", "y"), new Variable("y"))
         .evaluate(this.environment);
-    IExpression apply = new Lambda(List.of("f"),
+    Expression apply = new Lambda(List.of("f"),
         new Lambda(List.of("x", "y"),
             new FunctionCall(new Variable("f"),
                 List.of(new Variable("x"), new Variable("y")))))
@@ -68,7 +68,7 @@ public class TestLambda {
       assert true;
     }
 
-    List<IExpression> operands1 = Arrays.asList(new Variable("ONE"),
+    List<Expression> operands1 = Arrays.asList(new Variable("ONE"),
         new Variable("FOUR"));
     FunctionCall funcall = new FunctionCall(new Add(), operands1);
 
@@ -100,9 +100,9 @@ public class TestLambda {
     Variable one = new Variable("ONE");
     Variable two = new Variable("TWO");
 
-    IEnvironment recursiveEnv = new LocalContext(this.environment, new SymbolTable());
+    Environment recursiveEnv = new LocalContext(this.environment, new SymbolTable());
 
-    IExpression sizeNum = new Lambda(List.of("x"),
+    Expression sizeNum = new Lambda(List.of("x"),
         new FunctionCall(new Conditional(),
             List.of(new FunctionCall(new Equals(), List.of(x, zero)),
                 new Rational(1, 1),
@@ -112,7 +112,7 @@ public class TestLambda {
         .evaluate(recursiveEnv);
     recursiveEnv.addEntry("size-num", sizeNum);
 
-    IExpression result = sizeNum.evaluate(List.of(new Rational(30, 1)),
+    Expression result = sizeNum.evaluate(List.of(new Rational(30, 1)),
         recursiveEnv);
     assertEquals(new Rational(1073741824), result);
   }

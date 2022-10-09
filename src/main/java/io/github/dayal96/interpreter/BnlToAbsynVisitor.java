@@ -5,7 +5,7 @@ import io.github.dayal96.absyn.DecList;
 import io.github.dayal96.absyn.Decl;
 import io.github.dayal96.absyn.ExprList;
 import io.github.dayal96.absyn.FunCall;
-import io.github.dayal96.absyn.IAbsyn;
+import io.github.dayal96.absyn.Absyn;
 import io.github.dayal96.absyn.Lambda;
 import io.github.dayal96.absyn.LocalExpr;
 import io.github.dayal96.absyn.Operator;
@@ -45,16 +45,16 @@ import java.util.List;
 import java.util.Objects;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
-public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<IAbsyn> implements
-    BnlVisitor<IAbsyn> {
+public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<Absyn> implements
+    BnlVisitor<Absyn> {
 
   @Override
-  public IAbsyn visitProg(ProgContext ctx) {
+  public Absyn visitProg(ProgContext ctx) {
     return this.visit(ctx.exprlist());
   }
 
   @Override
-  public IAbsyn visitExprlist(ExprlistContext ctx) {
+  public Absyn visitExprlist(ExprlistContext ctx) {
     if (Objects.isNull(ctx.exprlist())) {
       return new ExprList(new LinkedList<>(List.of(visitExpr(ctx.expr()))));
     } else {
@@ -65,7 +65,7 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<IAbsyn> implemen
   }
 
   @Override
-  public IAbsyn visitExpr(ExprContext ctx) {
+  public Absyn visitExpr(ExprContext ctx) {
     if (Objects.nonNull(ctx.localexpr()) && !ctx.localexpr().isEmpty()) {
       return visit(ctx.localexpr());
     } else {
@@ -74,12 +74,12 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<IAbsyn> implemen
   }
 
   @Override
-  public IAbsyn visitLocalexpr(LocalexprContext ctx) {
+  public Absyn visitLocalexpr(LocalexprContext ctx) {
     return new LocalExpr(visitDeclist(ctx.declist()), visitSimplexpr(ctx.simplexpr()));
   }
 
   @Override
-  public IAbsyn visitDeclist(DeclistContext ctx) {
+  public Absyn visitDeclist(DeclistContext ctx) {
     if (Objects.nonNull(ctx.declist()) && !ctx.declist().isEmpty()) {
       DecList decList = (DecList) visitDeclist(ctx.declist());
       decList.addDecl(visitDecl(ctx.decl()));
@@ -90,12 +90,12 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<IAbsyn> implemen
   }
 
   @Override
-  public IAbsyn visitDecl(DeclContext ctx) {
+  public Absyn visitDecl(DeclContext ctx) {
     return new Decl(ctx.ID().getSymbol().getText(), visitExpr(ctx.expr()));
   }
 
   @Override
-  public IAbsyn visitSimplexpr(SimplexprContext ctx) {
+  public Absyn visitSimplexpr(SimplexprContext ctx) {
     if (Objects.nonNull(ctx.prim()) && !ctx.prim().isEmpty()) {
       return this.visit(ctx.prim());
     } else if (Objects.nonNull(ctx.primop()) && !ctx.primop().isEmpty()) {
@@ -110,12 +110,12 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<IAbsyn> implemen
   }
 
   @Override
-  public IAbsyn visitPrimId(PrimIdContext ctx) {
+  public Absyn visitPrimId(PrimIdContext ctx) {
     return new Variable(ctx.getText());
   }
 
   @Override
-  public IAbsyn visitPrimNum(PrimNumContext ctx) {
+  public Absyn visitPrimNum(PrimNumContext ctx) {
     String number = ctx.getText();
     int denomStart = number.indexOf("/");
 
@@ -135,7 +135,7 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<IAbsyn> implemen
   }
 
   @Override
-  public IAbsyn visitPrimString(PrimStringContext ctx) {
+  public Absyn visitPrimString(PrimStringContext ctx) {
     String stringRep = ctx.getText();
 
     if (stringRep.length() <= 2) {
@@ -146,27 +146,27 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<IAbsyn> implemen
   }
 
   @Override
-  public IAbsyn visitPrimFalse(PrimFalseContext ctx) {
+  public Absyn visitPrimFalse(PrimFalseContext ctx) {
     return MyBoolean.FALSE;
   }
 
   @Override
-  public IAbsyn visitPrimTrue(PrimTrueContext ctx) {
+  public Absyn visitPrimTrue(PrimTrueContext ctx) {
     return MyBoolean.TRUE;
   }
 
   @Override
-  public IAbsyn visitCond(CondContext ctx) {
-    IAbsyn cond = this.visit(ctx.expr(0));
-    IAbsyn ifTrue = this.visit(ctx.expr(1));
-    IAbsyn ifFalse = this.visit(ctx.expr(2));
+  public Absyn visitCond(CondContext ctx) {
+    Absyn cond = this.visit(ctx.expr(0));
+    Absyn ifTrue = this.visit(ctx.expr(1));
+    Absyn ifFalse = this.visit(ctx.expr(2));
     return new Cond(cond, ifTrue, ifFalse);
   }
 
   @Override
-  public IAbsyn visitLambda(LambdaContext ctx) {
+  public Absyn visitLambda(LambdaContext ctx) {
     List<String> idList = this.readIdList(ctx.idlist());
-    IAbsyn body = this.visit(ctx.expr());
+    Absyn body = this.visit(ctx.expr());
     return new Lambda(idList, body);
   }
 
@@ -183,57 +183,57 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<IAbsyn> implemen
   }
 
   @Override
-  public IAbsyn visitIdlist(IdlistContext ctx) {
+  public Absyn visitIdlist(IdlistContext ctx) {
     throw new RuntimeException("idlist not supported as AST object.");
   }
 
   @Override
-  public IAbsyn visitFuncall(FuncallContext ctx) {
+  public Absyn visitFuncall(FuncallContext ctx) {
     return new FunCall(this.visit(ctx.expr()), this.visit(ctx.exprlist()));
   }
 
   @Override
-  public IAbsyn visitPlus(PlusContext ctx) {
+  public Absyn visitPlus(PlusContext ctx) {
     return Operator.PLUS;
   }
 
   @Override
-  public IAbsyn visitMinus(MinusContext ctx) {
+  public Absyn visitMinus(MinusContext ctx) {
     return Operator.MINUS;
   }
 
   @Override
-  public IAbsyn visitMultiply(MultiplyContext ctx) {
+  public Absyn visitMultiply(MultiplyContext ctx) {
     return Operator.MULTIPLY;
   }
 
   @Override
-  public IAbsyn visitDivide(DivideContext ctx) {
+  public Absyn visitDivide(DivideContext ctx) {
     return Operator.DIVIDE;
   }
 
   @Override
-  public IAbsyn visitEquals(EqualsContext ctx) {
+  public Absyn visitEquals(EqualsContext ctx) {
     return Operator.EQUALS;
   }
 
   @Override
-  public IAbsyn visitLessThan(LessThanContext ctx) {
+  public Absyn visitLessThan(LessThanContext ctx) {
     return Operator.LT;
   }
 
   @Override
-  public IAbsyn visitGreaterThan(GreaterThanContext ctx) {
+  public Absyn visitGreaterThan(GreaterThanContext ctx) {
     return Operator.GT;
   }
 
   @Override
-  public IAbsyn visitLeq(LeqContext ctx) {
+  public Absyn visitLeq(LeqContext ctx) {
     return Operator.LEQ;
   }
 
   @Override
-  public IAbsyn visitGeq(GeqContext ctx) {
+  public Absyn visitGeq(GeqContext ctx) {
     return Operator.GEQ;
   }
 }

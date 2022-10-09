@@ -1,7 +1,7 @@
 package io.github.dayal96.expression.lambda;
 
-import io.github.dayal96.environment.IEnvironment;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.environment.Environment;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.type.IType;
 import java.util.List;
 import java.util.Objects;
@@ -9,10 +9,10 @@ import java.util.Objects;
 /**
  * Class to represent Function Call Expressions.
  */
-public class FunctionCall implements IExpression {
+public class FunctionCall implements Expression {
 
-  private final IExpression operator;
-  private final List<IExpression> operands;
+  private final Expression operator;
+  private final List<Expression> operands;
 
   /**
    * Creates a new FunctionCall that combines the RHS and LHS values using the given operator.
@@ -20,18 +20,18 @@ public class FunctionCall implements IExpression {
    * @param operator The operator to perform of RHS and LHS.
    * @param operands The operands in the expression.
    */
-  public FunctionCall(IExpression operator, List<IExpression> operands) {
+  public FunctionCall(Expression operator, List<Expression> operands) {
     this.operator = operator;
     this.operands = operands;
   }
 
   @Override
-  public IExpression evaluate(IEnvironment environment) throws Exception {
+  public Expression evaluate(Environment environment) throws Exception {
     return this.operator.evaluate(environment).evaluate(this.operands, environment);
   }
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+  public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
     throw new Exception("I am impressed you managed to reach this error, but it all ends now"
         + "<evillaughter>MWAHAHAHAHA</evillaughter>");
@@ -52,7 +52,7 @@ public class FunctionCall implements IExpression {
 
     StringBuilder operandsStrings = new StringBuilder();
 
-    for (IExpression e : this.operands) {
+    for (Expression e : this.operands) {
       operandsStrings.append(" " + e.toString());
     }
 

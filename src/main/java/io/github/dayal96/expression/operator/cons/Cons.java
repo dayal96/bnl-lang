@@ -1,7 +1,7 @@
 package io.github.dayal96.expression.operator.cons;
 
-import io.github.dayal96.environment.IEnvironment;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.environment.Environment;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.cons.ConsPair;
 import io.github.dayal96.expression.operator.AOperator;
 import io.github.dayal96.expression.type.IType;
@@ -11,7 +11,7 @@ import java.util.List;
 public class Cons extends AOperator {
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+  public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
 
     if (operands.size() != 2) {

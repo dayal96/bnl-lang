@@ -1,11 +1,11 @@
 package io.github.dayal96.absyn.transform;
 
-import io.github.dayal96.absyn.IAbsyn;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.absyn.Absyn;
+import io.github.dayal96.expression.Expression;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AbsynToExprList extends PartialAbsynVisitor<List<IExpression>> {
+public class AbsynToExprList extends PartialAbsynVisitor<List<Expression>> {
 
   private static final AbsynToExprList instance = new AbsynToExprList();
 
@@ -18,7 +18,7 @@ public class AbsynToExprList extends PartialAbsynVisitor<List<IExpression>> {
   }
 
   @Override
-  public List<IExpression> visitExprList(List<IAbsyn> exprList) {
+  public List<Expression> visitExprList(List<Absyn> exprList) {
     return exprList.stream().map((expr) -> expr.accept(SimpleAbsynToExpr.getInstance()))
         .collect(Collectors.toList());
   }

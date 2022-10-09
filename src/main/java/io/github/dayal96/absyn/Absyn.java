@@ -1,5 +1,5 @@
 package io.github.dayal96.absyn;
 
-public interface IAbsyn {
+public interface Absyn {
   <T> T accept(AbsynVisitor<T> visitor);
 }

@@ -1,7 +1,7 @@
 package io.github.dayal96.expression.operator.bool;
 
-import io.github.dayal96.environment.IEnvironment;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.environment.Environment;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.primitive.bool.MyBoolean;
 import io.github.dayal96.expression.operator.AOperator;
 import io.github.dayal96.expression.type.PrimType;
@@ -11,13 +11,13 @@ import java.util.List;
 public class Or extends AOperator {
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+  public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
     boolean allBoolean = true;
-    List<IExpression> eval = new LinkedList<>();
+    List<Expression> eval = new LinkedList<>();
 
-    for (IExpression e : operands) {
-      IExpression evaluated = e.evaluate(environment);
+    for (Expression e : operands) {
+      Expression evaluated = e.evaluate(environment);
       eval.add(evaluated);
       allBoolean = allBoolean && (evaluated.getType().equals(PrimType.BOOLEAN));
     }

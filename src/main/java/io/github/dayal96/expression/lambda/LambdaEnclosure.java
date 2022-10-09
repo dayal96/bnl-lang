@@ -1,9 +1,9 @@
 package io.github.dayal96.expression.lambda;
 
-import io.github.dayal96.environment.IEnvironment;
+import io.github.dayal96.environment.Environment;
 import io.github.dayal96.environment.LocalContext;
 import io.github.dayal96.environment.SymbolTable;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.type.NilType;
 import java.util.List;
@@ -16,11 +16,11 @@ import java.util.List;
  * is defined in one scope but invoked from a different scope, it remembers the environment it was
  * defined in and uses that for lookups.
  */
-public class LambdaEnclosure implements IExpression {
+public class LambdaEnclosure implements Expression {
 
   private final List<String> inputs;
-  private final IExpression body;
-  private final IEnvironment context;
+  private final Expression body;
+  private final Environment context;
 
   /**
    * Create an enclosure for a function defined in given environment.
@@ -29,19 +29,19 @@ public class LambdaEnclosure implements IExpression {
    * @param body    The body of the function.
    * @param context The environment the function is defined in.
    */
-  public LambdaEnclosure(List<String> inputs, IExpression body, IEnvironment context) {
+  public LambdaEnclosure(List<String> inputs, Expression body, Environment context) {
     this.inputs = inputs;
     this.body = body;
     this.context = context;
   }
 
   @Override
-  public IExpression evaluate(IEnvironment environment) throws Exception {
+  public Expression evaluate(Environment environment) throws Exception {
     return this;
   }
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+  public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
 
     if (operands.size() != this.inputs.size()) {
@@ -55,7 +55,7 @@ public class LambdaEnclosure implements IExpression {
       localBindings.addEntry(this.inputs.get(i), operands.get(i).evaluate(environment));
     }
 
-    IEnvironment localContext = new LocalContext(context, localBindings);
+    Environment localContext = new LocalContext(context, localBindings);
 
     return this.body.evaluate(localContext);
   }

@@ -2,11 +2,11 @@ package io.github.dayal96.absyn;
 
 import java.util.List;
 
-public class Lambda implements IAbsyn {
+public class Lambda implements Absyn {
   private List<String> idList;
-  private IAbsyn body;
+  private Absyn body;
 
-  public Lambda(List<String> idList, IAbsyn body) {
+  public Lambda(List<String> idList, Absyn body) {
     this.idList = idList;
     this.body = body;
   }

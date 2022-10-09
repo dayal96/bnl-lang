@@ -1,9 +1,9 @@
 package io.github.dayal96.primitive;
 
 import io.github.dayal96.absyn.AbsynVisitor;
-import io.github.dayal96.absyn.IAbsyn;
-import io.github.dayal96.environment.IEnvironment;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.absyn.Absyn;
+import io.github.dayal96.environment.Environment;
+import io.github.dayal96.expression.Expression;
 import java.util.List;
 
 /**
@@ -15,15 +15,15 @@ import java.util.List;
  *   <li>String</li>
  * </ul>
  */
-public abstract class Primitive implements IExpression, IAbsyn {
+public abstract class Primitive implements Expression, Absyn {
 
   @Override
-  public IExpression evaluate(IEnvironment environment) {
+  public Expression evaluate(Environment environment) {
     return this;
   }
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+  public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
     throw new Exception("Can't call a primitive as a function.");
   }

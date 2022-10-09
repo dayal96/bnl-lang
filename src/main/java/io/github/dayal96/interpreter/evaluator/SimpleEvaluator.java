@@ -1,18 +1,18 @@
 package io.github.dayal96.interpreter.evaluator;
 
-import io.github.dayal96.environment.IEnvironment;
+import io.github.dayal96.environment.Environment;
 import io.github.dayal96.environment.SymbolTable;
-import io.github.dayal96.expression.IExpression;
-import io.github.dayal96.interpreter.IEvaluable;
+import io.github.dayal96.expression.Expression;
+import io.github.dayal96.interpreter.Evaluable;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.List;
 import java.util.Optional;
 
-public class SimpleEvaluator implements IEvaluator<Void> {
+public class SimpleEvaluator implements Evaluator<Void> {
 
-  private final IEnvironment environment;
+  private final Environment environment;
   private final Writer out;
 
   /**
@@ -20,7 +20,7 @@ public class SimpleEvaluator implements IEvaluator<Void> {
    *
    * @param predefined The pre-defined expressions for this evaluator.
    */
-  public SimpleEvaluator(IEnvironment predefined, Writer out) {
+  public SimpleEvaluator(Environment predefined, Writer out) {
     this.environment = predefined;
     this.out = out;
   }
@@ -30,9 +30,9 @@ public class SimpleEvaluator implements IEvaluator<Void> {
   }
 
   @Override
-  public Void evaluateProgram(List<IEvaluable> toEval) throws Exception {
-    for (IEvaluable eval : toEval) {
-      Optional<IExpression> result = eval.evaluate(this.environment);
+  public Void evaluateProgram(List<Evaluable> toEval) throws Exception {
+    for (Evaluable eval : toEval) {
+      Optional<Expression> result = eval.evaluate(this.environment);
       result.ifPresent((toPrint) -> {
         try {
           out.write(toPrint + "\n");

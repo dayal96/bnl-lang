@@ -1,17 +1,17 @@
 package io.github.dayal96.expression.local;
 
-import io.github.dayal96.environment.IEnvironment;
+import io.github.dayal96.environment.Environment;
 import io.github.dayal96.environment.LocalContext;
 import io.github.dayal96.environment.SymbolTable;
 import io.github.dayal96.expression.EmptyExpression;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.type.IType;
 import java.util.List;
 
-public class Local implements IExpression {
+public class Local implements Expression {
 
   private final List<LocalDefinition> localDefinitions;
-  private final IExpression body;
+  private final Expression body;
 
   /**
    * Create a Local expression with given context that evaluates given expression.
@@ -19,29 +19,29 @@ public class Local implements IExpression {
    * @param localDefinitions The context bound within this local expression.
    * @param body             The expression that would be evaluated within the local context.
    */
-  public Local(List<LocalDefinition> localDefinitions, IExpression body) {
+  public Local(List<LocalDefinition> localDefinitions, Expression body) {
     this.localDefinitions = localDefinitions;
     this.body = body;
   }
 
   @Override
-  public IExpression evaluate(IEnvironment environment) throws Exception {
+  public Expression evaluate(Environment environment) throws Exception {
     return this.body.evaluate(this.addLocalDefinitions(environment));
   }
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+  public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
     throw new Exception("This is impossible, so this message will never be seen.");
   }
 
-  private IEnvironment addLocalDefinitions(IEnvironment environment) throws Exception {
+  private Environment addLocalDefinitions(Environment environment) throws Exception {
     SymbolTable localContext = new SymbolTable();
     for (LocalDefinition def : this.localDefinitions) {
       localContext.addEntry(def.name, EmptyExpression.EMPTY_EXPR);
     }
 
-    IEnvironment fullContext = new LocalContext(environment, localContext);
+    Environment fullContext = new LocalContext(environment, localContext);
     for (LocalDefinition def : this.localDefinitions) {
       fullContext.addEntry(def.name, def.value.evaluate(fullContext));
     }

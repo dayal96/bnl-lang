@@ -1,24 +1,24 @@
 package io.github.dayal96.interpreter;
 
-import io.github.dayal96.environment.IEnvironment;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.environment.Environment;
+import io.github.dayal96.expression.Expression;
 import java.util.Optional;
 
-public class EvaluableExpression implements IEvaluable {
+public class EvaluableExpression implements Evaluable {
 
-  private final IExpression toEvaluate;
+  private final Expression toEvaluate;
 
   /**
    * Create an Evaluable Expression.
    *
-   * @param toEvaluate The IExpression this Evaluable will evaluate.
+   * @param toEvaluate The Expression this Evaluable will evaluate.
    */
-  public EvaluableExpression(IExpression toEvaluate) {
+  public EvaluableExpression(Expression toEvaluate) {
     this.toEvaluate = toEvaluate;
   }
 
   @Override
-  public Optional<IExpression> evaluate(IEnvironment environment) throws Exception {
+  public Optional<Expression> evaluate(Environment environment) throws Exception {
     return Optional.of(toEvaluate.evaluate(environment));
   }
 

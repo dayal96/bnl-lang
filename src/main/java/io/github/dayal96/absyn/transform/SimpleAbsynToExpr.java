@@ -1,9 +1,9 @@
 package io.github.dayal96.absyn.transform;
 
 import io.github.dayal96.absyn.AbsynVisitor;
-import io.github.dayal96.absyn.IAbsyn;
+import io.github.dayal96.absyn.Absyn;
 import io.github.dayal96.absyn.Operator;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.Variable;
 import io.github.dayal96.expression.lambda.FunctionCall;
 import io.github.dayal96.expression.lambda.Lambda;
@@ -12,7 +12,7 @@ import io.github.dayal96.primitive.Primitive;
 import io.github.dayal96.primitive.bool.MyBoolean;
 import java.util.List;
 
-public class SimpleAbsynToExpr implements AbsynVisitor<IExpression> {
+public class SimpleAbsynToExpr implements AbsynVisitor<Expression> {
 
   private static final SimpleAbsynToExpr instance =
       new SimpleAbsynToExpr();
@@ -22,44 +22,44 @@ public class SimpleAbsynToExpr implements AbsynVisitor<IExpression> {
   public static SimpleAbsynToExpr getInstance() { return instance; }
 
   @Override
-  public IExpression visitCond(IAbsyn cond, IAbsyn ifTrue, IAbsyn ifFalse) {
+  public Expression visitCond(Absyn cond, Absyn ifTrue, Absyn ifFalse) {
     return new FunctionCall(new Variable("if"), List.of(cond.accept(this), ifTrue.accept(this),
         ifFalse.accept(this)));
   }
 
   @Override
-  public IExpression visitDecl(String id, IAbsyn expr) {
+  public Expression visitDecl(String id, Absyn expr) {
     throw new RuntimeException("Declarations cannot become Expressions");
   }
 
   @Override
-  public IExpression visitDecList(List<IAbsyn> decList) {
+  public Expression visitDecList(List<Absyn> decList) {
     throw new RuntimeException("Declarations cannot become Expressions");
   }
 
   @Override
-  public IExpression visitExprList(List<IAbsyn> exprList) {
+  public Expression visitExprList(List<Absyn> exprList) {
     throw new RuntimeException("Unexpected expression list while transforming");
   }
 
   @Override
-  public IExpression visitFunCall(IAbsyn func, IAbsyn args) {
+  public Expression visitFunCall(Absyn func, Absyn args) {
     return new FunctionCall(func.accept(this),
         args.accept(AbsynToExprList.getInstance()));
   }
 
   @Override
-  public IExpression visitLambda(List<String> idList, IAbsyn body) {
+  public Expression visitLambda(List<String> idList, Absyn body) {
     return new Lambda(idList, body.accept(this));
   }
 
   @Override
-  public IExpression visitLocalExpr(IAbsyn decList, IAbsyn expr) {
+  public Expression visitLocalExpr(Absyn decList, Absyn expr) {
     return new Local(decList.accept(DeclarationToLocalDef.getInstance()), expr.accept(this));
   }
 
   @Override
-  public IExpression visitOperator(Operator operator) {
+  public Expression visitOperator(Operator operator) {
     switch(operator) {
       case PLUS: return new Variable("+");
       case MINUS: return new Variable("-");
@@ -76,17 +76,17 @@ public class SimpleAbsynToExpr implements AbsynVisitor<IExpression> {
   }
 
   @Override
-  public IExpression visitVariable(Variable v) {
+  public Expression visitVariable(Variable v) {
     return v;
   }
 
   @Override
-  public IExpression visitPrimitive(Primitive primitive) {
+  public Expression visitPrimitive(Primitive primitive) {
     return primitive;
   }
 
   @Override
-  public IExpression visitBoolean(MyBoolean bool) {
+  public Expression visitBoolean(MyBoolean bool) {
     return bool;
   }
 }

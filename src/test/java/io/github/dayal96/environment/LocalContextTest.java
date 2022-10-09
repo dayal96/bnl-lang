@@ -2,14 +2,14 @@ package io.github.dayal96.environment;
 
 import static org.junit.Assert.assertEquals;
 
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.primitive.number.Rational;
 import org.junit.Test;
 
 /**
  * Class to test LocalContext environments.
  */
-public class LocalContextTest extends AEnvironmentTest {
+public class LocalContextTest extends EnvironmentTest {
 
   /**
    * Set up the Environment tests with a LocalContext.
@@ -20,20 +20,20 @@ public class LocalContextTest extends AEnvironmentTest {
 
   @Test
   public void testLocalContexting() throws Exception {
-    IEnvironment global = new SymbolTable();
+    Environment global = new SymbolTable();
 
-    IExpression one = new Rational(1, 1);
-    IExpression two = new Rational(2, 1);
-    IExpression three = new Rational(3, 1);
-    IExpression four = new Rational(4, 1);
-    IExpression five = new Rational(5, 1);
-    IExpression six = new Rational(6, 1);
+    Expression one = new Rational(1, 1);
+    Expression two = new Rational(2, 1);
+    Expression three = new Rational(3, 1);
+    Expression four = new Rational(4, 1);
+    Expression five = new Rational(5, 1);
+    Expression six = new Rational(6, 1);
 
     global.addEntry("ONE", one);
     global.addEntry("TWO", two);
     global.addEntry("THREE", three);
 
-    IEnvironment localized = new LocalContext(global, new SymbolTable());
+    Environment localized = new LocalContext(global, new SymbolTable());
     assertEquals(one, localized.getEntry("ONE"));
     assertEquals(two, localized.getEntry("TWO"));
     assertEquals(three, localized.getEntry("THREE"));

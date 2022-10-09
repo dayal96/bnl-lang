@@ -1,7 +1,7 @@
 package io.github.dayal96.expression.operator.number;
 
-import io.github.dayal96.environment.IEnvironment;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.environment.Environment;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.primitive.number.MyNumber;
 import io.github.dayal96.expression.operator.AOperator;
 import io.github.dayal96.expression.type.IType;
@@ -13,15 +13,15 @@ import java.util.List;
 public class Multiply extends AOperator {
 
   @Override
-  public IExpression evaluate(List<IExpression> operands, IEnvironment environment)
+  public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
 
     boolean allNumbers = true;
 
-    List<IExpression> eval = new LinkedList<>();
+    List<Expression> eval = new LinkedList<>();
 
-    for (IExpression e : operands) {
-      IExpression evaluated = e.evaluate(environment);
+    for (Expression e : operands) {
+      Expression evaluated = e.evaluate(environment);
       eval.add(evaluated);
       try {
         PrimType.NUMBER.join(evaluated.getType());

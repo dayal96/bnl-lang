@@ -1,9 +1,9 @@
 package io.github.dayal96.environment;
 
-public class SymbolTableTest extends AEnvironmentTest {
+public class SymbolTableTest extends EnvironmentTest {
 
   /**
-   * Create an AEnvironmentTest with given IEnvironment to test.
+   * Create an EnvironmentTest with given Environment to test.
    */
   public SymbolTableTest() {
     super(new SymbolTable());

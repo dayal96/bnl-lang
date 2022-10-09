@@ -1,6 +1,6 @@
 package io.github.dayal96.absyn.transform;
 
-import io.github.dayal96.absyn.IAbsyn;
+import io.github.dayal96.absyn.Absyn;
 import io.github.dayal96.expression.local.LocalDefinition;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,12 +16,12 @@ public class DeclarationToLocalDef extends PartialAbsynVisitor<List<LocalDefinit
   }
 
   @Override
-  public List<LocalDefinition> visitDecl(String id, IAbsyn expr) {
+  public List<LocalDefinition> visitDecl(String id, Absyn expr) {
     return List.of(new LocalDefinition(id, expr.accept(SimpleAbsynToExpr.getInstance())));
   }
 
   @Override
-  public List<LocalDefinition> visitDecList(List<IAbsyn> decList) {
+  public List<LocalDefinition> visitDecList(List<Absyn> decList) {
     return decList.stream().flatMap((decl) -> decl.accept(this).stream())
         .collect(Collectors.toList());
   }

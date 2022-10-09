@@ -7,19 +7,19 @@ import java.util.List;
 
 public interface AbsynVisitor<T> {
 
-  T visitCond(IAbsyn cond, IAbsyn ifTrue, IAbsyn ifFalse);
+  T visitCond(Absyn cond, Absyn ifTrue, Absyn ifFalse);
 
-  T visitDecl(String id, IAbsyn expr);
+  T visitDecl(String id, Absyn expr);
 
-  T visitDecList(List<IAbsyn> decList);
+  T visitDecList(List<Absyn> decList);
 
-  T visitExprList(List<IAbsyn> exprList);
+  T visitExprList(List<Absyn> exprList);
 
-  T visitFunCall(IAbsyn func, IAbsyn args);
+  T visitFunCall(Absyn func, Absyn args);
 
-  T visitLambda(List<String> idList, IAbsyn body);
+  T visitLambda(List<String> idList, Absyn body);
 
-  T visitLocalExpr(IAbsyn decList, IAbsyn expr);
+  T visitLocalExpr(Absyn decList, Absyn expr);
 
   T visitOperator(Operator operator);
 

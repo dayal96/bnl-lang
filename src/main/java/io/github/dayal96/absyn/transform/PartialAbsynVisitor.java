@@ -1,7 +1,7 @@
 package io.github.dayal96.absyn.transform;
 
 import io.github.dayal96.absyn.AbsynVisitor;
-import io.github.dayal96.absyn.IAbsyn;
+import io.github.dayal96.absyn.Absyn;
 import io.github.dayal96.absyn.Operator;
 import io.github.dayal96.expression.Variable;
 import io.github.dayal96.primitive.Primitive;
@@ -17,37 +17,37 @@ public abstract class PartialAbsynVisitor<T> implements AbsynVisitor<T> {
   }
 
   @Override
-  public T visitCond(IAbsyn cond, IAbsyn ifTrue, IAbsyn ifFalse) {
+  public T visitCond(Absyn cond, Absyn ifTrue, Absyn ifFalse) {
     throw this.message;
   }
 
   @Override
-  public T visitDecl(String id, IAbsyn expr) {
+  public T visitDecl(String id, Absyn expr) {
     throw this.message;
   }
 
   @Override
-  public T visitDecList(List<IAbsyn> decList) {
+  public T visitDecList(List<Absyn> decList) {
     throw this.message;
   }
 
   @Override
-  public T visitExprList(List<IAbsyn> exprList) {
+  public T visitExprList(List<Absyn> exprList) {
     throw this.message;
   }
 
   @Override
-  public T visitFunCall(IAbsyn func, IAbsyn args) {
+  public T visitFunCall(Absyn func, Absyn args) {
     throw this.message;
   }
 
   @Override
-  public T visitLambda(List<String> idList, IAbsyn body) {
+  public T visitLambda(List<String> idList, Absyn body) {
     throw this.message;
   }
 
   @Override
-  public T visitLocalExpr(IAbsyn decList, IAbsyn expr) {
+  public T visitLocalExpr(Absyn decList, Absyn expr) {
     throw this.message;
   }
 

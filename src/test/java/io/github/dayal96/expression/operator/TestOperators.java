@@ -2,10 +2,10 @@ package io.github.dayal96.expression.operator;
 
 import static org.junit.Assert.assertEquals;
 
-import io.github.dayal96.environment.IEnvironment;
+import io.github.dayal96.environment.Environment;
 import io.github.dayal96.environment.SymbolTable;
 import io.github.dayal96.exceptions.DivideByZeroError;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.Variable;
 import io.github.dayal96.expression.operator.number.IsNumber;
 import io.github.dayal96.expression.operator.string.IsString;
@@ -17,7 +17,6 @@ import io.github.dayal96.expression.operator.string.Substring;
 import io.github.dayal96.expression.type.NilType;
 import io.github.dayal96.primitive.bool.MyBoolean;
 import io.github.dayal96.expression.lambda.FunctionCall;
-import io.github.dayal96.primitive.number.MyNumber;
 import io.github.dayal96.primitive.number.Rational;
 import io.github.dayal96.expression.operator.bool.And;
 import io.github.dayal96.expression.operator.bool.Or;
@@ -39,7 +38,7 @@ import org.junit.Test;
  */
 public class TestOperators {
 
-  private final IEnvironment environment;
+  private final Environment environment;
 
   public TestOperators() throws Exception {
     this.environment = new SymbolTable();
@@ -74,30 +73,30 @@ public class TestOperators {
   public void testAnd() throws Exception {
     AOperator and = new And();
 
-    IExpression exp1 = new FunctionCall(and, Arrays.asList(MyBoolean.TRUE, MyBoolean.TRUE));
-    IExpression exp2 = new FunctionCall(and, Arrays.asList(MyBoolean.TRUE, MyBoolean.FALSE));
-    IExpression exp3 = new FunctionCall(and, Arrays.asList(MyBoolean.FALSE, MyBoolean.TRUE));
-    IExpression exp4 = new FunctionCall(and, Arrays.asList(MyBoolean.FALSE, MyBoolean.FALSE));
+    Expression exp1 = new FunctionCall(and, Arrays.asList(MyBoolean.TRUE, MyBoolean.TRUE));
+    Expression exp2 = new FunctionCall(and, Arrays.asList(MyBoolean.TRUE, MyBoolean.FALSE));
+    Expression exp3 = new FunctionCall(and, Arrays.asList(MyBoolean.FALSE, MyBoolean.TRUE));
+    Expression exp4 = new FunctionCall(and, Arrays.asList(MyBoolean.FALSE, MyBoolean.FALSE));
 
     assertEquals(MyBoolean.TRUE, exp1.evaluate(new SymbolTable()));
     assertEquals(MyBoolean.FALSE, exp2.evaluate(new SymbolTable()));
     assertEquals(MyBoolean.FALSE, exp3.evaluate(new SymbolTable()));
     assertEquals(MyBoolean.FALSE, exp4.evaluate(new SymbolTable()));
 
-    List<IExpression> operands5 = Arrays.asList(MyBoolean.TRUE, MyBoolean.TRUE, MyBoolean.TRUE);
-    IExpression exp5 = new FunctionCall(and, operands5);
+    List<Expression> operands5 = Arrays.asList(MyBoolean.TRUE, MyBoolean.TRUE, MyBoolean.TRUE);
+    Expression exp5 = new FunctionCall(and, operands5);
     assertEquals(MyBoolean.TRUE, exp5.evaluate(new SymbolTable()));
 
-    List<IExpression> operands6 = Arrays.asList(MyBoolean.TRUE, MyBoolean.FALSE, MyBoolean.TRUE);
-    IExpression exp6 = new FunctionCall(and, operands6);
+    List<Expression> operands6 = Arrays.asList(MyBoolean.TRUE, MyBoolean.FALSE, MyBoolean.TRUE);
+    Expression exp6 = new FunctionCall(and, operands6);
     assertEquals(MyBoolean.FALSE, exp6.evaluate(new SymbolTable()));
 
-    List<IExpression> operands7 = Arrays.asList(MyBoolean.FALSE);
-    IExpression exp7 = new FunctionCall(and, operands7);
+    List<Expression> operands7 = Arrays.asList(MyBoolean.FALSE);
+    Expression exp7 = new FunctionCall(and, operands7);
     assertEquals(MyBoolean.FALSE, exp7.evaluate(new SymbolTable()));
 
-    List<IExpression> operands8 = Arrays.asList(new Rational(15));
-    IExpression exp8 = new FunctionCall(and, operands8);
+    List<Expression> operands8 = Arrays.asList(new Rational(15));
+    Expression exp8 = new FunctionCall(and, operands8);
 
     try {
       exp8.evaluate(new SymbolTable());
@@ -107,8 +106,8 @@ public class TestOperators {
       assert true;
     }
 
-    List<IExpression> operands9 = Arrays.asList();
-    IExpression exp9 = new FunctionCall(and, operands9);
+    List<Expression> operands9 = Arrays.asList();
+    Expression exp9 = new FunctionCall(and, operands9);
 
     try {
       exp9.evaluate(new SymbolTable());
@@ -123,30 +122,30 @@ public class TestOperators {
   public void testOr() throws Exception {
     AOperator or = new Or();
 
-    IExpression exp1 = new FunctionCall(or, Arrays.asList(MyBoolean.TRUE, MyBoolean.TRUE));
-    IExpression exp2 = new FunctionCall(or, Arrays.asList(MyBoolean.TRUE, MyBoolean.FALSE));
-    IExpression exp3 = new FunctionCall(or, Arrays.asList(MyBoolean.FALSE, MyBoolean.TRUE));
-    IExpression exp4 = new FunctionCall(or, Arrays.asList(MyBoolean.FALSE, MyBoolean.FALSE));
+    Expression exp1 = new FunctionCall(or, Arrays.asList(MyBoolean.TRUE, MyBoolean.TRUE));
+    Expression exp2 = new FunctionCall(or, Arrays.asList(MyBoolean.TRUE, MyBoolean.FALSE));
+    Expression exp3 = new FunctionCall(or, Arrays.asList(MyBoolean.FALSE, MyBoolean.TRUE));
+    Expression exp4 = new FunctionCall(or, Arrays.asList(MyBoolean.FALSE, MyBoolean.FALSE));
 
     assertEquals(MyBoolean.TRUE, exp1.evaluate(new SymbolTable()));
     assertEquals(MyBoolean.TRUE, exp2.evaluate(new SymbolTable()));
     assertEquals(MyBoolean.TRUE, exp3.evaluate(new SymbolTable()));
     assertEquals(MyBoolean.FALSE, exp4.evaluate(new SymbolTable()));
 
-    List<IExpression> operands5 = Arrays.asList(MyBoolean.FALSE, MyBoolean.FALSE, MyBoolean.FALSE);
-    IExpression exp5 = new FunctionCall(or, operands5);
+    List<Expression> operands5 = Arrays.asList(MyBoolean.FALSE, MyBoolean.FALSE, MyBoolean.FALSE);
+    Expression exp5 = new FunctionCall(or, operands5);
     assertEquals(MyBoolean.FALSE, exp5.evaluate(new SymbolTable()));
 
-    List<IExpression> operands6 = Arrays.asList(MyBoolean.FALSE, MyBoolean.TRUE, MyBoolean.FALSE);
-    IExpression exp6 = new FunctionCall(or, operands6);
+    List<Expression> operands6 = Arrays.asList(MyBoolean.FALSE, MyBoolean.TRUE, MyBoolean.FALSE);
+    Expression exp6 = new FunctionCall(or, operands6);
     assertEquals(MyBoolean.TRUE, exp6.evaluate(new SymbolTable()));
 
-    List<IExpression> operands7 = Arrays.asList(MyBoolean.FALSE);
-    IExpression exp7 = new FunctionCall(or, operands7);
+    List<Expression> operands7 = Arrays.asList(MyBoolean.FALSE);
+    Expression exp7 = new FunctionCall(or, operands7);
     assertEquals(MyBoolean.FALSE, exp7.evaluate(new SymbolTable()));
 
-    List<IExpression> operands8 = Arrays.asList(new Rational(15));
-    IExpression exp8 = new FunctionCall(or, operands8);
+    List<Expression> operands8 = Arrays.asList(new Rational(15));
+    Expression exp8 = new FunctionCall(or, operands8);
 
     try {
       exp8.evaluate(new SymbolTable());
@@ -156,8 +155,8 @@ public class TestOperators {
       assert true;
     }
 
-    List<IExpression> operands9 = Arrays.asList();
-    IExpression exp9 = new FunctionCall(or, operands9);
+    List<Expression> operands9 = Arrays.asList();
+    Expression exp9 = new FunctionCall(or, operands9);
 
     try {
       exp9.evaluate(new SymbolTable());
@@ -170,29 +169,29 @@ public class TestOperators {
 
   @Test
   public void testAdd() throws Exception {
-    IExpression v1 = new Rational(4, 5);
-    IExpression v2 = new Rational(4, 5);
+    Expression v1 = new Rational(4, 5);
+    Expression v2 = new Rational(4, 5);
     AOperator add = new Add();
 
-    List<IExpression> operands1 = new ArrayList<>();
+    List<Expression> operands1 = new ArrayList<>();
     operands1.add(v1);
     operands1.add(v2);
 
     FunctionCall exp = new FunctionCall(add, operands1);
     assertEquals(new Rational(8, 5), exp.evaluate(new SymbolTable()));
 
-    List<IExpression> operands2 = new ArrayList<>();
+    List<Expression> operands2 = new ArrayList<>();
     operands2.add(exp);
     operands2.add(v2);
 
     FunctionCall exp2 = new FunctionCall(add, operands2);
     assertEquals(new Rational(12, 5), exp2.evaluate(new SymbolTable()));
 
-    List<IExpression> operands3 = Arrays.asList(v1);
+    List<Expression> operands3 = Arrays.asList(v1);
     FunctionCall exp3 = new FunctionCall(add, operands3);
     assertEquals(v1, exp3.evaluate(new SymbolTable()));
 
-    List<IExpression> operands4 = new LinkedList<>();
+    List<Expression> operands4 = new LinkedList<>();
     FunctionCall exp4 = new FunctionCall(add, operands4);
 
     try {
@@ -203,7 +202,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<IExpression> operands5 = Arrays.asList(MyBoolean.TRUE);
+    List<Expression> operands5 = Arrays.asList(MyBoolean.TRUE);
     FunctionCall exp5 = new FunctionCall(add, operands5);
 
     try {
@@ -219,30 +218,30 @@ public class TestOperators {
 
   @Test
   public void testMultiply() throws Exception {
-    IExpression v1 = new Rational(4, 5);
-    IExpression v2 = new Rational(4, 5);
+    Expression v1 = new Rational(4, 5);
+    Expression v2 = new Rational(4, 5);
     AOperator multiply = new Multiply();
 
-    List<IExpression> operands1 = new ArrayList<>();
+    List<Expression> operands1 = new ArrayList<>();
     operands1.add(v1);
     operands1.add(v2);
 
     FunctionCall exp = new FunctionCall(multiply, operands1);
     assertEquals(new Rational(16, 25), exp.evaluate(new SymbolTable()));
 
-    List<IExpression> operands2 = new ArrayList<>();
+    List<Expression> operands2 = new ArrayList<>();
     operands2.add(exp);
     operands2.add(v2);
 
     FunctionCall exp2 = new FunctionCall(multiply, operands2);
     assertEquals(new Rational(64, 125), exp2.evaluate(new SymbolTable()));
 
-    List<IExpression> operands3 = Arrays.asList(v1);
+    List<Expression> operands3 = Arrays.asList(v1);
     FunctionCall exp3 = new FunctionCall(multiply, operands3);
     assertEquals(v1, exp3.evaluate(new SymbolTable()));
 
 
-    List<IExpression> operands4 = new LinkedList<>();
+    List<Expression> operands4 = new LinkedList<>();
     FunctionCall exp4 = new FunctionCall(multiply, operands4);
 
     try {
@@ -253,7 +252,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<IExpression> operands5 = Arrays.asList(MyBoolean.TRUE);
+    List<Expression> operands5 = Arrays.asList(MyBoolean.TRUE);
     FunctionCall exp5 = new FunctionCall(multiply, operands5);
 
     try {
@@ -269,29 +268,29 @@ public class TestOperators {
 
   @Test
   public void testSubtract() throws Exception {
-    IExpression v1 = new Rational(4, 5);
-    IExpression v2 = new Rational(4, 5);
+    Expression v1 = new Rational(4, 5);
+    Expression v2 = new Rational(4, 5);
     AOperator subtract = new Subtract();
 
-    List<IExpression> operands1 = new ArrayList<>();
+    List<Expression> operands1 = new ArrayList<>();
     operands1.add(v1);
     operands1.add(v2);
 
     FunctionCall exp = new FunctionCall(subtract, operands1);
     assertEquals(new Rational(0), exp.evaluate(new SymbolTable()));
 
-    List<IExpression> operands2 = new ArrayList<>();
+    List<Expression> operands2 = new ArrayList<>();
     operands2.add(exp);
     operands2.add(v2);
 
     FunctionCall exp2 = new FunctionCall(subtract, operands2);
     assertEquals(new Rational(-4, 5), exp2.evaluate(new SymbolTable()));
 
-    List<IExpression> operands3 = Arrays.asList(v1);
+    List<Expression> operands3 = Arrays.asList(v1);
     FunctionCall exp3 = new FunctionCall(subtract, operands3);
     assertEquals(v1, exp3.evaluate(new SymbolTable()));
 
-    List<IExpression> operands4 = new LinkedList<>();
+    List<Expression> operands4 = new LinkedList<>();
     FunctionCall exp4 = new FunctionCall(subtract, operands4);
 
     try {
@@ -302,7 +301,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<IExpression> operands5 = Arrays.asList(MyBoolean.TRUE);
+    List<Expression> operands5 = Arrays.asList(MyBoolean.TRUE);
     FunctionCall exp5 = new FunctionCall(subtract, operands5);
 
     try {
@@ -318,29 +317,29 @@ public class TestOperators {
 
   @Test
   public void testDivide() throws Exception {
-    IExpression v1 = new Rational(4, 5);
-    IExpression v2 = new Rational(4, 5);
+    Expression v1 = new Rational(4, 5);
+    Expression v2 = new Rational(4, 5);
     AOperator divide = new Divide();
 
-    List<IExpression> operands1 = new ArrayList<>();
+    List<Expression> operands1 = new ArrayList<>();
     operands1.add(v1);
     operands1.add(v2);
 
     FunctionCall exp = new FunctionCall(divide, operands1);
     assertEquals(new Rational(1), exp.evaluate(new SymbolTable()));
 
-    List<IExpression> operands2 = new ArrayList<>();
+    List<Expression> operands2 = new ArrayList<>();
     operands2.add(exp);
     operands2.add(v2);
 
     FunctionCall exp2 = new FunctionCall(divide, operands2);
     assertEquals(new Rational(5, 4), exp2.evaluate(new SymbolTable()));
 
-    List<IExpression> operands3 = Arrays.asList(v1);
+    List<Expression> operands3 = Arrays.asList(v1);
     FunctionCall exp3 = new FunctionCall(divide, operands3);
     assertEquals(v1, exp3.evaluate(new SymbolTable()));
 
-    List<IExpression> operands4 = new LinkedList<>();
+    List<Expression> operands4 = new LinkedList<>();
     FunctionCall exp4 = new FunctionCall(divide, operands4);
 
     try {
@@ -351,7 +350,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<IExpression> operands5 = Arrays.asList(MyBoolean.TRUE);
+    List<Expression> operands5 = Arrays.asList(MyBoolean.TRUE);
     FunctionCall exp5 = new FunctionCall(divide, operands5);
 
     try {
@@ -362,7 +361,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<IExpression> operands6 = Arrays.asList(new Rational(1), new Rational(0));
+    List<Expression> operands6 = Arrays.asList(new Rational(1), new Rational(0));
     FunctionCall exp6 = new FunctionCall(divide, operands6);
 
     try {
@@ -378,25 +377,25 @@ public class TestOperators {
 
   @Test
   public void testGreaterThan() throws Exception {
-    IExpression v1 = new Rational(4, 5);
-    IExpression v2 = new Rational(4, 5);
-    IExpression v3 = new Rational(5, 4);
+    Expression v1 = new Rational(4, 5);
+    Expression v2 = new Rational(4, 5);
+    Expression v3 = new Rational(5, 4);
     AOperator gt = new GreaterThan();
 
-    List<IExpression> operands1 = Arrays.asList(v1, v2);
-    IExpression exp1 = new FunctionCall(gt, operands1);
+    List<Expression> operands1 = Arrays.asList(v1, v2);
+    Expression exp1 = new FunctionCall(gt, operands1);
     assertEquals(MyBoolean.FALSE, exp1.evaluate(new SymbolTable()));
 
-    List<IExpression> operands2 = Arrays.asList(v1, v3);
-    IExpression exp2 = new FunctionCall(gt, operands2);
+    List<Expression> operands2 = Arrays.asList(v1, v3);
+    Expression exp2 = new FunctionCall(gt, operands2);
     assertEquals(MyBoolean.FALSE, exp2.evaluate(new SymbolTable()));
 
-    List<IExpression> operands3 = Arrays.asList(v3, v1);
-    IExpression exp3 = new FunctionCall(gt, operands3);
+    List<Expression> operands3 = Arrays.asList(v3, v1);
+    Expression exp3 = new FunctionCall(gt, operands3);
     assertEquals(MyBoolean.TRUE, exp3.evaluate(new SymbolTable()));
 
-    List<IExpression> operands4 = Arrays.asList(v1);
-    IExpression exp4 = new FunctionCall(gt, operands4);
+    List<Expression> operands4 = Arrays.asList(v1);
+    Expression exp4 = new FunctionCall(gt, operands4);
     try {
       exp4.evaluate(new SymbolTable());
       assert false; // Fail test if no exception is thrown.
@@ -405,8 +404,8 @@ public class TestOperators {
       assert true;
     }
 
-    List<IExpression> operands5 = new ArrayList<>();
-    IExpression exp5 = new FunctionCall(gt, operands5);
+    List<Expression> operands5 = new ArrayList<>();
+    Expression exp5 = new FunctionCall(gt, operands5);
 
     try {
       exp5.evaluate(new SymbolTable());
@@ -416,8 +415,8 @@ public class TestOperators {
       assert true;
     }
 
-    List<IExpression> operands6 = Arrays.asList(MyBoolean.TRUE);
-    IExpression exp6 = new FunctionCall(gt, operands6);
+    List<Expression> operands6 = Arrays.asList(MyBoolean.TRUE);
+    Expression exp6 = new FunctionCall(gt, operands6);
 
     try {
       exp6.evaluate(new SymbolTable());
@@ -432,25 +431,25 @@ public class TestOperators {
 
   @Test
   public void testLessThan() throws Exception {
-    IExpression v1 = new Rational(4, 5);
-    IExpression v2 = new Rational(4, 5);
-    IExpression v3 = new Rational(5, 4);
+    Expression v1 = new Rational(4, 5);
+    Expression v2 = new Rational(4, 5);
+    Expression v3 = new Rational(5, 4);
     AOperator lt = new LessThan();
 
-    List<IExpression> operands1 = Arrays.asList(v1, v2);
-    IExpression exp1 = new FunctionCall(lt, operands1);
+    List<Expression> operands1 = Arrays.asList(v1, v2);
+    Expression exp1 = new FunctionCall(lt, operands1);
     assertEquals(MyBoolean.FALSE, exp1.evaluate(new SymbolTable()));
 
-    List<IExpression> operands2 = Arrays.asList(v1, v3);
-    IExpression exp2 = new FunctionCall(lt, operands2);
+    List<Expression> operands2 = Arrays.asList(v1, v3);
+    Expression exp2 = new FunctionCall(lt, operands2);
     assertEquals(MyBoolean.TRUE, exp2.evaluate(new SymbolTable()));
 
-    List<IExpression> operands3 = Arrays.asList(v3, v1);
-    IExpression exp3 = new FunctionCall(lt, operands3);
+    List<Expression> operands3 = Arrays.asList(v3, v1);
+    Expression exp3 = new FunctionCall(lt, operands3);
     assertEquals(MyBoolean.FALSE, exp3.evaluate(new SymbolTable()));
 
-    List<IExpression> operands4 = Arrays.asList(v1);
-    IExpression exp4 = new FunctionCall(lt, operands4);
+    List<Expression> operands4 = Arrays.asList(v1);
+    Expression exp4 = new FunctionCall(lt, operands4);
     try {
       exp4.evaluate(new SymbolTable());
       assert false; // Fail test if no exception is thrown.
@@ -459,8 +458,8 @@ public class TestOperators {
       assert true;
     }
 
-    List<IExpression> operands5 = new ArrayList<>();
-    IExpression exp5 = new FunctionCall(lt, operands5);
+    List<Expression> operands5 = new ArrayList<>();
+    Expression exp5 = new FunctionCall(lt, operands5);
 
     try {
       exp5.evaluate(new SymbolTable());
@@ -470,8 +469,8 @@ public class TestOperators {
       assert true;
     }
 
-    List<IExpression> operands6 = Arrays.asList(MyBoolean.TRUE);
-    IExpression exp6 = new FunctionCall(lt, operands6);
+    List<Expression> operands6 = Arrays.asList(MyBoolean.TRUE);
+    Expression exp6 = new FunctionCall(lt, operands6);
 
     try {
       exp6.evaluate(new SymbolTable());

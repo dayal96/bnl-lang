@@ -1,6 +1,6 @@
 package io.github.dayal96.environment;
 
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.operator.Conditional;
 import io.github.dayal96.expression.operator.Equals;
 import io.github.dayal96.expression.operator.cons.Cons;
@@ -26,13 +26,13 @@ import java.util.TreeMap;
 /**
  * Class to represent the environment as a Symbol Table that is not mutable.
  */
-public class SymbolTable implements IEnvironment {
+public class SymbolTable implements Environment {
 
-  private Map<String, IExpression> table;
+  private Map<String, Expression> table;
   private String workingDirectory;
 
   public static SymbolTable getPrimitiveOperations() {
-    List<IExpression> operators = List.of(new Add(), new Subtract(), new Divide(), new Multiply(),
+    List<Expression> operators = List.of(new Add(), new Subtract(), new Divide(), new Multiply(),
         new Equals(), new LessThan(), new GreaterThan(), new IsNumber(), new IsString(),
         new NumToString(), new StringAppend() , new StringLength(), new Substring(),
         new Conditional(), new Cons(), new First(), new Rest());
@@ -50,7 +50,7 @@ public class SymbolTable implements IEnvironment {
   }
 
   @Override
-  public IExpression getEntry(String symbol) throws Exception {
+  public Expression getEntry(String symbol) throws Exception {
 
     if (!this.isPresent(symbol)) {
       throw new Exception("Symbol not found.");
@@ -65,7 +65,7 @@ public class SymbolTable implements IEnvironment {
   }
 
   @Override
-  public void addEntry(String symbol, IExpression exp) {
+  public void addEntry(String symbol, Expression exp) {
     this.table.put(symbol, exp);
   }
 

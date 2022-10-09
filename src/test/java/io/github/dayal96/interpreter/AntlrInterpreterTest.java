@@ -1,6 +1,6 @@
 package io.github.dayal96.interpreter;
 
-import io.github.dayal96.absyn.IAbsyn;
+import io.github.dayal96.absyn.Absyn;
 import io.github.dayal96.absyn.transform.AbsynToExprList;
 import io.github.dayal96.antlr.BnlLexer;
 import io.github.dayal96.antlr.BnlParser;
@@ -20,15 +20,15 @@ public class AntlrInterpreterTest extends AParserTest {
     super(new AntlrParserFunc());
   }
 
-  private static class AntlrParserFunc implements Function<Reader, List<IEvaluable>> {
+  private static class AntlrParserFunc implements Function<Reader, List<Evaluable>> {
     @Override
-    public List<IEvaluable> apply(Reader sourceCode) {
+    public List<Evaluable> apply(Reader sourceCode) {
       try {
         BnlLexer lexer = new BnlLexer(CharStreams.fromReader(sourceCode));
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         BnlParser parser = new BnlParser(tokenStream);
         BnlToAbsynVisitor visitor = new BnlToAbsynVisitor();
-        IAbsyn absyn = visitor.visit(parser.prog());
+        Absyn absyn = visitor.visit(parser.prog());
         return absyn.accept(AbsynToExprList.getInstance()).stream().map(EvaluableExpression::new)
                 .collect(Collectors.toList());
       } catch (Exception e) {

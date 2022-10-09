@@ -1,17 +1,16 @@
 package io.github.dayal96.expression;
 
-import io.github.dayal96.environment.IEnvironment;
+import io.github.dayal96.environment.Environment;
 import io.github.dayal96.environment.SymbolTable;
-import io.github.dayal96.interpreter.IEvaluable;
-import io.github.dayal96.interpreter.evaluator.IEvaluator;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.interpreter.Evaluable;
+import io.github.dayal96.interpreter.evaluator.Evaluator;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.List;
 import java.util.Optional;
 
-public class TestEvaluator implements IEvaluator<Void> {
-  private final IEnvironment environment;
+public class TestEvaluator implements Evaluator<Void> {
+  private final Environment environment;
   private final PrintWriter out;
 
   /**
@@ -27,9 +26,9 @@ public class TestEvaluator implements IEvaluator<Void> {
   }
 
   @Override
-  public Void evaluateProgram(List<IEvaluable> toEval) throws Exception {
-    for (IEvaluable eval : toEval) {
-      Optional<IExpression> result = eval.evaluate(this.environment);
+  public Void evaluateProgram(List<Evaluable> toEval) throws Exception {
+    for (Evaluable eval : toEval) {
+      Optional<Expression> result = eval.evaluate(this.environment);
       if (result.isPresent()) {
         out.println(result.get());
       }

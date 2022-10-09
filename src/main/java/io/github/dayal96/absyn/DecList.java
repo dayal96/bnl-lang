@@ -2,14 +2,14 @@ package io.github.dayal96.absyn;
 
 import java.util.List;
 
-public class DecList implements IAbsyn {
-  private List<IAbsyn> declarations;
+public class DecList implements Absyn {
+  private List<Absyn> declarations;
 
-  public DecList(List<IAbsyn> declarations) {
+  public DecList(List<Absyn> declarations) {
     this.declarations = declarations;
   }
 
-  public void addDecl(IAbsyn decl) {
+  public void addDecl(Absyn decl) {
     this.declarations.add(decl);
   }
 

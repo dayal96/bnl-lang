@@ -2,9 +2,9 @@ package io.github.dayal96.expression.operator;
 
 import static org.junit.Assert.assertEquals;
 
-import io.github.dayal96.environment.IEnvironment;
+import io.github.dayal96.environment.Environment;
 import io.github.dayal96.environment.SymbolTable;
-import io.github.dayal96.expression.IExpression;
+import io.github.dayal96.expression.Expression;
 import io.github.dayal96.primitive.bool.MyBoolean;
 import io.github.dayal96.expression.lambda.FunctionCall;
 import io.github.dayal96.primitive.number.Rational;
@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import org.junit.Test;
 
 public class TestCons {
-  private final IEnvironment environment;
+  private final Environment environment;
 
   public TestCons() {
     this.environment = new SymbolTable();
@@ -28,20 +28,20 @@ public class TestCons {
     AOperator first = new First();
     AOperator rest = new Rest();
 
-    IExpression exp1 = new Rational(-5);
-    IExpression exp2 = MyBoolean.TRUE;
-    IExpression exp3 = new FunctionCall(cons, Arrays.asList(exp1, exp2));
+    Expression exp1 = new Rational(-5);
+    Expression exp2 = MyBoolean.TRUE;
+    Expression exp3 = new FunctionCall(cons, Arrays.asList(exp1, exp2));
 
     assertEquals("(cons -5 true)", exp3.evaluate(this.environment).toString());
 
-    IExpression exp4 = new FunctionCall(first, Arrays.asList(exp3));
-    IExpression exp5 = new FunctionCall(rest, Arrays.asList(exp3));
+    Expression exp4 = new FunctionCall(first, Arrays.asList(exp3));
+    Expression exp5 = new FunctionCall(rest, Arrays.asList(exp3));
 
     assertEquals(exp1, exp4.evaluate(new SymbolTable()));
     assertEquals(exp2, exp5.evaluate(new SymbolTable()));
 
     try {
-      IExpression tmp = new FunctionCall(cons, Arrays.asList(exp4));
+      Expression tmp = new FunctionCall(cons, Arrays.asList(exp4));
       tmp.evaluate(new SymbolTable());
       assert false; // Fail test if no exception was thrown.
     }
@@ -50,7 +50,7 @@ public class TestCons {
     }
 
     try {
-      IExpression tmp = new FunctionCall(cons, Arrays.asList(exp1, exp2, exp4));
+      Expression tmp = new FunctionCall(cons, Arrays.asList(exp1, exp2, exp4));
       tmp.evaluate(new SymbolTable());
       assert false; // Fail test if no exception was thrown.
     }
@@ -59,7 +59,7 @@ public class TestCons {
     }
 
     try {
-      IExpression tmp = new FunctionCall(first, Arrays.asList(exp1));
+      Expression tmp = new FunctionCall(first, Arrays.asList(exp1));
       tmp.evaluate(new SymbolTable());
       assert false; // Fail test if no exception was thrown.
     }
@@ -68,7 +68,7 @@ public class TestCons {
     }
 
     try {
-      IExpression tmp = new FunctionCall(first, new LinkedList<>());
+      Expression tmp = new FunctionCall(first, new LinkedList<>());
       tmp.evaluate(new SymbolTable());
       assert false; // Fail test if no exception was thrown.
     }
@@ -77,7 +77,7 @@ public class TestCons {
     }
 
     try {
-      IExpression tmp = new FunctionCall(rest, Arrays.asList(exp1));
+      Expression tmp = new FunctionCall(rest, Arrays.asList(exp1));
       tmp.evaluate(new SymbolTable());
       assert false; // Fail test if no exception was thrown.
     }
@@ -86,7 +86,7 @@ public class TestCons {
     }
 
     try {
-      IExpression tmp = new FunctionCall(rest, new LinkedList<>());
+      Expression tmp = new FunctionCall(rest, new LinkedList<>());
       tmp.evaluate(new SymbolTable());
       assert false; // Fail test if no exception was thrown.
     }

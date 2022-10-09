@@ -14,14 +14,14 @@ UPDATE (1 Oct 2022):
 -
 This update focuses on enabling use of BNL to define a domain-specific language to use 
 in other JVM-based projects. Custom Interpreters can now be defined to retrieve results
-as IExpressions instead of simply printing evaluations to a stream. Furthermore strings
+as Expressions instead of simply printing evaluations to a stream. Furthermore strings
 were added as a supported datatype with some basic string manipulation functions as part
 of the standard library. This was all done to enable use of BNL in development of RPTD,
 another one of my free projects hosted here on Github.
 
-In the immediate future there will be changes to IExpressions to make it more extendable
+In the immediate future there will be changes to Expressions to make it more extendable
 for custom requirements, like adding more constructs to the language itself or adding
-more functionality to IExpressions (e.g. serializing and deserializing to other object 
+more functionality to Expressions (e.g. serializing and deserializing to other object 
 formats). The goal is to enable developers to write BNL wrappers for existing Java libraries
 that they want to use with BNL in their projects. BNL should be like a ball of mud - easy
 to add more to without disturbing its form.
