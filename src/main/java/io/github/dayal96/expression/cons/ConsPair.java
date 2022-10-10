@@ -5,6 +5,7 @@ import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.type.NilType;
 import io.github.dayal96.expression.type.StructType;
+import io.github.dayal96.expression.visitor.ExpressionVisitor;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,8 +40,13 @@ public class ConsPair implements Expression {
   }
 
   @Override
+  public <T> T accept(ExpressionVisitor<T> visitor) {
+    return visitor.visitConsPair(this);
+  }
+
+  @Override
   public IType getType() {
-    return this.CONS_PAIR_TYPE;
+    return CONS_PAIR_TYPE;
   }
 
   @Override

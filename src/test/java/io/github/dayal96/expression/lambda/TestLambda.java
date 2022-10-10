@@ -58,10 +58,10 @@ public class TestLambda {
 
   @Test
   public void testFunctionErrors() throws Exception {
-    Lambda testFunc = new Lambda(Arrays.asList("x"), new Variable("x"));
+    Lambda testFunc = new Lambda(List.of("x"), new Variable("x"));
 
     try {
-      testFunc.evaluate(Arrays.asList(new Rational(1)), this.environment);
+      testFunc.evaluate(List.of(new Rational(1)), this.environment);
       assert false; // Fail the test if an exception is not thrown.
     }
     catch (Exception e) {
@@ -80,7 +80,7 @@ public class TestLambda {
       assert true;
     }
 
-    LambdaEnclosure func = new LambdaEnclosure(Arrays.asList("x"), new Variable("x"),
+    LambdaEnclosure func = new LambdaEnclosure(List.of("x"), new Variable("x"),
         this.environment);
 
     try {

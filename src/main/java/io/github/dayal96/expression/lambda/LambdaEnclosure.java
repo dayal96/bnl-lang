@@ -6,6 +6,7 @@ import io.github.dayal96.environment.SymbolTable;
 import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.type.NilType;
+import io.github.dayal96.expression.visitor.ExpressionVisitor;
 import java.util.List;
 
 /**
@@ -58,6 +59,11 @@ public class LambdaEnclosure implements Expression {
     Environment localContext = new LocalContext(context, localBindings);
 
     return this.body.evaluate(localContext);
+  }
+
+  @Override
+  public <T> T accept(ExpressionVisitor<T> visitor) {
+    return visitor.visitLambdaEnclosure(this);
   }
 
   @Override

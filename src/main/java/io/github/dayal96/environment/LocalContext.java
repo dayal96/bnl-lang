@@ -4,8 +4,8 @@ import io.github.dayal96.expression.Expression;
 
 public class LocalContext implements Environment {
 
-  private Environment global;
-  private Environment local;
+  private final Environment global;
+  private final Environment local;
 
   /**
    * Create a Local Context which is a combination of the global context with some additional local

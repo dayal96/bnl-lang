@@ -28,7 +28,7 @@ import java.util.TreeMap;
  */
 public class SymbolTable implements Environment {
 
-  private Map<String, Expression> table;
+  private final Map<String, Expression> table;
   private String workingDirectory;
 
   public static SymbolTable getPrimitiveOperations() {

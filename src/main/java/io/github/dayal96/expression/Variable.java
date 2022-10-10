@@ -5,6 +5,7 @@ import io.github.dayal96.absyn.Absyn;
 import io.github.dayal96.environment.Environment;
 import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.type.NilType;
+import io.github.dayal96.expression.visitor.ExpressionVisitor;
 import java.util.List;
 
 public class Variable implements Expression, Absyn {
@@ -47,13 +48,16 @@ public class Variable implements Expression, Absyn {
 
   @Override
   public boolean equals(Object other) {
-    if (!(other instanceof Variable)) {
+    if (!(other instanceof Variable that)) {
       return false;
     }
 
-    Variable that = (Variable) other;
-
     return this.name.equals(that.name);
+  }
+
+  @Override
+  public <T> T accept(ExpressionVisitor<T> visitor) {
+    return visitor.visitVariable(this);
   }
 
   @Override

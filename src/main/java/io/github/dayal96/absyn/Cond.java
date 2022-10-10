@@ -1,9 +1,9 @@
 package io.github.dayal96.absyn;
 
 public class Cond implements Absyn {
-  private Absyn cond;
-  private Absyn ifTrue;
-  private Absyn ifFalse;
+  private final Absyn cond;
+  private final Absyn ifTrue;
+  private final Absyn ifFalse;
 
   public Cond(Absyn cond, Absyn ifTrue, Absyn ifFalse) {
     this.cond = cond;

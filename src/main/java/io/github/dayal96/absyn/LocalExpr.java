@@ -2,8 +2,8 @@ package io.github.dayal96.absyn;
 
 public class LocalExpr implements Absyn {
 
-  private Absyn decList;
-  private Absyn expr;
+  private final Absyn decList;
+  private final Absyn expr;
 
 
   public LocalExpr(Absyn decList, Absyn expr) {

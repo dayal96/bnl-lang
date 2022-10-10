@@ -1,6 +1,8 @@
 package io.github.dayal96.environment;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import io.github.dayal96.exceptions.ArithmeticError;
 import io.github.dayal96.expression.Expression;
@@ -10,7 +12,7 @@ import org.junit.Test;
 
 public abstract class EnvironmentTest {
 
-  private Environment environment;
+  private final Environment environment;
 
   /**
    * Create an EnvironmentTest with given Environment to test.
@@ -25,18 +27,18 @@ public abstract class EnvironmentTest {
   public void testEnvironment() throws Exception {
     try {
 
-      assertEquals(false, this.environment.isPresent("TWO"));
+      assertFalse(this.environment.isPresent("TWO"));
       Expression exp = new Rational(2, 1);
       this.environment.addEntry("TWO", exp);
-      assertEquals(true, this.environment.isPresent("TWO"));
-      assertEquals(false, this.environment.isPresent("two"));
-      assertEquals(false, this.environment.isPresent("TW"));
+      assertTrue(this.environment.isPresent("TWO"));
+      assertFalse(this.environment.isPresent("two"));
+      assertFalse(this.environment.isPresent("TW"));
       assertEquals(exp, this.environment.getEntry("TWO"));
 
       Expression plus = new Add();
-      assertEquals(false, this.environment.isPresent("PLUS"));
+      assertFalse(this.environment.isPresent("PLUS"));
       this.environment.addEntry("PLUS", plus);
-      assertEquals(true, this.environment.isPresent("PLUS"));
+      assertTrue(this.environment.isPresent("PLUS"));
       assertEquals(plus, this.environment.getEntry("PLUS"));
     } catch (ArithmeticError e) {
       assert false;

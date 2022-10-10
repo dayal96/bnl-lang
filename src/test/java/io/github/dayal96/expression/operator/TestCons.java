@@ -13,6 +13,7 @@ import io.github.dayal96.expression.operator.cons.First;
 import io.github.dayal96.expression.operator.cons.Rest;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import org.junit.Test;
 
 public class TestCons {
@@ -34,14 +35,14 @@ public class TestCons {
 
     assertEquals("(cons -5 true)", exp3.evaluate(this.environment).toString());
 
-    Expression exp4 = new FunctionCall(first, Arrays.asList(exp3));
-    Expression exp5 = new FunctionCall(rest, Arrays.asList(exp3));
+    Expression exp4 = new FunctionCall(first, List.of(exp3));
+    Expression exp5 = new FunctionCall(rest, List.of(exp3));
 
     assertEquals(exp1, exp4.evaluate(new SymbolTable()));
     assertEquals(exp2, exp5.evaluate(new SymbolTable()));
 
     try {
-      Expression tmp = new FunctionCall(cons, Arrays.asList(exp4));
+      Expression tmp = new FunctionCall(cons, List.of(exp4));
       tmp.evaluate(new SymbolTable());
       assert false; // Fail test if no exception was thrown.
     }
@@ -59,7 +60,7 @@ public class TestCons {
     }
 
     try {
-      Expression tmp = new FunctionCall(first, Arrays.asList(exp1));
+      Expression tmp = new FunctionCall(first, List.of(exp1));
       tmp.evaluate(new SymbolTable());
       assert false; // Fail test if no exception was thrown.
     }
@@ -77,7 +78,7 @@ public class TestCons {
     }
 
     try {
-      Expression tmp = new FunctionCall(rest, Arrays.asList(exp1));
+      Expression tmp = new FunctionCall(rest, List.of(exp1));
       tmp.evaluate(new SymbolTable());
       assert false; // Fail test if no exception was thrown.
     }

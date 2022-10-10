@@ -22,8 +22,7 @@ public class FunctionSignature extends NilType {
 
   @Override
   public IType join(IType that) throws Exception {
-    if (that instanceof FunctionSignature) {
-      FunctionSignature other = (FunctionSignature) that;
+    if (that instanceof FunctionSignature other) {
       List<IType> joinedInputs = new LinkedList<>();
 
       int size = this.inputs.size();

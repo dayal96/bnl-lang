@@ -2,8 +2,8 @@ package io.github.dayal96.absyn;
 
 public class FunCall implements Absyn {
 
-  private Absyn func;
-  private Absyn args;
+  private final Absyn func;
+  private final Absyn args;
 
   public FunCall(Absyn func, Absyn args) {
     this.func = func;

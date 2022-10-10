@@ -91,11 +91,11 @@ public class TestOperators {
     Expression exp6 = new FunctionCall(and, operands6);
     assertEquals(MyBoolean.FALSE, exp6.evaluate(new SymbolTable()));
 
-    List<Expression> operands7 = Arrays.asList(MyBoolean.FALSE);
+    List<Expression> operands7 = List.of(MyBoolean.FALSE);
     Expression exp7 = new FunctionCall(and, operands7);
     assertEquals(MyBoolean.FALSE, exp7.evaluate(new SymbolTable()));
 
-    List<Expression> operands8 = Arrays.asList(new Rational(15));
+    List<Expression> operands8 = List.of(new Rational(15));
     Expression exp8 = new FunctionCall(and, operands8);
 
     try {
@@ -106,7 +106,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<Expression> operands9 = Arrays.asList();
+    List<Expression> operands9 = List.of();
     Expression exp9 = new FunctionCall(and, operands9);
 
     try {
@@ -140,11 +140,11 @@ public class TestOperators {
     Expression exp6 = new FunctionCall(or, operands6);
     assertEquals(MyBoolean.TRUE, exp6.evaluate(new SymbolTable()));
 
-    List<Expression> operands7 = Arrays.asList(MyBoolean.FALSE);
+    List<Expression> operands7 = List.of(MyBoolean.FALSE);
     Expression exp7 = new FunctionCall(or, operands7);
     assertEquals(MyBoolean.FALSE, exp7.evaluate(new SymbolTable()));
 
-    List<Expression> operands8 = Arrays.asList(new Rational(15));
+    List<Expression> operands8 = List.of(new Rational(15));
     Expression exp8 = new FunctionCall(or, operands8);
 
     try {
@@ -155,7 +155,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<Expression> operands9 = Arrays.asList();
+    List<Expression> operands9 = List.of();
     Expression exp9 = new FunctionCall(or, operands9);
 
     try {
@@ -187,7 +187,7 @@ public class TestOperators {
     FunctionCall exp2 = new FunctionCall(add, operands2);
     assertEquals(new Rational(12, 5), exp2.evaluate(new SymbolTable()));
 
-    List<Expression> operands3 = Arrays.asList(v1);
+    List<Expression> operands3 = List.of(v1);
     FunctionCall exp3 = new FunctionCall(add, operands3);
     assertEquals(v1, exp3.evaluate(new SymbolTable()));
 
@@ -202,7 +202,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<Expression> operands5 = Arrays.asList(MyBoolean.TRUE);
+    List<Expression> operands5 = List.of(MyBoolean.TRUE);
     FunctionCall exp5 = new FunctionCall(add, operands5);
 
     try {
@@ -236,7 +236,7 @@ public class TestOperators {
     FunctionCall exp2 = new FunctionCall(multiply, operands2);
     assertEquals(new Rational(64, 125), exp2.evaluate(new SymbolTable()));
 
-    List<Expression> operands3 = Arrays.asList(v1);
+    List<Expression> operands3 = List.of(v1);
     FunctionCall exp3 = new FunctionCall(multiply, operands3);
     assertEquals(v1, exp3.evaluate(new SymbolTable()));
 
@@ -252,7 +252,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<Expression> operands5 = Arrays.asList(MyBoolean.TRUE);
+    List<Expression> operands5 = List.of(MyBoolean.TRUE);
     FunctionCall exp5 = new FunctionCall(multiply, operands5);
 
     try {
@@ -286,7 +286,7 @@ public class TestOperators {
     FunctionCall exp2 = new FunctionCall(subtract, operands2);
     assertEquals(new Rational(-4, 5), exp2.evaluate(new SymbolTable()));
 
-    List<Expression> operands3 = Arrays.asList(v1);
+    List<Expression> operands3 = List.of(v1);
     FunctionCall exp3 = new FunctionCall(subtract, operands3);
     assertEquals(v1, exp3.evaluate(new SymbolTable()));
 
@@ -301,7 +301,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<Expression> operands5 = Arrays.asList(MyBoolean.TRUE);
+    List<Expression> operands5 = List.of(MyBoolean.TRUE);
     FunctionCall exp5 = new FunctionCall(subtract, operands5);
 
     try {
@@ -335,7 +335,7 @@ public class TestOperators {
     FunctionCall exp2 = new FunctionCall(divide, operands2);
     assertEquals(new Rational(5, 4), exp2.evaluate(new SymbolTable()));
 
-    List<Expression> operands3 = Arrays.asList(v1);
+    List<Expression> operands3 = List.of(v1);
     FunctionCall exp3 = new FunctionCall(divide, operands3);
     assertEquals(v1, exp3.evaluate(new SymbolTable()));
 
@@ -350,7 +350,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<Expression> operands5 = Arrays.asList(MyBoolean.TRUE);
+    List<Expression> operands5 = List.of(MyBoolean.TRUE);
     FunctionCall exp5 = new FunctionCall(divide, operands5);
 
     try {
@@ -394,7 +394,7 @@ public class TestOperators {
     Expression exp3 = new FunctionCall(gt, operands3);
     assertEquals(MyBoolean.TRUE, exp3.evaluate(new SymbolTable()));
 
-    List<Expression> operands4 = Arrays.asList(v1);
+    List<Expression> operands4 = List.of(v1);
     Expression exp4 = new FunctionCall(gt, operands4);
     try {
       exp4.evaluate(new SymbolTable());
@@ -415,7 +415,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<Expression> operands6 = Arrays.asList(MyBoolean.TRUE);
+    List<Expression> operands6 = List.of(MyBoolean.TRUE);
     Expression exp6 = new FunctionCall(gt, operands6);
 
     try {
@@ -448,7 +448,7 @@ public class TestOperators {
     Expression exp3 = new FunctionCall(lt, operands3);
     assertEquals(MyBoolean.FALSE, exp3.evaluate(new SymbolTable()));
 
-    List<Expression> operands4 = Arrays.asList(v1);
+    List<Expression> operands4 = List.of(v1);
     Expression exp4 = new FunctionCall(lt, operands4);
     try {
       exp4.evaluate(new SymbolTable());
@@ -469,7 +469,7 @@ public class TestOperators {
       assert true;
     }
 
-    List<Expression> operands6 = Arrays.asList(MyBoolean.TRUE);
+    List<Expression> operands6 = List.of(MyBoolean.TRUE);
     Expression exp6 = new FunctionCall(lt, operands6);
 
     try {

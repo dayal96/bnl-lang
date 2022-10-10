@@ -4,6 +4,7 @@ import io.github.dayal96.absyn.AbsynVisitor;
 import io.github.dayal96.absyn.Absyn;
 import io.github.dayal96.environment.Environment;
 import io.github.dayal96.expression.Expression;
+import io.github.dayal96.expression.visitor.ExpressionVisitor;
 import java.util.List;
 
 /**
@@ -29,7 +30,14 @@ public abstract class Primitive implements Expression, Absyn {
   }
 
   @Override
+  public<T> T accept(ExpressionVisitor<T> visitor) {
+    return visitor.visitPrimitive(this);
+  }
+
+  @Override
   public <T> T accept(AbsynVisitor<T> visitor) {
     return visitor.visitPrimitive(this);
   }
+
+  abstract public <T> T accept(PrimitiveVisitor<T> visitor);
 }

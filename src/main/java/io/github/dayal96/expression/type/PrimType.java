@@ -15,7 +15,7 @@ public enum PrimType implements IType {
   @Override
   public IType join(IType that) throws Exception {
     if (that instanceof PrimType) {
-      if(this.equals((PrimType)that)) {
+      if(this.equals(that)) {
         return this;
       }
       else {

@@ -3,6 +3,7 @@ package io.github.dayal96.expression.lambda;
 import io.github.dayal96.environment.Environment;
 import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.type.IType;
+import io.github.dayal96.expression.visitor.ExpressionVisitor;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,6 +36,11 @@ public class FunctionCall implements Expression {
       throws Exception {
     throw new Exception("I am impressed you managed to reach this error, but it all ends now"
         + "<evillaughter>MWAHAHAHAHA</evillaughter>");
+  }
+
+  @Override
+  public <T> T accept(ExpressionVisitor<T> visitor) {
+    return visitor.visitFunctionCall(this);
   }
 
   @Override

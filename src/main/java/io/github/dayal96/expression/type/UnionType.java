@@ -18,8 +18,7 @@ public class UnionType extends NilType {
 
   @Override
   public IType join(IType that) throws Exception {
-    if (that instanceof UnionType) {
-      UnionType other = (UnionType) that;
+    if (that instanceof UnionType other) {
       try {
         return new UnionType(this.type1.join(other.type1), this.type2.join(other.type2));
       }
@@ -32,7 +31,7 @@ public class UnionType extends NilType {
         }
       }
     }
-    else if (that.equals(this.NIL)) {
+    else if (that.equals(NIL)) {
       return this;
     }
 

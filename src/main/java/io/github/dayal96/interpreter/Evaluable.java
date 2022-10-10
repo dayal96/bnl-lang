@@ -9,5 +9,5 @@ public interface Evaluable {
   /**
    * Evaluate this evaluable.
    */
-  public Optional<Expression> evaluate(Environment environment) throws Exception;
+  Optional<Expression> evaluate(Environment environment) throws Exception;
 }

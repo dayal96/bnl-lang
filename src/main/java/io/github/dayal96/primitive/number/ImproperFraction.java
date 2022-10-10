@@ -54,10 +54,9 @@ public class ImproperFraction {
   public boolean equals(Object other) {
     if (this == other) {
       return true;
-    } else if (!(other instanceof ImproperFraction)) {
+    } else if (!(other instanceof ImproperFraction that)) {
       return false;
     } else {
-      ImproperFraction that = (ImproperFraction) other;
       return this.numerator * that.denominator == that.numerator * this.denominator;
     }
   }

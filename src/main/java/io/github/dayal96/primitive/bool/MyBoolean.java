@@ -2,13 +2,12 @@ package io.github.dayal96.primitive.bool;
 
 import io.github.dayal96.absyn.AbsynVisitor;
 import io.github.dayal96.absyn.Absyn;
-import io.github.dayal96.environment.Environment;
-import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.type.PrimType;
-import java.util.List;
+import io.github.dayal96.primitive.Primitive;
+import io.github.dayal96.primitive.PrimitiveVisitor;
 
-public class MyBoolean implements Expression, Absyn {
+public class MyBoolean extends Primitive implements Absyn {
 
   public static final MyBoolean TRUE = new MyBoolean(true);
   public static final MyBoolean FALSE = new MyBoolean(false);
@@ -33,17 +32,6 @@ public class MyBoolean implements Expression, Absyn {
   }
 
   @Override
-  public Expression evaluate(Environment environment) throws Exception {
-    return this;
-  }
-
-  @Override
-  public Expression evaluate(List<Expression> operands, Environment environment)
-      throws Exception {
-    throw new Exception("Cannot evaluate a boolean like a function.");
-  }
-
-  @Override
   public IType getType() {
     return PrimType.BOOLEAN;
   }
@@ -65,5 +53,10 @@ public class MyBoolean implements Expression, Absyn {
   @Override
   public <T> T accept(AbsynVisitor<T> visitor) {
     return visitor.visitBoolean(this);
+  }
+
+  @Override
+  public <T> T accept(PrimitiveVisitor<T> visitor) {
+    return visitor.visitMyBoolean(this);
   }
 }

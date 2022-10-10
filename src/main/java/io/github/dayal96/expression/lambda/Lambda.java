@@ -4,6 +4,7 @@ import io.github.dayal96.environment.Environment;
 import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.type.NilType;
+import io.github.dayal96.expression.visitor.ExpressionVisitor;
 import java.util.List;
 
 /**
@@ -42,6 +43,11 @@ public class Lambda implements Expression {
   }
 
   @Override
+  public <T> T accept(ExpressionVisitor<T> visitor) {
+    return visitor.visitLambda(this);
+  }
+
+  @Override
   public IType getType() {
     return NilType.NIL;
   }
@@ -53,10 +59,10 @@ public class Lambda implements Expression {
     str.append("(λ' ( ");
 
     for (String input : this.inputs) {
-      str.append(input + " ");
+      str.append(input).append(" ");
     }
 
-    str.append(") " + this.body.toString() + ")");
+    str.append(") ").append(this.body.toString()).append(")");
 
     return str.toString();
   }

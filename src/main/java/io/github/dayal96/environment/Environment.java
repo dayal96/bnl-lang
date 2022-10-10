@@ -13,7 +13,7 @@ public interface Environment {
    * @param symbol the symbol to be searched.
    * @return the Expression associated with the symbol.
    */
-  public Expression getEntry(String symbol) throws Exception;
+  Expression getEntry(String symbol) throws Exception;
 
   /**
    * Check whether the given symbol is present in the environment.
@@ -21,7 +21,7 @@ public interface Environment {
    * @param symbol the symbol to be searched.
    * @return true if the symbol is defined in the environment, false otherwise.
    */
-  public boolean isPresent(String symbol);
+  boolean isPresent(String symbol);
 
   /**
    * Define a new symbol in the environment.
@@ -29,15 +29,15 @@ public interface Environment {
    * @param symbol the symbol to be added.
    * @param exp    the Expression to be associated with the symbol.
    */
-  public void addEntry(String symbol, Expression exp);
+  void addEntry(String symbol, Expression exp);
 
   /**
    * Get present working directory.
    */
-  public String getWorkingDirectory();
+  String getWorkingDirectory();
 
   /**
    * Set present working directory to given working directory.
    */
-  public void setWorkingDirectory(String directory);
+  void setWorkingDirectory(String directory);
 }

@@ -74,7 +74,7 @@ public abstract class AParserTest {
                         List.of(new FunctionCall(new Variable("-"), List.of(x, one)))))))));
 
     LocalDefinition sizeNumDef = new LocalDefinition("size-num", func2);
-    Local expectedSizeNum = new Local(Arrays.asList(sizeNumDef), new Variable("size-num"));
+    Local expectedSizeNum = new Local(List.of(sizeNumDef), new Variable("size-num"));
 
     List<Evaluable> expectedEvals = List.of(new EvaluableExpression(func1),
         new EvaluableExpression(expectedSizeNum));

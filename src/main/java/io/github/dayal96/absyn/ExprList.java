@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class ExprList implements Absyn {
 
-  private List<Absyn> exprs;
+  private final List<Absyn> exprs;
 
   public ExprList(List<Absyn> exprs) {
     this.exprs = exprs;

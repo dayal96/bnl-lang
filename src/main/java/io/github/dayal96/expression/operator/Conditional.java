@@ -20,7 +20,7 @@ public class Conditional extends AOperator {
       } else if (truth.equals(MyBoolean.FALSE)) {
         return operands.get(2).evaluate(environment);
       } else {
-        throw new Exception(truth.toString() + " is not a Boolean.");
+        throw new Exception(truth + " is not a Boolean.");
       }
     }
   }

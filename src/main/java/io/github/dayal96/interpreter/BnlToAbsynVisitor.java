@@ -6,7 +6,7 @@ import io.github.dayal96.absyn.Decl;
 import io.github.dayal96.absyn.ExprList;
 import io.github.dayal96.absyn.FunCall;
 import io.github.dayal96.absyn.Absyn;
-import io.github.dayal96.absyn.Lambda;
+import io.github.dayal96.absyn.AbsynLambda;
 import io.github.dayal96.absyn.LocalExpr;
 import io.github.dayal96.absyn.Operator;
 import io.github.dayal96.antlr.BnlParser.CondContext;
@@ -167,7 +167,7 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<Absyn> implement
   public Absyn visitLambda(LambdaContext ctx) {
     List<String> idList = this.readIdList(ctx.idlist());
     Absyn body = this.visit(ctx.expr());
-    return new Lambda(idList, body);
+    return new AbsynLambda(idList, body);
   }
 
   private List<String> readIdList(IdlistContext ctx) {

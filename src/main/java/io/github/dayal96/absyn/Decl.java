@@ -1,8 +1,8 @@
 package io.github.dayal96.absyn;
 
 public class Decl implements Absyn {
-  private String id;
-  private Absyn expr;
+  private final String id;
+  private final Absyn expr;
 
   public Decl(String id, Absyn expr) {
     this.id = id;

@@ -6,6 +6,7 @@ import io.github.dayal96.environment.SymbolTable;
 import io.github.dayal96.expression.EmptyExpression;
 import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.type.IType;
+import io.github.dayal96.expression.visitor.ExpressionVisitor;
 import java.util.List;
 
 public class Local implements Expression {
@@ -33,6 +34,11 @@ public class Local implements Expression {
   public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
     throw new Exception("This is impossible, so this message will never be seen.");
+  }
+
+  @Override
+  public <T> T accept(ExpressionVisitor<T> visitor) {
+    return visitor.visitLocal(this);
   }
 
   private Environment addLocalDefinitions(Environment environment) throws Exception {

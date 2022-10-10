@@ -29,11 +29,10 @@ public class EvaluableExpression implements Evaluable {
 
   @Override
   public boolean equals(Object other) {
-    if (!(other instanceof EvaluableExpression)) {
+    if (!(other instanceof EvaluableExpression that)) {
       return false;
     }
 
-    EvaluableExpression that = (EvaluableExpression) other;
     return this.toEvaluate.equals(that.toEvaluate);
   }
 }

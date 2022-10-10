@@ -2,6 +2,7 @@ package io.github.dayal96.expression;
 
 import io.github.dayal96.environment.Environment;
 import io.github.dayal96.expression.type.IType;
+import io.github.dayal96.expression.visitor.ExpressionVisitor;
 import java.util.List;
 
 /**
@@ -29,6 +30,14 @@ public interface Expression {
    * @return the result of performing the operation on given values.
    */
   Expression evaluate(List<Expression> operands, Environment environment) throws Exception;
+
+  /**
+   * Accept a visitor.
+   * @param visitor The visitor to accept.
+   * @return        Result evaluated by the visitor.
+   * @param <T>     The type of result evaluated by the visitor.
+   */
+  <T> T accept(ExpressionVisitor<T> visitor);
 
   /**
    * Get the type of this Expression.

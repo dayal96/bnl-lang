@@ -20,8 +20,7 @@ public class StructType extends NilType {
 
   @Override
   public IType join(IType that) throws Exception {
-    if (that instanceof StructType) {
-      StructType other = (StructType) that;
+    if (that instanceof StructType other) {
       if (this.fields.size() != other.fields.size()) {
         return this.mismatch(that);
       }
@@ -38,7 +37,7 @@ public class StructType extends NilType {
 
       return new StructType(joinedFields);
     }
-    else if (that.equals(this.NIL)) {
+    else if (that.equals(NIL)) {
       return this;
     }
     else {
