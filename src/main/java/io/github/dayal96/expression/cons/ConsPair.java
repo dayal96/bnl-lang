@@ -53,4 +53,14 @@ public class ConsPair implements Expression {
   public String toString() {
     return "(cons " + first.toString() + " " + rest.toString() + ")";
   }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other instanceof ConsPair) {
+      ConsPair that = (ConsPair) other;
+      return this.first.equals(that.first) && this.rest.equals(that.rest);
+    }
+
+    return false;
+  }
 }
