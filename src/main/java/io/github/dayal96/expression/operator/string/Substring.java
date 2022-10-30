@@ -30,9 +30,9 @@ public class Substring extends AOperator {
 
     Rational start = (Rational) evaluated.get(0);
     Rational size = (Rational) evaluated.get(1);
-    String str = evaluated.get(2).toString();
+    MyString stringVal = (MyString) evaluated.get(2);
 
-    Rational stringLength = new Rational(str.length());
+    Rational stringLength = new Rational(stringVal.value.length());
 
     if (start.add(size).compareTo(stringLength) > 0) {
       throw new IllegalArgumentException("substring : Length of string exceeded.");
@@ -41,7 +41,7 @@ public class Substring extends AOperator {
     int startIndex = start.number.numerator / start.number.denominator;
     int endIndex = startIndex + (size.number.numerator / size.number.denominator);
 
-    return new MyString(str.substring(startIndex, endIndex));
+    return new MyString(stringVal.value.substring(startIndex, endIndex));
   }
 
   @Override
@@ -49,4 +49,3 @@ public class Substring extends AOperator {
     return "substring";
   }
 }
-

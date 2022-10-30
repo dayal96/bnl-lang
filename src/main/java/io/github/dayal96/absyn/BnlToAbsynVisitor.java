@@ -1,4 +1,4 @@
-package io.github.dayal96.interpreter;
+package io.github.dayal96.absyn;
 
 import io.github.dayal96.absyn.Cond;
 import io.github.dayal96.absyn.DecList;
@@ -142,7 +142,13 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<Absyn> implement
       return new MyString("");
     }
 
-    return new MyString(stringRep.substring(1, stringRep.length() - 1)); // Remove the quotes
+    String quotesRemoved = stringRep.substring(1, stringRep.length() - 1);
+
+    while (quotesRemoved.charAt(0) == '"') { // remove extra quotes for multiline strings
+      quotesRemoved = stringRep.substring(1, stringRep.length() - 1);
+    }
+
+    return new MyString(quotesRemoved);
   }
 
   @Override

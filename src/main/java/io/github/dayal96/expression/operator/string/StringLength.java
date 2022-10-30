@@ -5,6 +5,7 @@ import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.operator.AOperator;
 import io.github.dayal96.expression.type.PrimType;
 import io.github.dayal96.primitive.number.Rational;
+import io.github.dayal96.primitive.string.MyString;
 import java.util.List;
 
 public class StringLength extends AOperator {
@@ -17,7 +18,7 @@ public class StringLength extends AOperator {
     }
     Expression evaluated = operands.get(0).evaluate(environment);
     PrimType.STRING.join(evaluated.getType());
-    return new Rational(evaluated.toString().length());
+    return new Rational(((MyString) evaluated).value.length());
   }
 
   @Override

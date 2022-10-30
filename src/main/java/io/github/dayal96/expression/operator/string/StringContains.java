@@ -5,6 +5,7 @@ import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.operator.AOperator;
 import io.github.dayal96.expression.type.PrimType;
 import io.github.dayal96.primitive.bool.MyBoolean;
+import io.github.dayal96.primitive.string.MyString;
 import java.util.List;
 
 public class StringContains extends AOperator {
@@ -19,7 +20,7 @@ public class StringContains extends AOperator {
     PrimType.STRING.join(containing.getType());
     PrimType.STRING.join(contained.getType());
 
-    return MyBoolean.of(containing.toString().contains(contained.toString()));
+    return MyBoolean.of(((MyString) containing).value.contains(((MyString) contained).value));
   }
 
   @Override

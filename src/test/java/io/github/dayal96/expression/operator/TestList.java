@@ -28,9 +28,9 @@ public class TestList {
 
     assertEquals("(cons 1 false)", new FunctionCall(list, List.of(exp1))
         .evaluate(environment).toString());
-    assertEquals("(cons 1 (cons hello false))",
+    assertEquals("(cons 1 (cons \"hello\" false))",
         new FunctionCall(list, List.of(exp1, exp2)).evaluate(environment).toString());
-    assertEquals("(cons 1 (cons hello (cons true false)))",
+    assertEquals("(cons 1 (cons \"hello\" (cons true false)))",
         new FunctionCall(list, List.of(exp1, exp2, exp3)).evaluate(environment).toString());
   }
 }

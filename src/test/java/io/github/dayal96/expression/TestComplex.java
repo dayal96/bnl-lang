@@ -103,7 +103,7 @@ public class TestComplex {
         (string-append (string-to-cap STRING-1) ", " (string-to-cap STRING-2))
         """;
 
-    String expected = "APPLE, BALL";
+    String expected = "\"APPLE, BALL\"";
     this.tests.put(strings, Optional.of(expected));
   }
 }

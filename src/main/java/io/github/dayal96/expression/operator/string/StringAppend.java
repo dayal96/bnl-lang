@@ -23,7 +23,8 @@ public class StringAppend extends AOperator {
     for (var operand : operands) {
       var val = operand.evaluate(environment);
       PrimType.STRING.join(val.getType());
-      result.append(val);
+      MyString stringVal = (MyString) val;
+      result.append(stringVal.value);
     }
 
     return new MyString(result.toString());

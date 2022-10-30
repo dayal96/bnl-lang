@@ -19,15 +19,18 @@ public interface Expression {
 
   /**
    * Evaluate this Expression to the simplest form possible.
-   *
-   * @return the simplest form of the Expression.
+   * @param environment The environment in which the expression is being evaluated.
+   * @return            The simplest form of the Expression.
+   * @throws Exception
    */
   Expression evaluate(Environment environment) throws Exception;
 
   /**
    * Evaluate the function with given input.
-   *
-   * @return the result of performing the operation on given values.
+   * @param operands    The inputs for the function call.
+   * @param environment The environment in which the function is being called.
+   * @return            The result of performing the operation on given values.
+   * @throws Exception
    */
   Expression evaluate(List<Expression> operands, Environment environment) throws Exception;
 

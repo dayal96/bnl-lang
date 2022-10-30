@@ -33,7 +33,7 @@ public class MyString extends Primitive implements Comparable<MyString> {
 
   @Override
   public String toString() {
-    return this.value;
+    return "\"" + this.value + "\"";
   }
 
   @Override

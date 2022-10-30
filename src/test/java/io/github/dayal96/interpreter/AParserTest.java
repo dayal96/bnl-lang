@@ -11,6 +11,7 @@ import io.github.dayal96.expression.local.Local;
 import io.github.dayal96.expression.local.LocalDefinition;
 import io.github.dayal96.primitive.number.Rational;
 import io.github.dayal96.expression.operator.Conditional;
+import io.github.dayal96.primitive.string.MyString;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.Arrays;
@@ -34,15 +35,21 @@ public abstract class AParserTest {
   @Test
   public void testParsePrimitive() throws Exception {
     String prims = "2" + "\n" + "15/9" + "\n" + "-3/9" + "\n" + "#t" + "\n" + "#f" + "\n"
+        + "\"a simple string\"" + "\n"
+//        + "\"\"\"what is this \"apple\" you speak of?   \"\"\"\n"
         + "variable-name var2";
 
+    System.out.println("Running parser");
     List<Evaluable> evals = this.parser.apply(new StringReader(prims));
+    System.out.println("Parsing finished");
 
     List<Evaluable> expectedEvals = List.of(new EvaluableExpression(new Rational(2, 1)),
         new EvaluableExpression(new Rational(15, 9)),
         new EvaluableExpression(new Rational(-3, 9)),
         new EvaluableExpression(MyBoolean.TRUE),
         new EvaluableExpression(MyBoolean.FALSE),
+        new EvaluableExpression(new MyString("a simple string")),
+//        new EvaluableExpression(new MyString("what is this \"apple\" you speak of?   ")),
         new EvaluableExpression(new Variable("variable-name")),
         new EvaluableExpression(new Variable("var2")));
 
