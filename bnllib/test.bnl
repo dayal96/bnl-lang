@@ -1,4 +1,0 @@
-
-(define-struct posn (x y))
-(define-struct empty ())
-(empty? (make-empty))

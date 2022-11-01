@@ -38,4 +38,9 @@ public class And extends AOperator {
       throw new IllegalArgumentException("Too few arguments for IOperator.");
     }
   }
+
+  @Override
+  public String toString() {
+    return "and";
+  }
 }

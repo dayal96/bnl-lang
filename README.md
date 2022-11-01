@@ -10,6 +10,8 @@ Usage: Run the program and provide a filepath for the source code to interpret.
 E.g. if you compiled the interpreter into 'bnl.jar', you can use `java -jar bnl.jar 
 [path-to-bnl-file]` to run the program described in your bnl file.
 
+[A Short Tutorial on BNL](tutorial.md)
+
 UPDATE (1 Oct 2022):
 -
 This update focuses on enabling use of BNL to define a domain-specific language to use 

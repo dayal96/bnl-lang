@@ -57,7 +57,7 @@ primop : PLUS         # plus
 
 
 DEFINE     : 'define'                  ;
-LAMBDA     : 'lambda'                  ;
+LAMBDA     : 'lambda' | 'λ'            ;
 Newline    : [\r\n]+                   -> skip;
 Whitespace : [ \r\n\t\f]+              -> skip;
 FALSE      : '#f' | 'false'            ;

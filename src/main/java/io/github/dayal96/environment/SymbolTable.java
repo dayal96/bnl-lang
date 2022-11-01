@@ -4,6 +4,8 @@ import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.operator.Conditional;
 import io.github.dayal96.expression.operator.Equals;
 import io.github.dayal96.expression.operator.ListOperator;
+import io.github.dayal96.expression.operator.bool.And;
+import io.github.dayal96.expression.operator.bool.Or;
 import io.github.dayal96.expression.operator.cons.Cons;
 import io.github.dayal96.expression.operator.cons.First;
 import io.github.dayal96.expression.operator.cons.Rest;
@@ -33,7 +35,8 @@ public class SymbolTable implements Environment {
   private String workingDirectory;
 
   public static SymbolTable getPrimitiveOperations() {
-    List<Expression> operators = List.of(new Add(), new Subtract(), new Divide(), new Multiply(),
+    List<Expression> operators = List.of(new And(), new Or(),
+        new Add(), new Subtract(), new Divide(), new Multiply(),
         new Equals(), new LessThan(), new GreaterThan(), new IsNumber(), new IsString(),
         new NumToString(), new StringAppend() , new StringLength(), new Substring(),
         new Conditional(), new ListOperator(), new Cons(), new First(), new Rest());

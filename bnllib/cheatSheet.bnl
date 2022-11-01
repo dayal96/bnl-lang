@@ -49,6 +49,9 @@
 # Anonymous functions can be called immediately after definition as well.
 ((lambda (x) (- x 2)) 4)
 
+# λ can be used instead of lambda as well
+((λ (x) (- x 2)) 4)
+
 # Or returned as values
 (define adder
     (lambda (n)
@@ -67,11 +70,11 @@
 
 (if true 1 0)
 
-# But no boolean operators yet...
-# and or not        (W.I.P.)
+# Even some boolean operators
+and or
 
 
-# BNL also has cons pairs which can be used to structure data:
+# BNL also has cons, which can be used to structure data:
 
 (define PAIR (cons 4 5))
 (cons (first PAIR) (rest PAIR))
@@ -82,5 +85,5 @@
 (define make-posn (lambda (x y z) (cons x (cons y z)))) # Ideally a programming language would
 (define posn-x (lambda (p) (first p)))                  # condense all of this syntactically into
 (define posn-y (lambda (p) (first (rest p))))           # a structure definitions statement.
-(define posn-z (lambda (p) (rest (rest p))))            # Maybe something like a define-struct.
+(define posn-z (lambda (p) (rest (rest p))))            # Maybe something like a define-struct?
 (posn-y (make-posn 1 2 3))                     # Finally usable!
