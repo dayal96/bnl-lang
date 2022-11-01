@@ -1,5 +1,6 @@
 plugins {
-    id 'java-library'
+    id 'application'
+    id 'java'
     id 'antlr'
     id 'idea'
 }
@@ -45,6 +46,12 @@ generateGrammarSource {
 
 compileJava.source sourceSets.main.java
 
+
+application {
+    mainClass = 'io.github.dayal96.interpreter.Interpreter';
+}
+
+
 test {
     useJUnit()
     maxHeapSize = '1G'
@@ -52,6 +59,4 @@ test {
         events "passed", "skipped", "failed"
     }
 }
-
-
 
