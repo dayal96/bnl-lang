@@ -71,8 +71,8 @@ functions are very similar to math functions, as you can see in the examples bel
 `(lambda (a b) => (- a b) # f(x) = a - b`
 
 All functions in BNL are anonymous functions (lambdas), and all functions in BNL are valid 
-expressions. By *Modus Ponens* this means all anonymous functions in BNL evaluate to a value. In 
-other (fancier) words, functions are first-class members of the BNL language.
+expressions. By *Modus Ponens* this means all anonymous functions in BNL evaluate to a value. 
+Some languages refer to such functions as first-class functions.
 
 ## 3. Definitions
 
