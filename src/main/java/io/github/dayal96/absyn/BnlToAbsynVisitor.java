@@ -1,16 +1,6 @@
 package io.github.dayal96.absyn;
 
-import io.github.dayal96.absyn.Cond;
-import io.github.dayal96.absyn.DecList;
-import io.github.dayal96.absyn.Decl;
-import io.github.dayal96.absyn.ExprList;
-import io.github.dayal96.absyn.FunCall;
-import io.github.dayal96.absyn.Absyn;
-import io.github.dayal96.absyn.AbsynLambda;
-import io.github.dayal96.absyn.LocalExpr;
-import io.github.dayal96.absyn.Operator;
 import io.github.dayal96.antlr.BnlParser.CondContext;
-import io.github.dayal96.antlr.BnlParser.DeclContext;
 import io.github.dayal96.antlr.BnlParser.DeclistContext;
 import io.github.dayal96.antlr.BnlParser.DivideContext;
 import io.github.dayal96.antlr.BnlParser.EqualsContext;
@@ -20,6 +10,7 @@ import io.github.dayal96.antlr.BnlParser.FuncallContext;
 import io.github.dayal96.antlr.BnlParser.GeqContext;
 import io.github.dayal96.antlr.BnlParser.GreaterThanContext;
 import io.github.dayal96.antlr.BnlParser.IdlistContext;
+import io.github.dayal96.antlr.BnlParser.IdlistelesContext;
 import io.github.dayal96.antlr.BnlParser.LambdaContext;
 import io.github.dayal96.antlr.BnlParser.LeqContext;
 import io.github.dayal96.antlr.BnlParser.LessThanContext;
@@ -34,6 +25,8 @@ import io.github.dayal96.antlr.BnlParser.PrimStringContext;
 import io.github.dayal96.antlr.BnlParser.PrimTrueContext;
 import io.github.dayal96.antlr.BnlParser.ProgContext;
 import io.github.dayal96.antlr.BnlParser.SimplexprContext;
+import io.github.dayal96.antlr.BnlParser.StructDeclContext;
+import io.github.dayal96.antlr.BnlParser.ValueDeclContext;
 import io.github.dayal96.antlr.BnlVisitor;
 import io.github.dayal96.exceptions.ArithmeticError;
 import io.github.dayal96.expression.Variable;
@@ -50,7 +43,7 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<Absyn> implement
 
   @Override
   public Absyn visitProg(ProgContext ctx) {
-    return this.visit(ctx.exprlist());
+    return visit(ctx.exprlist());
   }
 
   @Override
@@ -82,22 +75,27 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<Absyn> implement
   public Absyn visitDeclist(DeclistContext ctx) {
     if (Objects.nonNull(ctx.declist()) && !ctx.declist().isEmpty()) {
       DecList decList = (DecList) visitDeclist(ctx.declist());
-      decList.addDecl(visitDecl(ctx.decl()));
+      decList.addDecl(visit(ctx.decl()));
       return decList;
     } else {
-      return new DecList(new LinkedList<>(List.of(visitDecl(ctx.decl()))));
+      return new DecList(new LinkedList<>(List.of(visit(ctx.decl()))));
     }
   }
 
   @Override
-  public Absyn visitDecl(DeclContext ctx) {
-    return new Decl(ctx.ID().getSymbol().getText(), visitExpr(ctx.expr()));
+  public Absyn visitValueDecl(ValueDeclContext ctx) {
+    return new Decl(ctx.ID().getText(), visitExpr(ctx.expr()));
+  }
+
+  @Override
+  public Absyn visitStructDecl(StructDeclContext ctx) {
+    return new StructDecl(ctx.ID().getText(), readIdListEles(ctx.idlist().idlisteles()));
   }
 
   @Override
   public Absyn visitSimplexpr(SimplexprContext ctx) {
     if (Objects.nonNull(ctx.prim()) && !ctx.prim().isEmpty()) {
-      return this.visit(ctx.prim());
+      return visit(ctx.prim());
     } else if (Objects.nonNull(ctx.primop()) && !ctx.primop().isEmpty()) {
       return visit(ctx.primop());
     } else if (Objects.nonNull(ctx.cond()) && !ctx.cond().isEmpty()) {
@@ -145,7 +143,7 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<Absyn> implement
     String quotesRemoved = stringRep.substring(1, stringRep.length() - 1);
 
     while (quotesRemoved.charAt(0) == '"') { // remove extra quotes for multiline strings
-      quotesRemoved = stringRep.substring(1, stringRep.length() - 1);
+      quotesRemoved = quotesRemoved.substring(1, quotesRemoved.length() - 1);
     }
 
     return new MyString(quotesRemoved);
@@ -163,26 +161,26 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<Absyn> implement
 
   @Override
   public Absyn visitCond(CondContext ctx) {
-    Absyn cond = this.visit(ctx.expr(0));
-    Absyn ifTrue = this.visit(ctx.expr(1));
-    Absyn ifFalse = this.visit(ctx.expr(2));
+    Absyn cond = visit(ctx.expr(0));
+    Absyn ifTrue = visit(ctx.expr(1));
+    Absyn ifFalse = visit(ctx.expr(2));
     return new Cond(cond, ifTrue, ifFalse);
   }
 
   @Override
   public Absyn visitLambda(LambdaContext ctx) {
-    List<String> idList = this.readIdList(ctx.idlist());
-    Absyn body = this.visit(ctx.expr());
+    List<String> idList = readIdListEles(ctx.idlist().idlisteles());
+    Absyn body = visit(ctx.expr());
     return new AbsynLambda(idList, body);
   }
 
-  private List<String> readIdList(IdlistContext ctx) {
-    if (Objects.isNull(ctx.idlist())) {
+  private List<String> readIdListEles(IdlistelesContext ctx) {
+    if (Objects.isNull(ctx.idlisteles())) {
       List<String> idList = new LinkedList<>();
       idList.add(ctx.ID().getText());
       return idList;
     } else {
-      List<String> idList = readIdList(ctx.idlist());
+      List<String> idList = readIdListEles(ctx.idlisteles());
       idList.add(ctx.ID().getText());
       return idList;
     }
@@ -194,8 +192,13 @@ public class BnlToAbsynVisitor extends AbstractParseTreeVisitor<Absyn> implement
   }
 
   @Override
+  public Absyn visitIdlisteles(IdlistelesContext ctx) {
+    throw new RuntimeException("idlist not supported as AST object.");
+  }
+
+  @Override
   public Absyn visitFuncall(FuncallContext ctx) {
-    return new FunCall(this.visit(ctx.expr()), this.visit(ctx.exprlist()));
+    return new FunCall(visit(ctx.expr()), visit(ctx.exprlist()));
   }
 
   @Override

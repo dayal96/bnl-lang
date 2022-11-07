@@ -2,8 +2,6 @@ grammar Bnl;
 
 prog : exprlist ;
 
-
-
 exprlist : expr
          | exprlist expr
          ;
@@ -19,7 +17,9 @@ declist : declist decl
         | decl
         ;
 
-decl : OPAREN DEFINE ID expr CPAREN ;
+decl : OPAREN DEFINE ID expr CPAREN            # valueDecl
+     | OPAREN DEFINE_STRUCT ID idlist CPAREN   # structDecl
+     ;
 
 simplexpr : prim
           | primop
@@ -37,10 +37,13 @@ prim : ID             # primId
 
 cond : OPAREN IF expr expr expr CPAREN ;
 
-lambda : OPAREN LAMBDA OPAREN idlist CPAREN expr CPAREN ;
+lambda : OPAREN LAMBDA idlist expr CPAREN ;
 
-idlist : idlist ID
-       | ID;
+idlist : OPAREN idlisteles CPAREN
+       | OBRACKET idlisteles CBRACKET;
+
+idlisteles : idlisteles ID
+           | ID;
 
 funcall : OPAREN expr exprlist CPAREN ;
 
@@ -56,19 +59,22 @@ primop : PLUS         # plus
        ;
 
 
-DEFINE     : 'define'                  ;
-LAMBDA     : 'lambda' | 'λ'            ;
-Newline    : [\r\n]+                   -> skip;
-Whitespace : [ \r\n\t\f]+              -> skip;
-FALSE      : '#f' | 'false'            ;
-TRUE       : '#t' | 'true'             ;
-IF         : 'if'                      ;
-NUMBER     : [-]?[0-9]+('/'[0-9]+)?    ;
-ID         : [a-zA-Z][.a-zA-Z0-9\-]*   ;
-STRING     : '"'~[\r\n"]*'"'           ;
+DEFINE         : 'define'                  ;
+DEFINE_STRUCT  : 'define-struct'           ;
+LAMBDA         : 'lambda' | 'λ'            ;
+Newline        : [\r\n]+                   -> skip;
+Whitespace     : [ \r\n\t\f]+              -> skip;
+FALSE          : '#f' | 'false'            ;
+TRUE           : '#t' | 'true'             ;
+IF             : 'if'                      ;
+NUMBER         : [-]?[0-9]+('/'[0-9]+)?    ;
+ID             : [a-zA-Z][.a-zA-Z0-9\-]*   ;
+STRING         : '"'~[\r\n"]*'"'           ;
 
 OPAREN     : '('  ;
 CPAREN     : ')'  ;
+OBRACKET   : '['  ;
+CBRACKET   : ']'  ;
 PLUS       : '+'  ;
 MINUS      : '-'  ;
 MULTIPLY   : '*'  ;
@@ -79,5 +85,6 @@ GT         : '>'  ;
 LEQ        : '<=' ;
 GEQ        : '>=' ;
 
-BLOCK_COMMENT  : '#|' .*? '|#'               -> skip;
-COMMENT        : '#' ~[\r\n]*                -> skip;
+BLOCK_COMMENT  : '#|' .*? '|#'           -> skip;
+COMMENT        : '#' ~[ft] ~[\r\n]*      -> skip;
+EMPTY_COMMENT  : '#'                     -> skip;

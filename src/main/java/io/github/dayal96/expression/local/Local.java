@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Local implements Expression {
 
-  private final List<LocalDefinition> localDefinitions;
+  private final List<Definition> localDefinitions;
   private final Expression body;
 
   /**
@@ -20,7 +20,7 @@ public class Local implements Expression {
    * @param localDefinitions The context bound within this local expression.
    * @param body             The expression that would be evaluated within the local context.
    */
-  public Local(List<LocalDefinition> localDefinitions, Expression body) {
+  public Local(List<Definition> localDefinitions, Expression body) {
     this.localDefinitions = localDefinitions;
     this.body = body;
   }
@@ -43,13 +43,13 @@ public class Local implements Expression {
 
   private Environment addLocalDefinitions(Environment environment) throws Exception {
     SymbolTable localContext = new SymbolTable();
-    for (LocalDefinition def : this.localDefinitions) {
-      localContext.addEntry(def.name, EmptyExpression.EMPTY_EXPR);
+    for (Definition def : this.localDefinitions) {
+      def.addDefinitionNames(localContext);
     }
 
     Environment fullContext = new LocalContext(environment, localContext);
-    for (LocalDefinition def : this.localDefinitions) {
-      fullContext.addEntry(def.name, def.value.evaluate(fullContext));
+    for (Definition def : this.localDefinitions) {
+      def.addDefinitionBodies(fullContext);
     }
 
     return fullContext;

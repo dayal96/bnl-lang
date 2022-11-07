@@ -33,6 +33,11 @@ public class SimpleAbsynToExpr implements AbsynVisitor<Expression> {
   }
 
   @Override
+  public Expression visitStructDecl(String name, List<String> idList) {
+    throw new RuntimeException("Declarations cannot become Expressions");
+  }
+
+  @Override
   public Expression visitDecList(List<Absyn> decList) {
     throw new RuntimeException("Declarations cannot become Expressions");
   }

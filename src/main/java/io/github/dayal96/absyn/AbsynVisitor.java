@@ -11,6 +11,8 @@ public interface AbsynVisitor<T> {
 
   T visitDecl(String id, Absyn expr);
 
+  T visitStructDecl(String name, List<String> idList);
+
   T visitDecList(List<Absyn> decList);
 
   T visitExprList(List<Absyn> exprList);

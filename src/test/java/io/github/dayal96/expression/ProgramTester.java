@@ -1,6 +1,7 @@
 package io.github.dayal96.expression;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import io.github.dayal96.environment.SymbolTable;
 import io.github.dayal96.interpreter.Interpreter;
@@ -45,7 +46,8 @@ public class ProgramTester {
         buffer.delete(0, buffer.length()); // Because flush doesn't clear the buffer!!!
       }
       catch(Exception e) {
-        assert (testCase.getValue().isEmpty());
+        Exception testFailure = new RuntimeException("Test failed for " + testCase.getKey(), e);
+        assertTrue(testFailure.getMessage(), testCase.getValue().isEmpty());
       }
     }
   }

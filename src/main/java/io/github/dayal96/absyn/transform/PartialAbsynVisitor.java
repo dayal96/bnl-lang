@@ -27,6 +27,11 @@ public abstract class PartialAbsynVisitor<T> implements AbsynVisitor<T> {
   }
 
   @Override
+  public T visitStructDecl(String name, List<String> idList) {
+    throw this.message;
+  }
+
+  @Override
   public T visitDecList(List<Absyn> decList) {
     throw this.message;
   }
