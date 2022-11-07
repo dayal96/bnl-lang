@@ -56,8 +56,7 @@ public class ConsPair implements Expression {
 
   @Override
   public boolean equals(Object other) {
-    if (other instanceof ConsPair) {
-      ConsPair that = (ConsPair) other;
+    if (other instanceof ConsPair that) {
       return this.first.equals(that.first) && this.rest.equals(that.rest);
     }
 
