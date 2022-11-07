@@ -6,6 +6,7 @@ import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.visitor.ExpressionVisitor;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public final class StructObject implements Expression {
 
@@ -19,7 +20,7 @@ public final class StructObject implements Expression {
 
   @Override
   public Expression evaluate(Environment environment) throws Exception {
-    return null;
+    return this;
   }
 
   @Override
@@ -29,20 +30,14 @@ public final class StructObject implements Expression {
 
   @Override
   public <T> T accept(ExpressionVisitor<T> visitor) {
+    // TODO: Extend ExpressionVisitor to include structs
     return null;
   }
 
   @Override
   public IType getType() {
+    // TODO: Implement IType for structs
     return null;
-  }
-
-  public String structName() {
-    return structName;
-  }
-
-  public List<Expression> values() {
-    return values;
   }
 
   @Override
@@ -65,9 +60,8 @@ public final class StructObject implements Expression {
 
   @Override
   public String toString() {
-    return "StructObject[" +
-        "structName=" + structName + ", " +
-        "values=" + values + ']';
+    return "(make-" + structName + " "
+        + values.stream().map(Expression::toString).collect(Collectors.joining(" "))
+        + ")";
   }
-
 }
