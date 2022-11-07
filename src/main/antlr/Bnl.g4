@@ -80,4 +80,4 @@ LEQ        : '<=' ;
 GEQ        : '>=' ;
 
 BLOCK_COMMENT  : '#|' .*? '|#'               -> skip;
-COMMENT        : '#' ~[ft] ~[\r\n]*          -> skip;
+COMMENT        : '#' ~[\r\n]*                -> skip;
