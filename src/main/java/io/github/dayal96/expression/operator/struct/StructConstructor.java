@@ -13,7 +13,7 @@ import java.util.List;
 
 public class StructConstructor extends AOperator {
 
-  private final StructType structType;
+  public final StructType structType;
 
   public StructConstructor(String name, int fields) {
     var types = new ArrayList<IType>(fields);
