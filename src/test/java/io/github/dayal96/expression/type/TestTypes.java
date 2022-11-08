@@ -14,7 +14,7 @@ public class TestTypes {
     IType prim1 = PrimType.NUMBER;
     IType prim2 = PrimType.BOOLEAN;
     IType fun1 = new FunctionSignature(Arrays.asList(prim1, prim1), prim1);
-    IType struct1 = new StructType(new LinkedList<>());
+    IType struct1 = new StructType("test", new LinkedList<>());
 
     for (IType type : Arrays.asList(nil, prim1, prim2, fun1, struct1)) {
       assertEquals(type, nil.join(type));

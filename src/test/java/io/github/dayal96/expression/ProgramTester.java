@@ -29,9 +29,8 @@ public class ProgramTester {
   /**
    * Run the given programs and compare against expected output.
    * @param tests      The Map of test programs as keys and expected output as values.
-   * @throws Exception
    */
-  public void testPrograms(Map<String, Optional<String>> tests) throws Exception {
+  public void testPrograms(Map<String, Optional<String>> tests) {
     for (Map.Entry<String, Optional<String>> testCase : tests.entrySet()) {
       try {
         this.interpreter.interpret(new StringReader(testCase.getKey()));

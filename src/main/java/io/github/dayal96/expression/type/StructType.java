@@ -2,18 +2,22 @@ package io.github.dayal96.expression.type;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents the type of a structure with given fields.
  */
 public class StructType extends NilType {
-  private final List<IType> fields;
+
+  public final String name;
+  public final List<IType> fields;
 
   /**
    * Create a structure type with the given field types in order.
    * @param fields  The types of the fields of the structure, in order.
    */
-  public StructType(List<IType> fields) {
+  public StructType(String name, List<IType> fields) {
+    this.name = name;
     this.fields = fields;
   }
 
@@ -21,7 +25,7 @@ public class StructType extends NilType {
   @Override
   public IType join(IType that) throws Exception {
     if (that instanceof StructType other) {
-      if (this.fields.size() != other.fields.size()) {
+      if (this.fields.size() != other.fields.size() || !Objects.equals(this.name, other.name)) {
         return this.mismatch(that);
       }
 
@@ -35,7 +39,7 @@ public class StructType extends NilType {
         return this.mismatch(that);
       }
 
-      return new StructType(joinedFields);
+      return new StructType(this.name, joinedFields);
     }
     else if (that.equals(NIL)) {
       return this;
@@ -47,11 +51,6 @@ public class StructType extends NilType {
 
   @Override
   public String toString() {
-    StringBuilder str = new StringBuilder("(");
-    for(IType input : this.fields) {
-      str.append(" ").append(input);
-    }
-    str.append(" )");
-    return str.toString();
+    return this.name;
   }
 }

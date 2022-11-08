@@ -8,6 +8,7 @@ import io.github.dayal96.expression.lambda.Lambda;
 import io.github.dayal96.expression.lambda.LambdaEnclosure;
 import io.github.dayal96.expression.local.Local;
 import io.github.dayal96.expression.operator.AOperator;
+import io.github.dayal96.expression.struct.StructObject;
 import io.github.dayal96.primitive.Primitive;
 
 /**
@@ -17,6 +18,8 @@ import io.github.dayal96.primitive.Primitive;
  */
 public interface ExpressionVisitor<T> {
   T visitConsPair(ConsPair expr);
+
+  T visitStruct(StructObject expr);
 
   T visitFunctionCall(FunctionCall expr);
 
