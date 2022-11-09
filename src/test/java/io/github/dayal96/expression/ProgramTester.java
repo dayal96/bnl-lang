@@ -44,9 +44,10 @@ public class ProgramTester {
         StringBuffer buffer = this.output.getBuffer();
         buffer.delete(0, buffer.length()); // Because flush doesn't clear the buffer!!!
       }
-      catch(Exception e) {
-        Exception testFailure = new RuntimeException("Test failed for " + testCase.getKey(), e);
-        assertTrue(testFailure.getMessage(), testCase.getValue().isEmpty());
+      catch (AssertionError | Exception e) {
+        if (testCase.getValue().isPresent()) {
+          throw new AssertionError(e.getMessage());
+        }
       }
     }
   }

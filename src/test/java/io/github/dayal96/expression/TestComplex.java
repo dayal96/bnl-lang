@@ -21,6 +21,7 @@ public class TestComplex {
     testLocalNesting();
     testHigherOrderFunc();
     testStrings();
+    testStructs();
   }
 
   @Test
@@ -105,5 +106,27 @@ public class TestComplex {
 
     String expected = "\"APPLE, BALL\"";
     this.tests.put(strings, Optional.of(expected));
+  }
+
+  private void testStructs() {
+    String structs = """
+        (define-struct mycons [first rest])
+        (define-struct empty  [x])
+        (define EMPTY (make-empty false))
+        (define map 
+            (lambda (f lox)
+                (if (mycons? lox)
+                    (make-mycons (f (mycons-first lox))
+                                 (map f (mycons-rest lox)))
+                    EMPTY)))
+
+        (define-struct posn [x y])
+        (define LIST-OF-POSN (make-mycons (make-posn 1 2) (make-mycons (make-posn 3 4) EMPTY)))
+        (make-posn (map posn-x LIST-OF-POSN) (map posn-y LIST-OF-POSN))
+        """;
+
+    String expected = "(make-posn (make-mycons 1 (make-mycons 3 (make-empty false))) "
+        + "(make-mycons 2 (make-mycons 4 (make-empty false))))";
+    this.tests.put(structs, Optional.of(expected));
   }
 }

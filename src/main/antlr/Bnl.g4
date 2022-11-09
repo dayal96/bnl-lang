@@ -59,17 +59,17 @@ primop : PLUS         # plus
        ;
 
 
-DEFINE         : 'define'                  ;
-DEFINE_STRUCT  : 'define-struct'           ;
-LAMBDA         : 'lambda' | 'λ'            ;
-Newline        : [\r\n]+                   -> skip;
-Whitespace     : [ \r\n\t\f]+              -> skip;
-FALSE          : '#f' | 'false'            ;
-TRUE           : '#t' | 'true'             ;
-IF             : 'if'                      ;
-NUMBER         : [-]?[0-9]+('/'[0-9]+)?    ;
-ID             : [a-zA-Z][.a-zA-Z0-9\-]*   ;
-STRING         : '"'~[\r\n"]*'"'           ;
+DEFINE         : 'define'                     ;
+DEFINE_STRUCT  : 'define-struct'              ;
+LAMBDA         : 'lambda' | 'λ'               ;
+Newline        : [\r\n]+                      -> skip;
+Whitespace     : [ \r\n\t\f]+                 -> skip;
+FALSE          : '#f' | 'false'               ;
+TRUE           : '#t' | 'true'                ;
+IF             : 'if'                         ;
+NUMBER         : [-]?[0-9]+('/'[0-9]+)?       ;
+ID             : [_a-zA-Z][._a-zA-Z0-9\-?]*   ;
+STRING         : '"'~[\r\n"]*'"'              ;
 
 OPAREN     : '('  ;
 CPAREN     : ')'  ;
