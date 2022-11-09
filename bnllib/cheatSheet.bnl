@@ -80,10 +80,14 @@ and or
 (cons (first PAIR) (rest PAIR))
 (first (cons 1 2)) (rest (cons -1 -2))
 
-# Although using them for writing custom structs can be a little tedious;
+# Or you can make your own structs!
+(define-struct posn [x y z])
+(define POSN-1 (make-posn 1 2 3))  # Constructor make-posn, from struct definition
+(posn? POSN-1)                     # Predicate to test if some value is a posn, returns true
+(posn-x POSN-1)                    # Accessor, evaluates to 1
+(posn-y POSN-1)                    # Accessor, evaluates to 2
+(posn-z POSN-1)                    # Accessor, evaluates to 3
 
-(define make-posn (lambda (x y z) (cons x (cons y z)))) # Ideally a programming language would
-(define posn-x (lambda (p) (first p)))                  # condense all of this syntactically into
-(define posn-y (lambda (p) (first (rest p))))           # a structure definitions statement.
-(define posn-z (lambda (p) (rest (rest p))))            # Maybe something like a define-struct?
-(posn-y (make-posn 1 2 3))                     # Finally usable!
+(define-struct mt [_])          # Empty structs can be used as unique values (e.g. for enums)
+(define EMPTY (make-mt false))  # EMPTY can now be used as a unique symbol
+(mt? EMPTY)                     # Evaluates to true
