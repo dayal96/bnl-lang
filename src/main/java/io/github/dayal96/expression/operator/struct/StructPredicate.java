@@ -6,6 +6,7 @@ import io.github.dayal96.expression.operator.AOperator;
 import io.github.dayal96.expression.type.StructType;
 import io.github.dayal96.primitive.bool.MyBoolean;
 import java.util.List;
+import java.util.Objects;
 
 public class StructPredicate extends AOperator {
 
@@ -33,6 +34,20 @@ public class StructPredicate extends AOperator {
 
   @Override
   public String toString() {
-    return structType.name;
+    return structType.name + "?";
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other instanceof StructPredicate that) {
+      return this.structType.equals(that.structType);
+    }
+
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.structType);
   }
 }

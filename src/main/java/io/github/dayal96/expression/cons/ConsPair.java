@@ -12,7 +12,8 @@ import java.util.List;
 public class ConsPair implements Expression {
 
   public static final IType CONS_PAIR_TYPE = new StructType("cons",
-      Arrays.asList(NilType.NIL, NilType.NIL));
+      Arrays.asList(NilType.NIL, NilType.NIL),
+      Arrays.asList("first", "rest"));
 
   public final Expression first;
   public final Expression rest;

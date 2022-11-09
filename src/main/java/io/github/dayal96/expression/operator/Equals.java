@@ -14,10 +14,10 @@ public class Equals extends AOperator {
       throws Exception {
     if (operands.size() >= 2) {
       boolean result = true;
-
-      for (int i = 1; i < operands.size(); i++) {
-        result = result && operands.get(i).evaluate(environment)
-            .equals(operands.get(0).evaluate(environment));
+      int i = 1;
+      Expression evaluated = operands.get(0).evaluate(environment);
+      while (result && i < operands.size()) {
+        result = operands.get(i++).evaluate(environment).equals(evaluated);
       }
 
       return MyBoolean.of(result);

@@ -8,6 +8,7 @@ import io.github.dayal96.expression.operator.struct.StructConstructor;
 import io.github.dayal96.expression.operator.struct.StructPredicate;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class StructDefinition implements Definition {
 
@@ -30,7 +31,7 @@ public class StructDefinition implements Definition {
 
   @Override
   public void addDefinitionBodies(Environment environment) throws Exception {
-    StructConstructor constructor = new StructConstructor(name, fields.size());
+    StructConstructor constructor = new StructConstructor(name, fields);
     StructPredicate predicate = new StructPredicate(constructor.structType);
     List<StructAccessor> accessors = new LinkedList<>();
 
@@ -43,5 +44,25 @@ public class StructDefinition implements Definition {
     environment.addEntry(constructor.toString(), constructor);
     environment.addEntry(predicate.toString(), predicate);
     accessors.forEach(acc -> environment.addEntry(acc.toString(), acc));
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other instanceof StructDefinition that) {
+      return Objects.equals(this.name, that.name) &&
+          Objects.equals(String.join("",this.fields), String.join("", that.fields));
+    }
+
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.name, this.fields.size());
+  }
+
+  @Override
+  public String toString() {
+    return "(define-struct " + name + " [" + String.join(" ", fields) + "])";
   }
 }

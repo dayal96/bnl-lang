@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import org.junit.Test;
 
 public class TestTypes {
@@ -14,7 +15,7 @@ public class TestTypes {
     IType prim1 = PrimType.NUMBER;
     IType prim2 = PrimType.BOOLEAN;
     IType fun1 = new FunctionSignature(Arrays.asList(prim1, prim1), prim1);
-    IType struct1 = new StructType("test", new LinkedList<>());
+    IType struct1 = new StructType("test", List.of(), List.of());
 
     for (IType type : Arrays.asList(nil, prim1, prim2, fun1, struct1)) {
       assertEquals(type, nil.join(type));

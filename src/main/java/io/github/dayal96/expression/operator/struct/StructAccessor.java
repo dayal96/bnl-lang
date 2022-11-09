@@ -7,6 +7,7 @@ import io.github.dayal96.expression.struct.StructObject;
 import io.github.dayal96.expression.type.StructType;
 import io.github.dayal96.expression.visitor.PartialExpressionVisitor;
 import java.util.List;
+import java.util.Objects;
 
 public class StructAccessor extends AOperator {
 
@@ -34,6 +35,22 @@ public class StructAccessor extends AOperator {
   @Override
   public String toString() {
     return this.getterName;
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other instanceof StructAccessor that) {
+      return Objects.equals(this.getterName, that.getterName)
+          && Objects.equals(this.structType, that.structType)
+          && this.fieldGetter.fieldIndex == that.fieldGetter.fieldIndex;
+    }
+
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.getterName, this.structType.hashCode(), this.fieldGetter.fieldIndex);
   }
 
   private static class StructFieldGetter extends PartialExpressionVisitor<Expression> {
