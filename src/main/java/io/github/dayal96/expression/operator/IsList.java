@@ -17,13 +17,16 @@ import io.github.dayal96.primitive.bool.MyBoolean;
 import java.util.List;
 
 public class IsList extends AOperator {
+
+  public static final ListChecker LIST_CHECKER = new ListChecker();
+
   @Override
   public Expression evaluate(List<Expression> operands, Environment environment) throws Exception {
     if (operands.size() != 1) {
       throw new Exception("list? : expected 1 argument, found " + operands.size());
     }
     Expression evaluated = operands.get(0).evaluate(environment);
-    return evaluated.accept(new ListChecker());
+    return MyBoolean.of(evaluated.accept(new ListChecker()));
   }
 
   @Override
@@ -31,56 +34,58 @@ public class IsList extends AOperator {
     return "list?";
   }
 
-  private static final class ListChecker implements ExpressionVisitor<MyBoolean> {
+  private static final class ListChecker implements ExpressionVisitor<Boolean> {
+
+    private ListChecker() {}
 
     @Override
-    public MyBoolean visitConsPair(ConsPair expr) {
+    public Boolean visitConsPair(ConsPair expr) {
       return expr.rest.accept(this);
     }
 
     @Override
-    public MyBoolean visitStruct(StructObject expr) {
-      return MyBoolean.FALSE;
+    public Boolean visitStruct(StructObject expr) {
+      return false;
     }
 
     @Override
-    public MyBoolean visitFunctionCall(FunctionCall expr) {
-      return MyBoolean.FALSE;
+    public Boolean visitFunctionCall(FunctionCall expr) {
+      return false;
     }
 
     @Override
-    public MyBoolean visitLambda(Lambda expr) {
-      return MyBoolean.FALSE;
+    public Boolean visitLambda(Lambda expr) {
+      return false;
     }
 
     @Override
-    public MyBoolean visitLambdaEnclosure(LambdaEnclosure expr) {
-      return MyBoolean.FALSE;
+    public Boolean visitLambdaEnclosure(LambdaEnclosure expr) {
+      return false;
     }
 
     @Override
-    public MyBoolean visitLocal(Local expr) {
-      return MyBoolean.FALSE;
+    public Boolean visitLocal(Local expr) {
+      return false;
     }
 
     @Override
-    public MyBoolean visitOperator(AOperator expr) {
-      return MyBoolean.FALSE;
+    public Boolean visitOperator(AOperator expr) {
+      return false;
     }
 
     @Override
-    public MyBoolean visitEmptyExpression(EmptyExpression expr) {
-      return MyBoolean.FALSE;
+    public Boolean visitEmptyExpression(EmptyExpression expr) {
+      return false;
     }
 
     @Override
-    public MyBoolean visitVariable(Variable expr) {
-      return MyBoolean.FALSE;
+    public Boolean visitVariable(Variable expr) {
+      return false;
     }
 
     @Override
-    public MyBoolean visitPrimitive(Primitive expr) {
-      return MyBoolean.of(expr.equals(Empty.EMPTY));
+    public Boolean visitPrimitive(Primitive expr) {
+      return expr.equals(Empty.EMPTY);
     }
   }
 }
