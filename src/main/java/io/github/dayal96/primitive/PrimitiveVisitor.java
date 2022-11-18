@@ -16,4 +16,6 @@ public interface PrimitiveVisitor<T> {
   <N> T visitMyNumber(MyNumber<N> prim);
 
   T visitMyString(MyString prim);
+
+  T visitEmpty(Empty prim);
 }

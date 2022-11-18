@@ -3,6 +3,7 @@ package io.github.dayal96.environment;
 import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.operator.Conditional;
 import io.github.dayal96.expression.operator.Equals;
+import io.github.dayal96.expression.operator.IsList;
 import io.github.dayal96.expression.operator.ListOperator;
 import io.github.dayal96.expression.operator.bool.And;
 import io.github.dayal96.expression.operator.bool.Or;
@@ -21,6 +22,8 @@ import io.github.dayal96.expression.operator.string.NumToString;
 import io.github.dayal96.expression.operator.string.StringAppend;
 import io.github.dayal96.expression.operator.string.StringLength;
 import io.github.dayal96.expression.operator.string.Substring;
+import io.github.dayal96.expression.operator.struct.IsEmpty;
+import io.github.dayal96.primitive.Empty;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
@@ -34,15 +37,16 @@ public class SymbolTable implements Environment {
   private final Map<String, Expression> table;
   private String workingDirectory;
 
-  public static SymbolTable getPrimitiveOperations() {
-    List<Expression> operators = List.of(new And(), new Or(),
+  public static SymbolTable getBnlEnv() {
+    List<Expression> entries = List.of(new And(), new Or(),
         new Add(), new Subtract(), new Divide(), new Multiply(),
         new Equals(), new LessThan(), new GreaterThan(), new IsNumber(), new IsString(),
         new NumToString(), new StringAppend() , new StringLength(), new Substring(),
-        new Conditional(), new ListOperator(), new Cons(), new First(), new Rest());
-    SymbolTable primOps = new SymbolTable();
-    operators.forEach((op) -> primOps.addEntry(op.toString(), op));
-    return primOps;
+        new Conditional(), new Cons(), new First(), new Rest(),
+        new ListOperator(), new IsList(), new IsEmpty(), Empty.EMPTY);
+    SymbolTable bnlEnv = new SymbolTable();
+    entries.forEach(prim -> bnlEnv.addEntry(prim.toString(), prim));
+    return bnlEnv;
   }
 
   /**

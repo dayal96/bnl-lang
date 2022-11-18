@@ -5,18 +5,14 @@ import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.cons.ConsPair;
 import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.type.NilType;
-import io.github.dayal96.primitive.bool.MyBoolean;
-import java.util.LinkedList;
+import io.github.dayal96.primitive.Empty;
 import java.util.List;
 
 public class ListOperator extends AOperator {
   @Override
   public Expression evaluate(List<Expression> operands, Environment environment)
       throws Exception {
-
-    boolean allNumbers = true;
-    List<Expression> eval = new LinkedList<>();
-    Expression list = MyBoolean.FALSE;
+    Expression list = Empty.EMPTY;
 
     for (int i = operands.size() - 1; i >= 0; i--) {
       Expression evaluated = operands.get(i).evaluate(environment);

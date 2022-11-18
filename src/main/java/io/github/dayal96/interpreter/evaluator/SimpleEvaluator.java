@@ -26,7 +26,7 @@ public class SimpleEvaluator implements Evaluator<Void> {
   }
 
   public SimpleEvaluator() {
-    this(SymbolTable.getPrimitiveOperations(), new OutputStreamWriter(System.out));
+    this(SymbolTable.getBnlEnv(), new OutputStreamWriter(System.out));
   }
 
   @Override

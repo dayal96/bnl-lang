@@ -64,7 +64,7 @@ public class Interpreter<T> {
     private Environment environment;
     private Writer out;
     public Builder() {
-      this.environment = SymbolTable.getPrimitiveOperations();
+      this.environment = SymbolTable.getBnlEnv();
       this.out = new OutputStreamWriter(System.out);
     }
 
