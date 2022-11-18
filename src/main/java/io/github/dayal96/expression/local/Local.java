@@ -8,6 +8,7 @@ import io.github.dayal96.expression.Expression;
 import io.github.dayal96.expression.type.IType;
 import io.github.dayal96.expression.visitor.ExpressionVisitor;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Local implements Expression {
 
@@ -62,6 +63,7 @@ public class Local implements Expression {
 
   @Override
   public String toString() {
-    return "(local " + this.localDefinitions.toString() + "; " + this.body.toString() + ")";
+    return this.localDefinitions.stream().map(Definition::toString)
+        .collect(Collectors.joining("\n")) + "\n" + this.body.toString();
   }
 }
