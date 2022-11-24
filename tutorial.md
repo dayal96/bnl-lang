@@ -33,11 +33,11 @@ used to combine any two Expressions into a single cons expression with two parts
 `cons` can be used to create linked lists in BNL like so (using false as an "empty" list or null 
 pointer)
 
-`(cons 1 (cons 2 (cons 3 false)))`
+`(cons 1 (cons 2 (cons 3 empty)))`
 
 or by using the built-in `list` that evaluates to the same expression:
 
-`(list 1 2 3) # equal to (cons 1 (cons 2 (cons 3 false)))`
+`(list 1 2 3) # equal to (cons 1 (cons 2 (cons 3 empty)))`
 
 Each one of the examples above is a valid BNL Expression.
 

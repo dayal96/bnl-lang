@@ -80,7 +80,17 @@ and or
 (cons (first PAIR) (rest PAIR))
 (first (cons 1 2)) (rest (cons -1 -2))
 
-# Or you can make your own structs!
+# cons can also be used for creating liked lists, in conjunction with the universal empty list
+"empty"
+
+(define EMPTY-LIST empty)
+(define LIST-OF-NUMBERS (cons 1 (cons 2 (cons 3 empty))))
+
+# list can be used as a short-hand for making lists
+
+(define ANOTHER-LIST-OF-NUMBERS (list 1 2 3)) # same as (cons 1 (cons 2 (cons 3 empty)))
+
+# You can also make your own structs
 (define-struct posn [x y z])
 (define POSN-1 (make-posn 1 2 3))  # Constructor make-posn, from struct definition
 (posn? POSN-1)                     # Predicate to test if some value is a posn, returns true
