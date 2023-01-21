@@ -68,7 +68,7 @@ FALSE          : '#f' | 'false'               ;
 TRUE           : '#t' | 'true'                ;
 IF             : 'if'                         ;
 NUMBER         : [-]?[0-9]+('/'[0-9]+)?       ;
-ID             : [_a-zA-Z][._a-zA-Z0-9\-?]*   ;
+ID             : [_a-zA-Z][._a-zA-Z0-9\-?<>]* ;
 STRING         : '"'~[\r\n"]*'"'              ;
 
 OPAREN     : '('  ;
